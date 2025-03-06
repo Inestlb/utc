@@ -140,7 +140,7 @@ export default function AboutPage() {
                   className="rounded-full object-cover"
                 /> */}
               </div>
-              <h3 className="text-xl font-semibold">Robert Johnson</h3>
+              <h3 className="text-xl font-semibold">Karim Talbi</h3>
               <p className="text-gray-600 mb-2">Président Directeur Général</p>
               <p className="text-sm text-gray-500">
                 Avec plus de 25 ans d'expérience dans la fabrication industrielle et le commerce international.
@@ -152,7 +152,7 @@ export default function AboutPage() {
               <div className="bg-gray-200 rounded-full w-40 h-40 mx-auto mb-4 flex items-center justify-center">
                 <span className="text-gray-500">Photo</span>
               </div>
-              <h3 className="text-xl font-semibold">Sarah Chen</h3>
+              <h3 className="text-xl font-semibold">Robert Johnson</h3>
               <p className="text-gray-600 mb-2">Directrice des Opérations</p>
               <p className="text-sm text-gray-500">
                 Experte en gestion de la chaîne d'approvisionnement et en efficacité opérationnelle avec une expérience mondiale.
