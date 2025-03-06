@@ -18,12 +18,12 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
 
   if (!product) {
     return {
-      title: 'Product Not Found',
+      title: 'Produit Non Trouvé',
     };
   }
 
   return {
-    title: `${product.name} | Industrial Export Company`,
+    title: `${product.name} | Entreprise d'Exportation Industrielle`,
     description: product.description,
   };
 }
@@ -53,11 +53,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         <div className="mb-6">
           <nav className="flex text-sm">
             <Link href="/" className="text-gray-500 hover:text-gray-700">
-              Home
+              Accueil
             </Link>
             <span className="mx-2 text-gray-500">/</span>
             <Link href="/products" className="text-gray-500 hover:text-gray-700">
-              Products
+              Produits
             </Link>
             <span className="mx-2 text-gray-500">/</span>
             <Link
@@ -76,7 +76,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           <Button variant="outline" size="sm" asChild>
             <Link href="/products">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Products
+              Retour aux Produits
             </Link>
           </Button>
         </div>
@@ -117,7 +117,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
             {/* Specifications */}
             <div className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">Specifications</h2>
+              <h2 className="text-xl font-semibold mb-4">Spécifications</h2>
               <div className="bg-gray-50 rounded-lg p-4">
                 <dl className="divide-y divide-gray-200">
                   {Object.entries(product.specifications).map(([key, value]) => (
@@ -135,7 +135,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               <Button asChild className="w-full sm:w-auto">
                 <Link href="/contact">
                   <Mail className="mr-2 h-4 w-4" />
-                  Inquire About This Product
+                  Demander des Informations
                 </Link>
               </Button>
             </div>
@@ -145,7 +145,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         {/* Related Products */}
         {filteredRelatedProducts.length > 0 && (
           <div className="mt-16">
-            <h2 className="text-2xl font-bold mb-6">Related Products</h2>
+            <h2 className="text-2xl font-bold mb-6">Produits Associés</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredRelatedProducts.map(relatedProduct => (
                 <div key={relatedProduct.id} className="bg-white rounded-lg shadow-sm border p-4">
@@ -153,7 +153,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   <p className="text-sm text-gray-600 mb-4 line-clamp-2">{relatedProduct.description}</p>
                   <Button asChild variant="outline" size="sm">
                     <Link href={`/products/${relatedProduct.id}`}>
-                      View Details
+                      Voir les Détails
                     </Link>
                   </Button>
                 </div>

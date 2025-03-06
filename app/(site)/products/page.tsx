@@ -13,8 +13,8 @@ interface ProductsPageProps {
 }
 
 export const metadata = {
-  title: 'Products | Industrial Export Company',
-  description: 'Browse our catalog of high-quality industrial products for global export',
+  title: 'Produits | Entreprise d\'Exportation Industrielle',
+  description: 'Parcourez notre catalogue de produits industriels de haute qualité pour l\'exportation mondiale',
 };
 
 export default async function ProductsPage({ searchParams }: ProductsPageProps) {
@@ -45,10 +45,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     <div className="py-12">
       <div className="container mx-auto px-4">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">Our Products</h1>
+          <h1 className="text-3xl font-bold mb-4">Nos <span className="text-orange-500">Produits</span></h1>
           <p className="text-gray-600 max-w-3xl">
-            Browse our comprehensive catalog of industrial products designed for reliability,
-            efficiency, and performance. Use the filters to find exactly what you need.
+            Parcourez notre catalogue complet de produits industriels conçus pour la <span className="text-orange-500 font-medium">fiabilité</span>,
+            l'<span className="text-orange-500 font-medium">efficacité</span> et la <span className="text-orange-500 font-medium">performance</span>. Utilisez les filtres pour trouver exactement ce dont vous avez besoin.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         {/* Product Grid with Filters */}
         <Suspense fallback={
           <div className="flex justify-center items-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
           </div>
         }>
           <ProductGrid

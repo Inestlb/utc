@@ -16,8 +16,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Industrial Export Company",
-  description: "High-quality industrial products for global export",
+  title: "Entreprise d'Exportation Industrielle",
+  description: "Produits industriels de haute qualité pour l'exportation mondiale",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body className={`${inter.variable} ${poppins.variable} font-sans min-h-screen flex flex-col`}>
         <Navbar />
         <main className="flex-grow pt-16 md:pt-20">

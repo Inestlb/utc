@@ -7,26 +7,26 @@ export default function NotFound() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="container px-4 py-16 text-center">
         <h1 className="text-9xl font-bold text-primary mb-4">404</h1>
-        <h2 className="text-3xl font-semibold mb-6">Page Not Found</h2>
+        <h2 className="text-3xl font-semibold mb-6">Page Non Trouvée</h2>
         <p className="text-gray-600 max-w-md mx-auto mb-8">
-          The page you are looking for might have been removed, had its name changed,
-          or is temporarily unavailable.
+          La page que vous recherchez a peut-être été supprimée, son nom a changé,
+          ou elle est temporairement indisponible.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild>
             <Link href="/">
               <ArrowLeft className="mr-2 h-5 w-5" />
-              Back to Home
+              Retour à l'Accueil
             </Link>
           </Button>
           <Button asChild variant="outline">
             <Link href="/products">
-              Browse Products
+              Parcourir les Produits
             </Link>
           </Button>
           <Button asChild variant="outline">
             <Link href="/contact">
-              Contact Support
+              Contacter le Support
             </Link>
           </Button>
         </div>

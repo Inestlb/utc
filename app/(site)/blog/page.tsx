@@ -1,90 +1,67 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ExternalLink, MapPin, Phone, Mail, Globe } from 'lucide-react';
 
 export const metadata = {
-  title: 'Blog | Industrial Export Company',
-  description: 'Latest news, industry insights, and company updates',
+  title: 'Partenaires | Entreprise d\'Exportation Industrielle',
+  description: 'Découvrez nos partenaires stratégiques : Lenze, Wago et IFM',
 };
 
-// In a real application, this would come from a CMS or API
-const blogPosts = [
+// Informations sur les partenaires
+const partners = [
   {
     id: 1,
-    slug: 'new-product-line-announcement',
-    title: 'Announcing Our New Line of Industrial Pumps',
-    excerpt: 'We are excited to introduce our latest range of high-efficiency industrial pumps designed for demanding environments.',
-    date: 'June 15, 2023',
-    category: 'Product News',
-    imageUrl: '/images/blog/pumps.jpg',
+    name: 'Lenze',
+    logo: '/images/logo-lenze.svg', // Placeholder, remplacer par le vrai logo
+    description: 'Lenze est un leader mondial dans le domaine des solutions d\'entraînement et d\'automatisation. Avec plus de 70 ans d\'expérience, Lenze fournit des produits, des solutions d\'entraînement, des systèmes d\'automatisation et des services pour l\'industrie.',
+    specialties: ['Automatisation', 'Entraînements', 'Moteurs', 'Contrôle de mouvement'],
+    website: 'https://www.lenze.com',
+    headquarters: 'Hamelin, Allemagne',
+    foundedYear: 1947,
   },
   {
     id: 2,
-    slug: 'industry-trends-2023',
-    title: 'Top Industrial Equipment Trends for 2023',
-    excerpt: 'Explore the latest trends shaping the industrial equipment market and how they might impact your business.',
-    date: 'May 22, 2023',
-    category: 'Industry Insights',
-    imageUrl: '/images/blog/trends.jpg',
+    name: 'Wago',
+    logo: '/images/logo-wago.svg', // Placeholder, remplacer par le vrai logo
+    description: 'WAGO est un leader innovant dans les technologies de connexion électrique et d\'automatisation industrielle. Leurs solutions sont utilisées dans de nombreux secteurs, de la construction à l\'industrie manufacturière.',
+    specialties: ['Bornes de connexion', 'Automatisation', 'Interfaces électroniques', 'Systèmes de contrôle'],
+    website: 'https://www.wago.com',
+    headquarters: 'Minden, Allemagne',
+    foundedYear: 1951,
   },
   {
     id: 3,
-    slug: 'sustainable-manufacturing',
-    title: 'Sustainable Manufacturing: The Future of Industry',
-    excerpt: 'How sustainable practices are transforming manufacturing and creating new opportunities for businesses.',
-    date: 'April 10, 2023',
-    category: 'Sustainability',
-    imageUrl: '/images/blog/sustainability.jpg',
-  },
-  {
-    id: 4,
-    slug: 'international-trade-challenges',
-    title: 'Navigating International Trade Challenges in 2023',
-    excerpt: 'A comprehensive guide to overcoming common obstacles in global industrial equipment trade.',
-    date: 'March 5, 2023',
-    category: 'Global Trade',
-    imageUrl: '/images/blog/trade.jpg',
-  },
-  {
-    id: 5,
-    slug: 'maintenance-best-practices',
-    title: 'Best Practices for Industrial Equipment Maintenance',
-    excerpt: 'Expert tips to extend the lifespan of your industrial equipment and minimize downtime.',
-    date: 'February 18, 2023',
-    category: 'Maintenance',
-    imageUrl: '/images/blog/maintenance.jpg',
-  },
-  {
-    id: 6,
-    slug: 'case-study-mining',
-    title: 'Case Study: Equipment Solutions for Mining Operations',
-    excerpt: 'How our custom equipment solutions helped a major mining operation improve efficiency by 35%.',
-    date: 'January 30, 2023',
-    category: 'Case Study',
-    imageUrl: '/images/blog/mining.jpg',
-  },
+    name: 'IFM',
+    logo: '/images/logo-ifm.svg',
+    description: 'IFM Electronic est un fabricant mondial de capteurs, systèmes de contrôle et composants pour l\'automatisation industrielle. Avec une gamme de plus de 7 000 produits, IFM garantit des processus fiables et une efficacité accrue dans diverses applications industrielles.',
+    specialties: ['Capteurs', 'Systèmes de contrôle', 'Vision industrielle', 'Systèmes d\'identification'],
+    website: 'https://www.ifm.com',
+    headquarters: 'Essen, Allemagne',
+    foundedYear: 1969,
+  }
 ];
 
-export default function BlogPage() {
+export default function PartnersPage() {
   return (
     <>
       {/* Hero Section */}
       <section className="bg-gray-900 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold mb-6">Industry Insights & Updates</h1>
+            <h1 className="text-4xl font-bold mb-6">Nos Partenaires Stratégiques</h1>
             <p className="text-xl text-gray-300 mb-8">
-              Stay informed with the latest news, trends, and insights from the industrial equipment sector.
+              Nous collaborons avec des leaders mondiaux de l'industrie pour vous offrir des solutions de haute qualité et des technologies innovantes.
             </p>
             <div className="flex gap-4">
-              <Button asChild variant="secondary">
-                <Link href="#featured">
-                  Latest Articles
+              <Button asChild className="bg-orange-500 hover:bg-orange-600">
+                <Link href="#partners">
+                  Découvrir nos Partenaires
                 </Link>
               </Button>
               <Button asChild variant="outline" className="border-white text-white hover:bg-white/10">
                 <Link href="/contact">
-                  Subscribe to Updates
+                  Nous Contacter
                 </Link>
               </Button>
             </div>
@@ -92,85 +69,63 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* Featured Post */}
-      <section id="featured" className="py-16">
+      {/* Partners Section */}
+      <section id="partners" className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12">Featured Article</h2>
+          <h2 className="text-3xl font-bold mb-12 text-center">Partenaires <span className="text-orange-500">Premium</span></h2>
 
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
-            <div className="lg:col-span-2 bg-gray-200 rounded-lg h-80 flex items-center justify-center">
-              <p className="text-gray-500">Featured image placeholder</p>
-              {/* In a real application, you would use an actual image */}
-              {/* <Image
-                src={blogPosts[0].imageUrl}
-                alt={blogPosts[0].title}
-                fill
-                className="rounded-lg object-cover"
-              /> */}
-            </div>
-            <div className="lg:col-span-3">
-              <div className="flex gap-3 mb-3">
-                <span className="bg-primary/10 text-primary text-sm px-3 py-1 rounded-full">
-                  {blogPosts[0].category}
-                </span>
-                <span className="text-gray-500 text-sm py-1">
-                  {blogPosts[0].date}
-                </span>
-              </div>
-              <h3 className="text-2xl font-bold mb-4">{blogPosts[0].title}</h3>
-              <p className="text-gray-600 mb-6">
-                {blogPosts[0].excerpt}
-              </p>
-              <Button asChild>
-                <Link href={`/blog/${blogPosts[0].slug}`}>
-                  Read Full Article
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* All Posts */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12">Latest Articles</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.slice(1).map((post) => (
-              <div key={post.id} className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
-                <div className="h-48 bg-gray-200 flex items-center justify-center">
-                  <p className="text-gray-500">Image placeholder</p>
-                  {/* In a real application, you would use an actual image */}
-                  {/* <Image
-                    src={post.imageUrl}
-                    alt={post.title}
-                    width={400}
-                    height={200}
-                    className="w-full h-full object-cover"
-                  /> */}
+          <div className="grid grid-cols-1 gap-16 mt-8">
+            {partners.map((partner, index) => (
+              <div key={partner.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+                <div className="bg-gray-50 rounded-lg p-12 flex items-center justify-center h-80">
+                  {partner.name === "IFM" ? (
+                    <Image
+                      src="/images/logo-ifm.svg"
+                      alt="IFM"
+                      width={250}
+                      height={250}
+                      className="object-contain"
+                    />
+                  ) : (
+                    <div className="font-bold text-5xl text-gray-800">{partner.name}</div>
+                  )}
                 </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full">
-                      {post.category}
-                    </span>
-                    <span className="text-gray-500 text-xs">
-                      {post.date}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">{post.title}</h3>
-                  <p className="text-gray-600 mb-4 line-clamp-2">
-                    {post.excerpt}
+                <div>
+                  <h3 className="text-3xl font-bold mb-4">{partner.name}</h3>
+                  <p className="text-gray-600 mb-6">
+                    {partner.description}
                   </p>
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="text-primary font-medium flex items-center hover:underline"
-                  >
-                    Read More
-                    <ArrowRight className="ml-1 h-4 w-4" />
-                  </Link>
+
+                  <div className="mb-6">
+                    <h4 className="font-semibold text-lg mb-2">Spécialités:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {partner.specialties.map((specialty, i) => (
+                        <span key={i} className="bg-orange-100 text-orange-700 text-sm px-3 py-1 rounded-full">
+                          {specialty}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 mb-6">
+                    <div className="flex items-center">
+                      <MapPin className="h-5 w-5 text-orange-500 mr-2" />
+                      <span>{partner.headquarters}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Globe className="h-5 w-5 text-orange-500 mr-2" />
+                      <a href={partner.website} target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline">
+                        {partner.website.replace('https://', '')}
+                      </a>
+                    </div>
+                  </div>
+
+                  <Button asChild className="bg-orange-500 hover:bg-orange-600">
+                    <a href={partner.website} target="_blank" rel="noopener noreferrer">
+                      Visiter le Site Officiel
+                      <ExternalLink className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
                 </div>
               </div>
             ))}
@@ -178,29 +133,64 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-16 bg-primary text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Stay Updated</h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto">
-            Subscribe to our newsletter to receive the latest industry news, product updates,
-            and exclusive content delivered straight to your inbox.
-          </p>
-          <div className="max-w-md mx-auto">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="Your email address"
-                className="flex-1 px-4 py-3 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <Button className="bg-white text-primary hover:bg-gray-100">
-                Subscribe
-              </Button>
+      {/* Partnership Benefits */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-12 text-center">Avantages de nos <span className="text-orange-500">Partenariats</span></h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-4 text-center">Qualité Garantie</h3>
+              <p className="text-gray-600 text-center">
+                Nos partenaires sont des leaders mondiaux reconnus pour la qualité et la fiabilité de leurs produits, garantissant des solutions performantes pour vos besoins industriels.
+              </p>
             </div>
-            <p className="text-sm mt-3 text-white/80">
-              We respect your privacy. Unsubscribe at any time.
-            </p>
+
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-4 text-center">Innovation Technologique</h3>
+              <p className="text-gray-600 text-center">
+                Accédez aux dernières innovations et technologies de pointe grâce à nos partenariats stratégiques avec des entreprises à la pointe de leur secteur.
+              </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-4 text-center">Support Expert</h3>
+              <p className="text-gray-600 text-center">
+                Bénéficiez d'un support technique complet et d'une expertise approfondie grâce à notre réseau de partenaires et à nos équipes formées directement par les fabricants.
+              </p>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-orange-500 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-6">Besoin de Solutions Industrielles?</h2>
+          <p className="text-lg mb-8 max-w-2xl mx-auto">
+            Contactez-nous dès aujourd'hui pour découvrir comment nos partenariats stratégiques peuvent vous aider à optimiser vos processus industriels et à améliorer votre productivité.
+          </p>
+          <Button asChild size="lg" className="bg-white text-orange-500 hover:bg-gray-100">
+            <Link href="/contact">
+              Demander un Devis
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </section>
     </>

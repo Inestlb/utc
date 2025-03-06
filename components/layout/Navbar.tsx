@@ -15,10 +15,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'Products', href: '/products' },
-  { name: 'About', href: '/about' },
-  { name: 'Blog', href: '/blog' },
+  { name: 'Accueil', href: '/' },
+  { name: 'Produits', href: '/products' },
+  { name: 'Société', href: '/about' },
+  { name: 'Partenaires', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ];
 
@@ -64,9 +64,9 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-accent ${
+                className={`text-sm font-medium transition-colors hover:text-orange-500 ${
                   pathname === link.href
-                    ? 'text-accent'
+                    ? 'text-orange-500 font-bold'
                     : isScrolled
                     ? 'text-text'
                     : 'text-text'
@@ -84,6 +84,7 @@ export default function Navbar() {
               size="icon"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
               aria-label="Search"
+              className="hover:text-orange-500"
             >
               <Search className="h-5 w-5" />
             </Button>
@@ -91,18 +92,18 @@ export default function Navbar() {
             {/* Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild className="md:hidden">
-                <Button variant="ghost" size="icon" aria-label="Menu">
+                <Button variant="ghost" size="icon" aria-label="Menu" className="hover:text-orange-500">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right">
+              <SheetContent side="right" className="border-l-orange-500">
                 <div className="flex flex-col space-y-4 mt-8">
                   {navLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`text-base font-medium transition-colors hover:text-accent ${
-                        pathname === link.href ? 'text-accent' : 'text-text'
+                      className={`text-base font-medium transition-colors hover:text-orange-500 ${
+                        pathname === link.href ? 'text-orange-500 font-bold' : 'text-text'
                       }`}
                     >
                       {link.name}
@@ -122,15 +123,15 @@ export default function Navbar() {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search products..."
-                className="w-full p-2 border rounded-md"
+                placeholder="Rechercher des produits..."
+                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                 autoFocus
                 onBlur={() => setIsSearchOpen(false)}
               />
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:text-orange-500"
                 onClick={() => setIsSearchOpen(false)}
               >
                 <X className="h-4 w-4" />

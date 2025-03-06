@@ -13,10 +13,10 @@ import { ContactFormData } from '@/lib/types';
 
 // Define the form schema with zod
 const formSchema = z.object({
-  name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
-  email: z.string().email({ message: 'Please enter a valid email address' }),
-  subject: z.string().min(5, { message: 'Subject must be at least 5 characters' }),
-  message: z.string().min(10, { message: 'Message must be at least 10 characters' }),
+  name: z.string().min(2, { message: 'Le nom doit contenir au moins 2 caractères' }),
+  email: z.string().email({ message: 'Veuillez entrer une adresse email valide' }),
+  subject: z.string().min(5, { message: 'Le sujet doit contenir au moins 5 caractères' }),
+  message: z.string().min(10, { message: 'Le message doit contenir au moins 10 caractères' }),
 });
 
 export default function ContactForm() {
@@ -35,7 +35,7 @@ export default function ContactForm() {
     },
   });
 
-  const onSubmit = async (data: ContactFormData) => {
+  const onSubmit = async () => {
     setIsSubmitting(true);
     setError(null);
 
@@ -43,11 +43,11 @@ export default function ContactForm() {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
 
-      // In a real app, you would send the data to your API
+      // In a real app, you would send the form data to your API
       // const response = await fetch('/api/contact', {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data),
+      //   body: JSON.stringify(form.getValues()),
       // });
 
       // if (!response.ok) throw new Error('Failed to submit form');
@@ -55,7 +55,7 @@ export default function ContactForm() {
       setIsSuccess(true);
       form.reset();
     } catch (err) {
-      setError('There was an error submitting your message. Please try again.');
+      setError('Une erreur est survenue lors de l\'envoi de votre message. Veuillez réessayer.');
       console.error(err);
     } finally {
       setIsSubmitting(false);
@@ -63,23 +63,23 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border">
-      <h2 className="text-2xl font-semibold mb-6">Contact Us</h2>
+    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:border-orange-300 transition-colors">
+      <h2 className="text-2xl font-semibold mb-6">Contactez-<span className="text-orange-500">Nous</span></h2>
 
       {isSuccess ? (
         <div className="bg-green-50 border border-green-200 rounded-md p-4 flex items-start">
           <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 mr-3 flex-shrink-0" />
           <div>
-            <h3 className="text-green-800 font-medium">Message Sent Successfully</h3>
+            <h3 className="text-green-800 font-medium">Message Envoyé avec Succès</h3>
             <p className="text-green-700 mt-1">
-              Thank you for contacting us. We'll get back to you as soon as possible.
+              Merci de nous avoir contactés. Nous vous répondrons dans les plus brefs délais.
             </p>
             <Button
               variant="outline"
-              className="mt-4"
+              className="mt-4 border-green-300 hover:border-orange-500 hover:text-orange-500"
               onClick={() => setIsSuccess(false)}
             >
-              Send Another Message
+              Envoyer un Autre Message
             </Button>
           </div>
         </div>
@@ -92,11 +92,15 @@ export default function ContactForm() {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel className="text-gray-700">Nom</FormLabel>
                     <FormControl>
-                      <Input placeholder="Your name" {...field} />
+                      <Input
+                        placeholder="Votre nom"
+                        {...field}
+                        className="focus-visible:ring-orange-500"
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-orange-500" />
                   </FormItem>
                 )}
               />
@@ -106,11 +110,16 @@ export default function ContactForm() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel className="text-gray-700">Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Your email address" type="email" {...field} />
+                      <Input
+                        placeholder="Votre adresse email"
+                        type="email"
+                        {...field}
+                        className="focus-visible:ring-orange-500"
+                      />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-orange-500" />
                   </FormItem>
                 )}
               />
@@ -121,11 +130,15 @@ export default function ContactForm() {
               name="subject"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Subject</FormLabel>
+                  <FormLabel className="text-gray-700">Sujet</FormLabel>
                   <FormControl>
-                    <Input placeholder="Message subject" {...field} />
+                    <Input
+                      placeholder="Sujet du message"
+                      {...field}
+                      className="focus-visible:ring-orange-500"
+                    />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-orange-500" />
                 </FormItem>
               )}
             />
@@ -135,15 +148,15 @@ export default function ContactForm() {
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Message</FormLabel>
+                  <FormLabel className="text-gray-700">Message</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Your message"
-                      className="min-h-32"
+                      placeholder="Votre message"
+                      className="min-h-32 focus-visible:ring-orange-500"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-orange-500" />
                 </FormItem>
               )}
             />
@@ -154,14 +167,14 @@ export default function ContactForm() {
               </div>
             )}
 
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
+            <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sending...
+                  Envoi en cours...
                 </>
               ) : (
-                'Send Message'
+                'Envoyer'
               )}
             </Button>
           </form>

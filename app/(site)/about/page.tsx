@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 
 export const metadata = {
-  title: 'About Us | Industrial Export Company',
-  description: 'Learn about our company history, mission, and values',
+  title: 'Société | Entreprise d\'Exportation Industrielle',
+  description: 'Découvrez l\'histoire de notre entreprise, notre mission et nos valeurs',
 };
 
 export default function AboutPage() {
@@ -16,10 +16,10 @@ export default function AboutPage() {
         <div className="absolute inset-0 opacity-20 bg-[url('/images/about-hero.jpg')] bg-cover bg-center"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold mb-6">About Our Company</h1>
+            <h1 className="text-4xl font-bold mb-6">Notre Société</h1>
             <p className="text-xl text-gray-300">
-              Since 1985, Industrial Export Co. has been a leading provider of high-quality
-              industrial equipment and components for global markets.
+              Depuis 1985, l'Entreprise d'Exportation Industrielle est un fournisseur leader d'équipements
+              et de composants industriels de haute qualité pour les marchés mondiaux.
             </p>
           </div>
         </div>
@@ -30,31 +30,30 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Our Story</h2>
+              <h2 className="text-3xl font-bold mb-6">Notre Histoire</h2>
               <p className="text-gray-600 mb-4">
-                Industrial Export Co. was founded in 1985 with a simple mission: to provide
-                high-quality industrial equipment to global markets. What began as a small
-                export business has grown into a comprehensive industrial solutions provider
-                with clients in over 50 countries.
+                L'Entreprise d'Exportation Industrielle a été fondée en 1985 avec une mission simple : fournir
+                des équipements industriels de haute qualité aux marchés mondiaux. Ce qui a commencé comme une petite
+                entreprise d'exportation s'est transformé en un fournisseur complet de solutions industrielles
+                avec des clients dans plus de 50 pays.
               </p>
               <p className="text-gray-600 mb-4">
-                Our founder, John Smith, recognized the need for reliable industrial equipment
-                in emerging markets. With his engineering background and international business
-                experience, he established a company that bridges the gap between manufacturers
-                and global customers.
+                Notre fondateur, John Smith, a reconnu le besoin d'équipements industriels fiables
+                dans les marchés émergents. Avec sa formation en ingénierie et son expérience en commerce international,
+                il a établi une entreprise qui fait le pont entre les fabricants et les clients mondiaux.
               </p>
               <p className="text-gray-600">
-                Today, we continue to build on this foundation, combining technical expertise
-                with global reach to deliver solutions that help our clients succeed in their
+                Aujourd'hui, nous continuons à bâtir sur cette fondation, combinant expertise technique
+                et portée mondiale pour offrir des solutions qui aident nos clients à réussir dans leurs
                 industries.
               </p>
             </div>
             <div className="bg-gray-200 rounded-lg overflow-hidden h-80 flex items-center justify-center">
-              <p className="text-gray-500">Company image placeholder</p>
+              <p className="text-gray-500">Image de l'entreprise</p>
               {/* In a real application, you would use an actual image */}
               {/* <Image
                 src="/images/company-history.jpg"
-                alt="Company history"
+                alt="Histoire de l'entreprise"
                 fill
                 className="object-cover"
               /> */}
@@ -67,10 +66,10 @@ export default function AboutPage() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Our Mission & Values</h2>
+            <h2 className="text-3xl font-bold mb-4">Notre Mission & Nos Valeurs</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              We are guided by a commitment to excellence, integrity, and customer satisfaction
-              in everything we do.
+              Nous sommes guidés par un engagement envers l'excellence, l'intégrité et la satisfaction du client
+              dans tout ce que nous faisons.
             </p>
           </div>
 
@@ -80,11 +79,11 @@ export default function AboutPage() {
               <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                 <CheckCircle className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Quality Excellence</h3>
+              <h3 className="text-xl font-semibold mb-3">Excellence de Qualité</h3>
               <p className="text-gray-600">
-                We are committed to providing products that meet the highest standards of
-                quality and reliability. Every item we offer undergoes rigorous testing
-                and quality control.
+                Nous nous engageons à fournir des produits qui répondent aux normes les plus élevées de
+                qualité et de fiabilité. Chaque article que nous proposons subit des tests rigoureux
+                et un contrôle de qualité.
               </p>
             </div>
 
@@ -93,11 +92,11 @@ export default function AboutPage() {
               <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                 <CheckCircle className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Customer Focus</h3>
+              <h3 className="text-xl font-semibold mb-3">Orientation Client</h3>
               <p className="text-gray-600">
-                Our customers' success is our success. We work closely with clients to
-                understand their needs and provide solutions that help them achieve their
-                business objectives.
+                Le succès de nos clients est notre succès. Nous travaillons en étroite collaboration avec les clients pour
+                comprendre leurs besoins et fournir des solutions qui les aident à atteindre leurs
+                objectifs commerciaux.
               </p>
             </div>
 
@@ -106,11 +105,11 @@ export default function AboutPage() {
               <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                 <CheckCircle className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Global Perspective</h3>
+              <h3 className="text-xl font-semibold mb-3">Perspective Mondiale</h3>
               <p className="text-gray-600">
-                With clients in over 50 countries, we understand the complexities of
-                international business. We leverage this global perspective to provide
-                solutions that work across different markets.
+                Avec des clients dans plus de 50 pays, nous comprenons les complexités du
+                commerce international. Nous tirons parti de cette perspective mondiale pour fournir
+                des solutions qui fonctionnent sur différents marchés.
               </p>
             </div>
           </div>
@@ -121,9 +120,9 @@ export default function AboutPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Our Leadership Team</h2>
+            <h2 className="text-3xl font-bold mb-4">Notre Équipe de Direction</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Meet the experienced professionals who guide our company's strategy and operations.
+              Rencontrez les professionnels expérimentés qui guident la stratégie et les opérations de notre entreprise.
             </p>
           </div>
 
@@ -135,16 +134,16 @@ export default function AboutPage() {
                 {/* In a real application, you would use an actual image */}
                 {/* <Image
                   src="/images/team/ceo.jpg"
-                  alt="CEO"
+                  alt="PDG"
                   width={160}
                   height={160}
                   className="rounded-full object-cover"
                 /> */}
               </div>
               <h3 className="text-xl font-semibold">Robert Johnson</h3>
-              <p className="text-gray-600 mb-2">Chief Executive Officer</p>
+              <p className="text-gray-600 mb-2">Président Directeur Général</p>
               <p className="text-sm text-gray-500">
-                With over 25 years of experience in industrial manufacturing and international trade.
+                Avec plus de 25 ans d'expérience dans la fabrication industrielle et le commerce international.
               </p>
             </div>
 
@@ -154,9 +153,9 @@ export default function AboutPage() {
                 <span className="text-gray-500">Photo</span>
               </div>
               <h3 className="text-xl font-semibold">Sarah Chen</h3>
-              <p className="text-gray-600 mb-2">Chief Operations Officer</p>
+              <p className="text-gray-600 mb-2">Directrice des Opérations</p>
               <p className="text-sm text-gray-500">
-                Expert in supply chain management and operational efficiency with global experience.
+                Experte en gestion de la chaîne d'approvisionnement et en efficacité opérationnelle avec une expérience mondiale.
               </p>
             </div>
 
@@ -166,9 +165,9 @@ export default function AboutPage() {
                 <span className="text-gray-500">Photo</span>
               </div>
               <h3 className="text-xl font-semibold">Michael Rodriguez</h3>
-              <p className="text-gray-600 mb-2">Chief Technical Officer</p>
+              <p className="text-gray-600 mb-2">Directeur Technique</p>
               <p className="text-sm text-gray-500">
-                Engineering leader with expertise in industrial equipment design and innovation.
+                Leader en ingénierie avec une expertise dans la conception et l'innovation d'équipements industriels.
               </p>
             </div>
           </div>
@@ -178,21 +177,21 @@ export default function AboutPage() {
       {/* CTA Section */}
       <section className="py-16 bg-primary text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Join Our Global Network</h2>
+          <h2 className="text-3xl font-bold mb-6">Rejoignez Notre Réseau Mondial</h2>
           <p className="text-lg mb-8 max-w-2xl mx-auto">
-            Whether you're looking for industrial equipment or partnership opportunities,
-            we're here to help you succeed in the global marketplace.
+            Que vous recherchiez des équipements industriels ou des opportunités de partenariat,
+            nous sommes là pour vous aider à réussir sur le marché mondial.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-white text-primary hover:bg-gray-100">
               <Link href="/contact">
-                Contact Us
+                Contactez-Nous
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
               <Link href="/products">
-                Browse Products
+                Parcourir les Produits
               </Link>
             </Button>
           </div>
