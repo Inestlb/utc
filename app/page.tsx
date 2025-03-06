@@ -187,8 +187,8 @@ export default async function Home() {
           <div className="text-center mt-12">
             <Button asChild variant="outline" className="hover:border-orange-500 hover:text-orange-500">
               <Link href="/blog">
-                En Savoir Plus sur Nos Partenaires
-                <ArrowRight className="ml-2 h-4 w-4" />
+                En Savoir Plus
+                <ArrowRight className="ml-2 h-4 w-4"/>
               </Link>
             </Button>
           </div>
