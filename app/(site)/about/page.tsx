@@ -18,8 +18,9 @@ export default function AboutPage() {
           <div className="max-w-3xl">
             <h1 className="text-4xl font-bold mb-6">Notre Société</h1>
             <p className="text-xl text-gray-300">
-              Depuis 1985, l'Entreprise d'Exportation Industrielle est un fournisseur leader d'équipements
-              et de composants industriels de haute qualité pour les marchés mondiaux.
+            Depuis 2006, UTC Industrie est le premier fournisseur national d’équipements<br/>
+            et de composants industriels de haute qualité, répondant aux exigences <br/>
+            des marchés mondiaux.
             </p>
           </div>
         </div>
@@ -32,20 +33,13 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-bold mb-6">Notre Histoire</h2>
               <p className="text-gray-600 mb-4">
-                L'Entreprise d'Exportation Industrielle a été fondée en 1985 avec une mission simple : fournir
-                des équipements industriels de haute qualité aux marchés mondiaux. Ce qui a commencé comme une petite
-                entreprise d'exportation s'est transformé en un fournisseur complet de solutions industrielles
-                avec des clients dans plus de 50 pays.
+              Fondée en 2006, UTC Industrie est une entreprise familiale qui s’est imposée comme le premier exportateur national d’équipements industriels en Algérie. Spécialisée dans l’importation et la distribution de solutions en automatisme, motorisation et process industriel, elle collabore avec des partenaires de renom comme IFM Electronic, Lenze et Wago pour fournir aux industriels des équipements performants et adaptés à leurs besoins.
               </p>
               <p className="text-gray-600 mb-4">
-                Notre fondateur, John Smith, a reconnu le besoin d'équipements industriels fiables
-                dans les marchés émergents. Avec sa formation en ingénierie et son expérience en commerce international,
-                il a établi une entreprise qui fait le pont entre les fabricants et les clients mondiaux.
+              Notre fondateur a perçu la nécessité de proposer des solutions industrielles fiables et accessibles sur le marché algérien. Fort d’une expertise en commerce international et d’une connaissance approfondie du secteur, il a construit une entreprise qui facilite l’accès aux technologies industrielles les plus avancées en accompagnant ses clients dans l’optimisation de leurs processus.
               </p>
               <p className="text-gray-600">
-                Aujourd'hui, nous continuons à bâtir sur cette fondation, combinant expertise technique
-                et portée mondiale pour offrir des solutions qui aident nos clients à réussir dans leurs
-                industries.
+              Aujourd’hui, UTC Industrie continue d’évoluer en offrant un accompagnement technique sur mesure et des équipements adaptés aux exigences industrielles. Son expertise en motorisation, détection et connectique lui permet d’apporter des solutions fiables et performantes à ses clients.
               </p>
             </div>
             <div className="bg-gray-200 rounded-lg overflow-hidden h-80 flex items-center justify-center">
@@ -177,7 +171,7 @@ export default function AboutPage() {
       {/* CTA Section */}
       <section className="py-16 bg-primary text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Rejoignez Notre Réseau Mondial</h2>
+          <h2 className="text-3xl font-bold mb-6">Rejoignez Notre Réseau</h2>
           <p className="text-lg mb-8 max-w-2xl mx-auto">
             Que vous recherchiez des équipements industriels ou des opportunités de partenariat,
             nous sommes là pour vous aider à réussir sur le marché mondial.

@@ -1,5 +1,5 @@
 import ContactForm from '@/components/forms/ContactForm';
-import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 export const metadata = {
   title: 'Contactez-Nous | Entreprise d\'Exportation Industrielle',
@@ -63,18 +63,6 @@ export default function ContactPage() {
                       <a href="mailto:info@industrialexport.com" className="hover:text-orange-500">
                         info@industrialexport.com
                       </a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex">
-                  <Clock className="h-5 w-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="font-medium mb-1">Heures d&apos;Ouverture</h3>
-                    <p className="text-gray-600">
-                      Lundi - Vendredi: 9h00 - 17h00<br />
-                      Samedi: 10h00 - 14h00<br />
-                      Dimanche: Fermé
                     </p>
                   </div>
                 </div>

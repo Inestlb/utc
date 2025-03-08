@@ -176,6 +176,22 @@ export default async function Home() {
                       height={150}
                       className="object-contain"
                     />
+                  ) : partner.name === "Lenze" ? (
+                    <Image
+                      src="/images/logo-Lenze.svg"
+                      alt="Lenze"
+                      width={180}
+                      height={55}
+                      className="object-contain"
+                    />
+                  ) : partner.name === "Wago" ? (
+                    <Image
+                      src="/images/logo-WAGO.svg"
+                      alt="Wago"
+                      width={180}
+                      height={65}
+                      className="object-contain"
+                    />
                   ) : (
                     <div className="font-bold text-4xl text-gray-800 hover:text-orange-500 transition-colors">{partner.name}</div>
                   )}
@@ -188,7 +204,7 @@ export default async function Home() {
             <Button asChild variant="outline" className="hover:border-orange-500 hover:text-orange-500">
               <Link href="/blog">
                 En Savoir Plus
-                <ArrowRight className="ml-2 h-4 w-4"/>
+                <ArrowRight className="ml-1 h-4 w-4"/>
               </Link>
             </Button>
           </div>
