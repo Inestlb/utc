@@ -90,7 +90,7 @@ export default function SearchBar({
       <form onSubmit={handleSubmit} className="relative">
         <Input
           type="text"
-          placeholder="Search products..."
+          placeholder="Rechercher des produits..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="pr-16"
@@ -140,7 +140,7 @@ export default function SearchBar({
                 className="w-full justify-start px-4 py-2 text-sm text-primary"
                 onClick={handleSubmit}
               >
-                See all results for "{searchTerm}"
+                Voir tous les résultats pour "{searchTerm}"
               </Button>
             </li>
           </ul>

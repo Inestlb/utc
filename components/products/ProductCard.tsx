@@ -44,7 +44,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <CardFooter className="p-4 pt-0 flex justify-between items-center">
         <Link href={`/products/${product.id}`} passHref>
           <Button variant="outline" className="w-full">
-            View Details
+            Voir les détails
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </Link>

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ExternalLink, MapPin, Phone, Mail, Globe } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 
 export const metadata = {
   title: 'Partenaires | Entreprise d\'Exportation Industrielle',
@@ -16,7 +16,6 @@ const partners = [
     logo: '/images/logo-lenze.svg', // Placeholder, remplacer par le vrai logo
     description: 'Lenze est un leader mondial dans le domaine des solutions d\'entraînement et d\'automatisation. Avec plus de 70 ans d\'expérience, Lenze fournit des produits, des solutions d\'entraînement, des systèmes d\'automatisation et des services pour l\'industrie.',
     specialties: ['Automatisation', 'Entraînements', 'Moteurs', 'Contrôle de mouvement'],
-    website: 'https://www.lenze.com',
     headquarters: 'Hamelin, Allemagne',
     foundedYear: 1947,
   },
@@ -26,7 +25,6 @@ const partners = [
     logo: '/images/logo-wago.svg', // Placeholder, remplacer par le vrai logo
     description: 'WAGO est un leader innovant dans les technologies de connexion électrique et d\'automatisation industrielle. Leurs solutions sont utilisées dans de nombreux secteurs, de la construction à l\'industrie manufacturière.',
     specialties: ['Bornes de connexion', 'Automatisation', 'Interfaces électroniques', 'Systèmes de contrôle'],
-    website: 'https://www.wago.com',
     headquarters: 'Minden, Allemagne',
     foundedYear: 1951,
   },
@@ -36,7 +34,6 @@ const partners = [
     logo: '/images/logo-ifm.svg',
     description: 'IFM Electronic est un fabricant mondial de capteurs, systèmes de contrôle et composants pour l\'automatisation industrielle. Avec une gamme de plus de 7 000 produits, IFM garantit des processus fiables et une efficacité accrue dans diverses applications industrielles.',
     specialties: ['Capteurs', 'Systèmes de contrôle', 'Vision industrielle', 'Systèmes d\'identification'],
-    website: 'https://www.ifm.com',
     headquarters: 'Essen, Allemagne',
     foundedYear: 1969,
   }
@@ -59,11 +56,6 @@ export default function PartnersPage() {
                   Découvrir nos Partenaires
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="border-white text-white hover:bg-white/10">
-                <Link href="/contact">
-                  Nous Contacter
-                </Link>
-              </Button>
             </div>
           </div>
         </div>
@@ -72,7 +64,7 @@ export default function PartnersPage() {
       {/* Partners Section */}
       <section id="partners" className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Partenaires <span className="text-orange-500">Premium</span></h2>
+          <h2 className="text-3xl font-bold mb-12 text-center text-orange-500">Partenaires</h2>
 
           <div className="grid grid-cols-1 gap-16 mt-8">
             {partners.map((partner, index) => (
@@ -84,6 +76,22 @@ export default function PartnersPage() {
                       alt="IFM"
                       width={250}
                       height={250}
+                      className="object-contain"
+                    />
+                  ) : partner.name === "Lenze" ? (
+                    <Image
+                      src="/images/logo-Lenze.svg"
+                      alt="Lenze"
+                      width={250}
+                      height={76}
+                      className="object-contain"
+                    />
+                  ) : partner.name === "Wago" ? (
+                    <Image
+                      src="/images/logo-WAGO.svg"
+                      alt="Wago"
+                      width={250}
+                      height={90}
                       className="object-contain"
                     />
                   ) : (
@@ -112,20 +120,8 @@ export default function PartnersPage() {
                       <MapPin className="h-5 w-5 text-orange-500 mr-2" />
                       <span>{partner.headquarters}</span>
                     </div>
-                    <div className="flex items-center">
-                      <Globe className="h-5 w-5 text-orange-500 mr-2" />
-                      <a href={partner.website} target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline">
-                        {partner.website.replace('https://', '')}
-                      </a>
-                    </div>
                   </div>
 
-                  <Button asChild className="bg-orange-500 hover:bg-orange-600">
-                    <a href={partner.website} target="_blank" rel="noopener noreferrer">
-                      Visiter le Site Officiel
-                      <ExternalLink className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
                 </div>
               </div>
             ))}
