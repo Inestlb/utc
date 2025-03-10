@@ -19,7 +19,11 @@ const formSchema = z.object({
   message: z.string().min(10, { message: 'Le message doit contenir au moins 10 caractères' }),
 });
 
-export default function ContactForm() {
+interface ContactFormProps {
+  isCompact?: boolean;
+}
+
+export default function ContactForm({ isCompact = false }: ContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -63,8 +67,8 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:border-orange-300 transition-colors">
-      <h2 className="text-2xl font-semibold mb-6">Contactez-<span className="text-orange-500">Nous</span></h2>
+    <div className={`bg-white ${isCompact ? 'p-4' : 'p-6'} rounded-lg ${!isCompact && 'shadow-sm border border-gray-200 hover:border-orange-300 transition-colors'}`}>
+      {!isCompact && <h2 className="text-2xl font-semibold mb-6">Contactez-<span className="text-orange-500">Nous</span></h2>}
 
       {isSuccess ? (
         <div className="bg-green-50 border border-green-200 rounded-md p-4 flex items-start">
@@ -85,8 +89,8 @@ export default function ContactForm() {
         </div>
       ) : (
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className={`space-y-${isCompact ? '4' : '6'}`}>
+            <div className={`grid grid-cols-1 ${!isCompact && 'md:grid-cols-2'} gap-${isCompact ? '4' : '6'}`}>
               <FormField
                 control={form.control}
                 name="name"
@@ -152,7 +156,7 @@ export default function ContactForm() {
                   <FormControl>
                     <Textarea
                       placeholder="Votre message"
-                      className="min-h-32 focus-visible:ring-orange-500"
+                      className={`${isCompact ? 'min-h-24' : 'min-h-32'} focus-visible:ring-orange-500`}
                       {...field}
                     />
                   </FormControl>

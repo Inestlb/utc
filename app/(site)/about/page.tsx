@@ -18,7 +18,7 @@ export default function AboutPage() {
           <div className="max-w-3xl">
             <h1 className="text-4xl font-bold mb-6">Notre Société</h1>
             <p className="text-xl text-gray-300">
-            Depuis 2006, UTC Industrie est le premier fournisseur national d’équipements<br/>
+            Depuis 2006, UTC Industrie est le premier fournisseur national d'équipements<br/>
             et de composants industriels de haute qualité, répondant aux exigences <br/>
             des marchés mondiaux.
             </p>
@@ -33,13 +33,13 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-bold mb-6">Notre Histoire</h2>
               <p className="text-gray-600 mb-4">
-              Fondée en 2006, UTC Industrie est une entreprise familiale qui s’est imposée comme le premier exportateur national d’équipements industriels en Algérie. Spécialisée dans l’importation et la distribution de solutions en automatisme, motorisation et process industriel, elle collabore avec des partenaires de renom comme IFM Electronic, Lenze et Wago pour fournir aux industriels des équipements performants et adaptés à leurs besoins.
+              Fondée en 2006, UTC Industrie est une entreprise familiale qui s'est imposée comme le premier exportateur national d'équipements industriels en Algérie. Spécialisée dans l'importation et la distribution de solutions en automatisme, motorisation et process industriel, elle collabore avec des partenaires de renom comme IFM Electronic, Lenze et Wago pour fournir aux industriels des équipements performants et adaptés à leurs besoins.
               </p>
               <p className="text-gray-600 mb-4">
-              Notre fondateur a perçu la nécessité de proposer des solutions industrielles fiables et accessibles sur le marché algérien. Fort d’une expertise en commerce international et d’une connaissance approfondie du secteur, il a construit une entreprise qui facilite l’accès aux technologies industrielles les plus avancées en accompagnant ses clients dans l’optimisation de leurs processus.
+              Notre fondateur a perçu la nécessité de proposer des solutions industrielles fiables et accessibles sur le marché algérien. Fort d'une expertise en commerce international et d'une connaissance approfondie du secteur, il a construit une entreprise qui facilite l'accès aux technologies industrielles les plus avancées en accompagnant ses clients dans l'optimisation de leurs processus.
               </p>
               <p className="text-gray-600">
-              Aujourd’hui, UTC Industrie continue d’évoluer en offrant un accompagnement technique sur mesure et des équipements adaptés aux exigences industrielles. Son expertise en motorisation, détection et connectique lui permet d’apporter des solutions fiables et performantes à ses clients.
+              Aujourd'hui, UTC Industrie continue d'évoluer en offrant un accompagnement technique sur mesure et des équipements adaptés aux exigences industrielles. Son expertise en motorisation, détection et connectique lui permet d'apporter des solutions fiables et performantes à ses clients.
               </p>
             </div>
             <div className="bg-gray-200 rounded-lg overflow-hidden h-80 flex items-center justify-center">
@@ -104,64 +104,6 @@ export default function AboutPage() {
                 Avec des clients dans plus de 50 pays, nous comprenons les complexités du
                 commerce international. Nous tirons parti de cette perspective mondiale pour fournir
                 des solutions qui fonctionnent sur différents marchés.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Notre Équipe de Direction</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Rencontrez les professionnels expérimentés qui guident la stratégie et les opérations de notre entreprise.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Team Member 1 */}
-            <div className="text-center">
-              <div className="bg-gray-200 rounded-full w-40 h-40 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-gray-500">Photo</span>
-                {/* In a real application, you would use an actual image */}
-                {/* <Image
-                  src="/images/team/ceo.jpg"
-                  alt="PDG"
-                  width={160}
-                  height={160}
-                  className="rounded-full object-cover"
-                /> */}
-              </div>
-              <h3 className="text-xl font-semibold">Karim Talbi</h3>
-              <p className="text-gray-600 mb-2">Président Directeur Général</p>
-              <p className="text-sm text-gray-500">
-                Avec plus de 25 ans d'expérience dans la fabrication industrielle et le commerce international.
-              </p>
-            </div>
-
-            {/* Team Member 2 */}
-            <div className="text-center">
-              <div className="bg-gray-200 rounded-full w-40 h-40 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-gray-500">Photo</span>
-              </div>
-              <h3 className="text-xl font-semibold">Robert Johnson</h3>
-              <p className="text-gray-600 mb-2">Directrice des Opérations</p>
-              <p className="text-sm text-gray-500">
-                Experte en gestion de la chaîne d'approvisionnement et en efficacité opérationnelle avec une expérience mondiale.
-              </p>
-            </div>
-
-            {/* Team Member 3 */}
-            <div className="text-center">
-              <div className="bg-gray-200 rounded-full w-40 h-40 mx-auto mb-4 flex items-center justify-center">
-                <span className="text-gray-500">Photo</span>
-              </div>
-              <h3 className="text-xl font-semibold">Michael Rodriguez</h3>
-              <p className="text-gray-600 mb-2">Directeur Technique</p>
-              <p className="text-sm text-gray-500">
-                Leader en ingénierie avec une expertise dans la conception et l'innovation d'équipements industriels.
               </p>
             </div>
           </div>

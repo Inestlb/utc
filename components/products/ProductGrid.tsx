@@ -49,14 +49,14 @@ export default function ProductGrid({
           {/* View Toggle and Results Count */}
           <div className="flex justify-between items-center mb-6">
             <p className="text-sm text-gray-600">
-              {isLoading ? 'Loading products...' : `Showing ${products.length} products`}
+              {isLoading ? 'Chargement des produits...' : `Affichage de ${products.length} produits`}
             </p>
             <div className="flex space-x-2">
               <Button
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="icon"
                 onClick={() => setViewMode('grid')}
-                aria-label="Grid view"
+                aria-label="Vue en grille"
               >
                 <Grid className="h-4 w-4" />
               </Button>
@@ -64,7 +64,7 @@ export default function ProductGrid({
                 variant={viewMode === 'list' ? 'default' : 'outline'}
                 size="icon"
                 onClick={() => setViewMode('list')}
-                aria-label="List view"
+                aria-label="Vue en liste"
               >
                 <List className="h-4 w-4" />
               </Button>
@@ -81,15 +81,15 @@ export default function ProductGrid({
           {/* Empty State */}
           {!isLoading && products.length === 0 && (
             <div className="text-center py-12 bg-gray-50 rounded-lg">
-              <h3 className="text-lg font-medium text-gray-900">No products found</h3>
+              <h3 className="text-lg font-medium text-gray-900">Aucun produit trouvé</h3>
               <p className="mt-2 text-sm text-gray-600">
-                Try adjusting your search or filter to find what you're looking for.
+                Essayez d&apos;ajuster votre recherche ou vos filtres pour trouver ce que vous cherchez.
               </p>
               <Button
                 className="mt-4"
                 onClick={() => onFilterChange?.({ category: undefined, search: undefined, page: 1 })}
               >
-                Clear filters
+                Effacer les filtres
               </Button>
             </div>
           )}

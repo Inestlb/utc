@@ -38,7 +38,7 @@ export default function ProductFilter({
           onClick={() => setIsFilterVisible(!isFilterVisible)}
         >
           <Filter className="mr-2 h-4 w-4" />
-          {isFilterVisible ? 'Hide Filters' : 'Show Filters'}
+          {isFilterVisible ? 'Masquer les filtres' : 'Afficher les filtres'}
         </Button>
       </div>
 
@@ -46,7 +46,7 @@ export default function ProductFilter({
       <Card className={`${isFilterVisible ? 'block' : 'hidden'} md:block`}>
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg">Filters</CardTitle>
+            <CardTitle className="text-lg">Filtres</CardTitle>
             {selectedCategory && (
               <Button
                 variant="ghost"
@@ -54,7 +54,7 @@ export default function ProductFilter({
                 onClick={() => onCategoryChange(undefined)}
                 className="h-8 px-2 text-xs"
               >
-                Clear All
+                Tout effacer
                 <X className="ml-1 h-3 w-3" />
               </Button>
             )}
@@ -63,7 +63,7 @@ export default function ProductFilter({
         <CardContent>
           <div className="space-y-4">
             <div>
-              <h3 className="text-sm font-medium mb-3">Categories</h3>
+              <h3 className="text-sm font-medium mb-3">Catégories</h3>
               <div className="space-y-3">
                 {categories.map((category) => (
                   <div key={category} className="flex items-center space-x-2">
@@ -82,7 +82,7 @@ export default function ProductFilter({
                 ))}
 
                 {categories.length === 0 && (
-                  <p className="text-sm text-gray-500">No categories available</p>
+                  <p className="text-sm text-gray-500">Aucune catégorie disponible</p>
                 )}
               </div>
             </div>
