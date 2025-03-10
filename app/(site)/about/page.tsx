@@ -11,16 +11,23 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gray-900 text-white">
-        <div className="absolute inset-0 opacity-20 bg-[url('/images/about-hero.jpg')] bg-cover bg-center"></div>
-        <div className="container mx-auto px-4 relative z-10">
+      {/* Hero Section - Redesigned */}
+      <section className="relative py-16 overflow-hidden">
+        {/* Background with gradient overlay */}
+        <div className="absolute inset-0 bg-[url('/images/about-hero.jpg')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"></div>
+
+        {/* Content */}
+        <div className="container relative mx-auto px-4 z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold mb-6">Notre Société</h1>
-            <p className="text-xl text-gray-300">
-            Depuis 2006, UTC Industrie est le premier fournisseur national d'équipements<br/>
-            et de composants industriels de haute qualité, répondant aux exigences <br/>
-            des marchés mondiaux.
+            <h1 className="text-4xl font-bold mb-4 text-white">
+              Notre <span className="text-orange-500">Société</span>
+            </h1>
+            <div className="w-20 h-1 bg-orange-500 mb-5"></div>
+            <p className="text-lg text-gray-200 mb-4 leading-relaxed">
+              Depuis 2006, UTC Industrie est le premier fournisseur national d'équipements
+              et de composants industriels de haute qualité, répondant aux exigences
+              des marchés mondiaux.
             </p>
           </div>
         </div>
@@ -125,9 +132,10 @@ export default function AboutPage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+            <Button asChild size="lg" className="bg-orange-500 text-white hover:bg-orange-600 transition-all duration-300">
               <Link href="/products">
                 Parcourir les Produits
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
           </div>

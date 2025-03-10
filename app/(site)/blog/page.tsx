@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, MapPin } from 'lucide-react';
+import { ArrowRight, CheckCircle, Zap, HeadphonesIcon } from 'lucide-react';
 
 export const metadata = {
   title: 'Partenaires | Entreprise d\'Exportation Industrielle',
@@ -42,31 +42,30 @@ const partners = [
 export default function PartnersPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="bg-gray-900 text-white py-16">
-        <div className="container mx-auto px-4">
+      {/* Hero Section - Redesigned */}
+      <section className="relative py-16 overflow-hidden">
+        {/* Background with gradient overlay */}
+        <div className="absolute inset-0 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center opacity-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"></div>
+
+        {/* Content */}
+        <div className="container relative mx-auto px-4 z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold mb-6">Nos Partenaires Stratégiques</h1>
-            <p className="text-xl text-gray-300 mb-8">
-              Nous collaborons avec des leaders mondiaux de l'industrie pour vous offrir des solutions de haute qualité et des technologies innovantes.
+            <h1 className="text-4xl font-bold mb-4 text-white">
+              Nos <span className="text-orange-500">Partenaires</span> de Confiance
+            </h1>
+            <div className="w-20 h-1 bg-orange-500 mb-5"></div>
+            <p className="text-lg text-gray-200 mb-4 leading-relaxed">
+              Nous collaborons avec des leaders mondiaux de l&apos;industrie pour vous offrir des solutions de haute qualité et des technologies innovantes qui répondent à vos besoins spécifiques.
             </p>
-            <div className="flex gap-4">
-              <Button asChild className="bg-orange-500 hover:bg-orange-600">
-                <Link href="#partners">
-                  Découvrir nos Partenaires
-                </Link>
-              </Button>
-            </div>
           </div>
         </div>
       </section>
 
       {/* Partners Section */}
-      <section id="partners" className="py-16">
+      <section id="partners" className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center text-orange-500">Partenaires</h2>
-
-          <div className="grid grid-cols-1 gap-16 mt-8">
+          <div className="grid grid-cols-1 gap-16">
             {partners.map((partner, index) => (
               <div key={partner.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
                 <div className="bg-gray-50 rounded-lg p-12 flex items-center justify-center h-80">
@@ -115,13 +114,6 @@ export default function PartnersPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-2 mb-6">
-                    <div className="flex items-center">
-                      <MapPin className="h-5 w-5 text-orange-500 mr-2" />
-                      <span>{partner.headquarters}</span>
-                    </div>
-                  </div>
-
                 </div>
               </div>
             ))}
@@ -129,57 +121,117 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      {/* Partnership Benefits */}
-      <section className="py-16 bg-gray-50">
+      {/* Partnership Benefits - Completely Redesigned */}
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">Avantages de nos <span className="text-orange-500">Partenariats</span></h2>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">Pourquoi Choisir Nos <span className="text-orange-500">Partenaires</span></h2>
+            <div className="w-24 h-1 bg-orange-500 mx-auto mb-5"></div>
+            <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+              Notre réseau de partenaires stratégiques nous permet de vous offrir des solutions industrielles complètes et de haute qualité, adaptées à vos besoins spécifiques.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {/* Card 1 */}
+            <div className="bg-white rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+              <div className="h-3 bg-orange-500"></div>
+              <div className="p-8">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <CheckCircle className="h-8 w-8 text-orange-500" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-center">Qualité Garantie</h3>
+                <p className="text-gray-600 text-center">
+                  Nos partenaires sont des leaders mondiaux reconnus pour la qualité et la fiabilité de leurs produits, garantissant des solutions performantes pour vos besoins industriels.
+                </p>
+                <div className="mt-6 pt-6 border-t border-gray-100">
+                  <ul className="space-y-2">
+                    <li className="flex items-start">
+                      <span className="text-orange-500 mr-2">✓</span>
+                      <span className="text-sm text-gray-600">Produits certifiés aux normes internationales</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-orange-500 mr-2">✓</span>
+                      <span className="text-sm text-gray-600">Garantie fabricant étendue</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-orange-500 mr-2">✓</span>
+                      <span className="text-sm text-gray-600">Contrôle qualité rigoureux</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-center">Qualité Garantie</h3>
-              <p className="text-gray-600 text-center">
-                Nos partenaires sont des leaders mondiaux reconnus pour la qualité et la fiabilité de leurs produits, garantissant des solutions performantes pour vos besoins industriels.
-              </p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+            {/* Card 2 */}
+            <div className="bg-white rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+              <div className="h-3 bg-orange-500"></div>
+              <div className="p-8">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <Zap className="h-8 w-8 text-orange-500" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-center">Innovation Technologique</h3>
+                <p className="text-gray-600 text-center">
+                  Accédez aux dernières innovations et technologies de pointe grâce à nos partenariats stratégiques avec des entreprises à la pointe de leur secteur.
+                </p>
+                <div className="mt-6 pt-6 border-t border-gray-100">
+                  <ul className="space-y-2">
+                    <li className="flex items-start">
+                      <span className="text-orange-500 mr-2">✓</span>
+                      <span className="text-sm text-gray-600">Solutions d&apos;automatisation avancées</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-orange-500 mr-2">✓</span>
+                      <span className="text-sm text-gray-600">Technologies connectées (IoT)</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-orange-500 mr-2">✓</span>
+                      <span className="text-sm text-gray-600">Mises à jour régulières des produits</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-center">Innovation Technologique</h3>
-              <p className="text-gray-600 text-center">
-                Accédez aux dernières innovations et technologies de pointe grâce à nos partenariats stratégiques avec des entreprises à la pointe de leur secteur.
-              </p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+            {/* Card 3 */}
+            <div className="bg-white rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+              <div className="h-3 bg-orange-500"></div>
+              <div className="p-8">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <HeadphonesIcon className="h-8 w-8 text-orange-500" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-center">Support Expert</h3>
+                <p className="text-gray-600 text-center">
+                  Bénéficiez d&apos;un support technique complet et d&apos;une expertise approfondie grâce à notre réseau de partenaires et à nos équipes formées directement par les fabricants.
+                </p>
+                <div className="mt-6 pt-6 border-t border-gray-100">
+                  <ul className="space-y-2">
+                    <li className="flex items-start">
+                      <span className="text-orange-500 mr-2">✓</span>
+                      <span className="text-sm text-gray-600">Assistance technique dédiée</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-orange-500 mr-2">✓</span>
+                      <span className="text-sm text-gray-600">Formation et documentation complète</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-orange-500 mr-2">✓</span>
+                      <span className="text-sm text-gray-600">Service après-vente réactif</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-center">Support Expert</h3>
-              <p className="text-gray-600 text-center">
-                Bénéficiez d'un support technique complet et d'une expertise approfondie grâce à notre réseau de partenaires et à nos équipes formées directement par les fabricants.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-orange-500 text-white">
+      <section className="py-14 bg-orange-500 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Besoin de Solutions Industrielles?</h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto">
-            Contactez-nous dès aujourd'hui pour découvrir comment nos partenariats stratégiques peuvent vous aider à optimiser vos processus industriels et à améliorer votre productivité.
+          <h2 className="text-3xl font-bold mb-4">Besoin de Solutions Industrielles?</h2>
+          <p className="text-lg mb-6 max-w-2xl mx-auto">
+            Contactez-nous dès aujourd&apos;hui pour découvrir comment nos partenariats stratégiques peuvent vous aider à optimiser vos processus industriels et à améliorer votre productivité.
           </p>
           <Button asChild size="lg" className="bg-white text-orange-500 hover:bg-gray-100">
             <Link href="/contact">

@@ -29,7 +29,7 @@ export default function HeroSection() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+            <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100">
               <Link href="/contact">
                 {t('button.contact')}
               </Link>
