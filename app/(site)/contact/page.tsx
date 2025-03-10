@@ -1,5 +1,6 @@
 import ContactForm from '@/components/forms/ContactForm';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import MapContainer from '@/components/maps/MapContainer';
 
 export const metadata = {
   title: 'Contactez-Nous | Entreprise d\'Exportation Industrielle',
@@ -70,10 +71,12 @@ export default function ContactPage() {
             </div>
 
             {/* Map */}
-            <div className="bg-gray-200 rounded-lg overflow-hidden h-80 flex items-center justify-center border border-orange-200">
-              <p className="text-gray-500">Emplacement de la carte</p>
-              {/* In a real application, you would integrate with Google Maps or another mapping service */}
-            </div>
+            <MapContainer
+              longitude={3.8767}
+              latitude={43.6108}
+              zoom={14}
+              markerTitle="UTC Industrie - Montpellier"
+            />
           </div>
         </div>
       </div>
