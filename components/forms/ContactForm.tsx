@@ -134,10 +134,10 @@ export default function ContactForm({ isCompact = false }: ContactFormProps) {
               name="subject"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700">Sujet</FormLabel>
+                  <FormLabel className="text-gray-700">Objet</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Sujet du message"
+                      placeholder="Objet du message"
                       {...field}
                       className="focus-visible:ring-orange-500"
                     />

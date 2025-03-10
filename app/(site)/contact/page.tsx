@@ -74,7 +74,7 @@ export default function ContactPage() {
             <MapContainer
               longitude={3.8767}
               latitude={43.6108}
-              zoom={14}
+              zoom={12}
               markerTitle="UTC Industrie - Montpellier"
             />
           </div>
