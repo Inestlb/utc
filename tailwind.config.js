@@ -19,7 +19,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#808080',
+        primary: '#F97316',
         accent: '#F97316',
         text: '#333333',
         background: '#FFFFFF',
@@ -66,10 +66,35 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        fadeInUp: {
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: 0 },
+          '100%': { transform: 'translateY(0)', opacity: 1 },
+        },
+        expandWidth: {
+          '0%': { width: '0' },
+          '100%': { width: '100%' },
+        },
+        pulse: {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0.5 },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fadeIn 0.5s ease-out forwards",
+        "fade-in-up": "fadeInUp 0.5s ease-out forwards",
+        "slide-up": "slideUp 0.5s ease-out forwards",
+        "expand-width": "expandWidth 0.5s ease-out forwards",
+        "pulse-slow": "pulse 3s ease-in-out infinite",
       },
     },
   },

@@ -4,6 +4,7 @@ import SolutionsSection from "@/components/home/SolutionsSection";
 import ExpertiseSection from "@/components/home/ExpertiseSection";
 import ValuePropositionSection from "@/components/home/ValuePropositionSection";
 import PartnersSection from "@/components/home/PartnersSection";
+import CtaSection from "@/components/home/CtaSection";
 
 export default async function Home() {
   // Fetch partners
@@ -25,6 +26,9 @@ export default async function Home() {
 
       {/* Partners Section */}
       <PartnersSection partners={partners} />
+
+      {/* CTA Section */}
+      <CtaSection />
     </>
   );
 }
