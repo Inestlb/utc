@@ -147,12 +147,12 @@ export default function Navbar() {
                       }`}
                     >
                       {getTextContent(link.key)}
-                      <ChevronDown className="h-4 w-4 opacity-70" />
+                      <ChevronDown className={`h-4 w-4 opacity-70 transition-transform duration-300 ${isProductsHovered ? 'rotate-180' : ''}`} />
                     </button>
 
                     {/* Menu déroulant au survol */}
                     <div
-                      className={`absolute left-0 mt-2 w-[220px] p-2 bg-white rounded-md shadow-lg border border-gray-100 transition-all duration-200 ${
+                      className={`absolute left-0 mt-2 w-[280px] p-3 bg-white rounded-md shadow-lg border border-gray-100 transition-all duration-300 ${
                         isProductsHovered
                           ? 'opacity-100 translate-y-0 pointer-events-auto'
                           : 'opacity-0 -translate-y-2 pointer-events-none'
@@ -163,7 +163,7 @@ export default function Navbar() {
                           <Link
                             key={item.href}
                             href={item.href}
-                            className="flex items-center p-2 rounded-md hover:bg-orange-50 transition-colors"
+                            className="flex items-center p-3 rounded-md hover:bg-orange-50 transition-colors duration-200"
                           >
                             <div className="flex-shrink-0 h-10 w-10 mr-3 flex items-center justify-center">
                               {item.logo && (
@@ -186,7 +186,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`text-base md:text-lg font-medium transition-colors hover:text-orange-500 ${
+                    className={`text-base md:text-lg font-medium transition-colors hover:text-orange-500 relative group ${
                       pathname === link.href
                         ? 'text-orange-500 font-bold'
                         : isScrolled
@@ -195,6 +195,7 @@ export default function Navbar() {
                     }`}
                   >
                     {getTextContent(link.key)}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
                   </Link>
                 )
               ))}
@@ -212,12 +213,10 @@ export default function Navbar() {
             {/* Contact link */}
             <Link
               href={contactLink.href}
-              className={`text-sm font-medium transition-colors border border-gray-300 rounded-lg px-4 py-2 hover:text-orange-500 hover:border-orange-500 flex items-center gap-1.5 ${
+              className={`text-sm font-medium transition-all duration-300 rounded-lg px-4 py-2 flex items-center gap-1.5 ${
                 pathname === contactLink.href
-                  ? 'text-orange-500 font-bold border-orange-500'
-                  : isScrolled
-                  ? 'text-text'
-                  : 'text-text'
+                  ? 'bg-orange-500 text-white'
+                  : 'border border-gray-300 text-text hover:border-orange-500 hover:text-orange-500'
               }`}
             >
               <Mail className="h-4 w-4" />
@@ -229,12 +228,12 @@ export default function Navbar() {
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="Menu" className="hover:text-orange-500">
+                <Button variant="ghost" size="icon" aria-label="Menu" className="hover:text-orange-500 transition-colors duration-300">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="border-l-orange-500">
-                <div className="flex flex-col space-y-4 mt-8">
+              <SheetContent side="right" className="border-l-orange-500 w-[85vw] max-w-[350px]">
+                <div className="flex flex-col space-y-6 mt-8">
                   {/* Mobile Search Bar */}
                   <div className="mb-2">
                     <NavbarSearch />
@@ -246,68 +245,51 @@ export default function Navbar() {
                   </div>
 
                   {/* Mobile navigation links */}
-                  {allNavLinks.map((link) => (
-                    <div key={link.href}>
-                      {link.hasSubmenu ? (
-                        <>
-                          <button
-                            onClick={() => setActiveSubmenu(activeSubmenu === link.key ? null : link.key)}
-                            className={`text-base font-medium transition-colors w-full text-left flex items-center justify-between ${
-                              pathname.startsWith(link.href)
-                                ? 'text-orange-500 font-bold'
-                                : 'hover:text-orange-500'
-                            }`}
+                  <div className="space-y-4">
+                    {allNavLinks.map((link) => (
+                      <div key={link.href} className="border-b border-gray-100 pb-3">
+                        {link.hasSubmenu ? (
+                          <DropdownMenu>
+                            <DropdownMenuTrigger className="flex items-center justify-between w-full text-left">
+                              <span className={`text-lg font-medium ${pathname.startsWith(link.href) ? 'text-orange-500' : ''}`}>
+                                {getTextContent(link.key)}
+                              </span>
+                              <ChevronDown className="h-4 w-4 opacity-70" />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-full">
+                              {link.submenu?.map((item) => (
+                                <DropdownMenuItem key={item.href} asChild>
+                                  <Link href={item.href} className="flex items-center w-full p-2">
+                                    {item.logo && (
+                                      <div className="mr-2 h-6 w-6 flex-shrink-0">
+                                        <Image
+                                          src={item.logo}
+                                          alt={item.name}
+                                          width={24}
+                                          height={24}
+                                          className="object-contain"
+                                        />
+                                      </div>
+                                    )}
+                                    <span>{item.name}</span>
+                                  </Link>
+                                </DropdownMenuItem>
+                              ))}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            className={`block text-lg font-medium transition-colors hover:text-orange-500 ${
+                              pathname === link.href ? 'text-orange-500' : ''
+                            } ${link.highlight ? 'mt-6 bg-orange-500 text-white hover:text-white px-4 py-2 rounded-lg text-center' : ''}`}
                           >
                             {getTextContent(link.key)}
-                            <ChevronDown className={`h-4 w-4 transition-transform ${activeSubmenu === link.key ? 'rotate-180' : ''}`} />
-                          </button>
-
-                          {activeSubmenu === link.key && (
-                            <div className="mt-2 ml-4 space-y-2 border-l-2 border-orange-100 pl-4">
-                              {link.submenu?.map((item) => (
-                                <Link
-                                  key={item.href}
-                                  href={item.href}
-                                  className="flex items-center py-2 text-sm hover:text-orange-500"
-                                >
-                                  <div className="w-6 h-6 mr-2 flex-shrink-0 flex items-center justify-center">
-                                    {item.logo && (
-                                      <Image
-                                        src={item.logo}
-                                        alt={item.name}
-                                        width={16}
-                                        height={16}
-                                        className="object-contain"
-                                      />
-                                    )}
-                                  </div>
-                                  {item.name}
-                                </Link>
-                              ))}
-                            </div>
-                          )}
-                        </>
-                      ) : (
-                        <Link
-                          href={link.href}
-                          className={`text-base font-medium transition-colors ${
-                            link.highlight
-                              ? pathname === link.href
-                                ? 'bg-orange-500 text-white border-2 border-orange-500 px-2 py-2 rounded-lg inline-flex items-center gap-1.5'
-                                : 'border-2 border-orange-500 text-orange-500 px-2 py-2 rounded-lg inline-flex items-center gap-1.5 hover:bg-orange-500 hover:text-white'
-                              : 'hover:text-orange-500'
-                          } ${
-                            pathname === link.href && !link.highlight
-                              ? 'text-orange-500 font-bold'
-                              : !link.highlight ? 'text-text' : ''
-                          }`}
-                        >
-                          {link.key === 'nav.contact' && <Mail className="h-4 w-4" />}
-                          {getTextContent(link.key)}
-                        </Link>
-                      )}
-                    </div>
-                  ))}
+                          </Link>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
