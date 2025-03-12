@@ -18,11 +18,15 @@ export default function ValuePropositionSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
+<<<<<<< HEAD
             {t('home.features.title').split(' ').map((word, i, arr) =>
               i === arr.length - 1
                 ? <span key={i} className="text-orange-500">{word}</span>
                 : <span key={i}>{word} </span>
             )}
+=======
+            Pourquoi nous <span className="text-orange-500">choisir</span>
+>>>>>>> 64656ee (home and effects)
           </motion.h2>
 
           <motion.div

@@ -2,8 +2,12 @@
 
 import { useTranslation } from "@/lib/context/TranslationContext";
 import { motion } from "framer-motion";
+<<<<<<< HEAD
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+=======
+import { Cpu, Cog, Wrench } from "lucide-react";
+>>>>>>> 64656ee (home and effects)
 
 export default function SolutionsSection() {
   const { t, dir } = useTranslation();
@@ -13,17 +17,29 @@ export default function SolutionsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.h2
+<<<<<<< HEAD
             className="text-3xl md:text-4xl font-bold mb-4 text-text"
+=======
+            className="text-3xl md:text-4xl font-bold mb-4"
+>>>>>>> 64656ee (home and effects)
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
+<<<<<<< HEAD
             {t('home.solutions.title')}
           </motion.h2>
 
           <motion.div
             className="w-24 h-1 bg-primary mx-auto mb-6"
+=======
+            Nos Solutions
+          </motion.h2>
+
+          <motion.div
+            className="w-24 h-1 bg-orange-500 mx-auto mb-6"
+>>>>>>> 64656ee (home and effects)
             initial={{ opacity: 0, width: 0 }}
             whileInView={{ opacity: 1, width: 96 }}
             viewport={{ once: true }}
@@ -31,18 +47,30 @@ export default function SolutionsSection() {
           ></motion.div>
 
           <motion.p
+<<<<<<< HEAD
             className="text-lg text-gray-600 max-w-2xl mx-auto mb-8"
+=======
+            className="text-lg text-gray-600 max-w-2xl mx-auto mb-12"
+>>>>>>> 64656ee (home and effects)
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
+<<<<<<< HEAD
             {t('home.solutions.subtitle')}
+=======
+            Des solutions adaptées à vos besoins industriels
+>>>>>>> 64656ee (home and effects)
           </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+<<<<<<< HEAD
           {/* Solution 1: Automation */}
+=======
+          {/* Automatismes */}
+>>>>>>> 64656ee (home and effects)
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -50,6 +78,7 @@ export default function SolutionsSection() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="group"
           >
+<<<<<<< HEAD
             <div className="bg-white rounded-xl overflow-hidden shadow-lg h-full flex flex-col transform transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl border-t-4 border-primary">
               <div className="p-8">
                 <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 mx-auto">
@@ -72,6 +101,22 @@ export default function SolutionsSection() {
           </motion.div>
 
           {/* Solution 2: Drive Parts */}
+=======
+            <div className="bg-white rounded-2xl p-8 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+              <div>
+                <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-orange-500 transition-colors duration-300">
+                  <Cpu className="h-7 w-7 text-orange-500 group-hover:text-white transition-colors duration-300" />
+                </div>
+                <h3 className="text-xl font-bold mb-4 group-hover:text-orange-500 transition-colors duration-300">Automatismes</h3>
+                <p className="text-gray-600">
+                  Solutions d&apos;automatisation industrielle complètes pour optimiser vos processus de production et améliorer l&apos;efficacité opérationnelle.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Entraînements */}
+>>>>>>> 64656ee (home and effects)
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -79,6 +124,7 @@ export default function SolutionsSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="group"
           >
+<<<<<<< HEAD
             <div className="bg-white rounded-xl overflow-hidden shadow-lg h-full flex flex-col transform transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl border-t-4 border-accent">
               <div className="p-8">
                 <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-6 mx-auto">
@@ -102,6 +148,22 @@ export default function SolutionsSection() {
           </motion.div>
 
           {/* Solution 3: Custom Solutions */}
+=======
+            <div className="bg-white rounded-2xl p-8 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+              <div>
+                <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-orange-500 transition-colors duration-300">
+                  <Cog className="h-7 w-7 text-orange-500 group-hover:text-white transition-colors duration-300" />
+                </div>
+                <h3 className="text-xl font-bold mb-4 group-hover:text-orange-500 transition-colors duration-300">Entraînements</h3>
+                <p className="text-gray-600">
+                  Composants et pièces d&apos;entraînement de haute qualité pour assurer la performance et la fiabilité de vos équipements industriels.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Sur Mesure */}
+>>>>>>> 64656ee (home and effects)
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -109,6 +171,7 @@ export default function SolutionsSection() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="group"
           >
+<<<<<<< HEAD
             <div className="bg-white rounded-xl overflow-hidden shadow-lg h-full flex flex-col transform transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl border-t-4 border-accent-secondary">
               <div className="p-8">
                 <div className="w-16 h-16 bg-accent-secondary/20 rounded-full flex items-center justify-center mb-6 mx-auto">
@@ -127,6 +190,18 @@ export default function SolutionsSection() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </div>
+=======
+            <div className="bg-white rounded-2xl p-8 h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+              <div>
+                <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-orange-500 transition-colors duration-300">
+                  <Wrench className="h-7 w-7 text-orange-500 group-hover:text-white transition-colors duration-300" />
+                </div>
+                <h3 className="text-xl font-bold mb-4 group-hover:text-orange-500 transition-colors duration-300">Sur Mesure</h3>
+                <p className="text-gray-600">
+                  Solutions sur mesure adaptées à vos besoins spécifiques, conçues pour répondre aux défis uniques de votre industrie.
+                </p>
+              </div>
+>>>>>>> 64656ee (home and effects)
             </div>
           </motion.div>
         </div>

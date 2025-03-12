@@ -2,6 +2,7 @@
 
 import { Droplet, Beaker, Apple, Bot } from "lucide-react";
 import { useTranslation } from "@/lib/context/TranslationContext";
+import { motion } from "framer-motion";
 
 export default function ExpertiseSection() {
   const { t, dir } = useTranslation();
@@ -10,11 +11,34 @@ export default function ExpertiseSection() {
     <section className="py-20 bg-gray-50" dir={dir}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Secteurs d'Expertise</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <motion.h2
+            className="text-3xl font-bold mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Secteurs d'Expertise
+          </motion.h2>
+
+          <motion.div
+            className="w-24 h-1 bg-orange-500 mx-auto mb-6"
+            initial={{ opacity: 0, width: 0 }}
+            whileInView={{ opacity: 1, width: 96 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          ></motion.div>
+
+          <motion.p
+            className="text-gray-600 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             Nous proposons des solutions spécialisées pour répondre aux besoins spécifiques
             de différents secteurs industriels.
-          </p>
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

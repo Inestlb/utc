@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Calendar, User, Tag, Share2 } from 'lucide-react';
+import { useTranslation } from '@/lib/context/TranslationContext';
 
 // In a real application, this would come from a CMS or API
 const blogPosts = [
@@ -151,6 +152,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const { t } = useTranslation();
   const post = blogPosts.find((post) => post.slug === params.slug);
 
   if (!post) {
@@ -277,7 +279,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                       href={`/blog/${relatedPost?.slug}`}
                       className="text-primary font-medium flex items-center hover:underline"
                     >
-                      Lire Plus
+                      {t('button.readMore')}
                       <ArrowLeft className="ml-1 h-4 w-4 rotate-180" />
                     </Link>
                   </div>

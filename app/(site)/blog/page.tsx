@@ -225,22 +225,6 @@ export default function PartnersPage() {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="py-14 bg-orange-500 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Besoin de Solutions Industrielles?</h2>
-          <p className="text-lg mb-6 max-w-2xl mx-auto">
-            Contactez-nous dès aujourd&apos;hui pour découvrir comment nos partenariats stratégiques peuvent vous aider à optimiser vos processus industriels et à améliorer votre productivité.
-          </p>
-          <Button asChild size="lg" className="bg-white text-orange-500 hover:bg-gray-100">
-            <Link href="/contact">
-              Demander un Devis
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
-      </section>
     </>
   );
 }

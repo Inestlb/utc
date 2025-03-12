@@ -175,7 +175,7 @@ const translations: Translations = {
     ar: 'طلب عرض سعر'
   },
   'button.readMore': {
-    fr: 'Lire plus',
+    fr: 'En savoir plus',
     ar: 'قراءة المزيد'
   },
   'button.viewAll': {

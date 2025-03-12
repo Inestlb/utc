@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/context/TranslationContext";
 import { Partner } from "@/lib/types";
+import { motion } from "framer-motion";
 
 interface PartnersSectionProps {
   partners: Partner[];
@@ -19,10 +20,33 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
       <section className="py-20 bg-gray-50" dir={dir}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">{t('partners.title')}</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <motion.h2
+              className="text-3xl font-bold mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              {t('partners.title')}
+            </motion.h2>
+
+            <motion.div
+              className="w-24 h-1 bg-orange-500 mx-auto mb-6"
+              initial={{ opacity: 0, width: 0 }}
+              whileInView={{ opacity: 1, width: 96 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            ></motion.div>
+
+            <motion.p
+              className="text-gray-600 max-w-2xl mx-auto"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
               {t('partners.subtitle')}
-            </p>
+            </motion.p>
           </div>
 
           <div className="flex justify-center items-center">
