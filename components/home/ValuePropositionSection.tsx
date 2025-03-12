@@ -18,15 +18,7 @@ export default function ValuePropositionSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-<<<<<<< HEAD
-            {t('home.features.title').split(' ').map((word, i, arr) =>
-              i === arr.length - 1
-                ? <span key={i} className="text-orange-500">{word}</span>
-                : <span key={i}>{word} </span>
-            )}
-=======
             Pourquoi nous <span className="text-orange-500">choisir</span>
->>>>>>> 64656ee (home and effects)
           </motion.h2>
 
           <motion.div
@@ -66,7 +58,7 @@ export default function ValuePropositionSection() {
               <h3 className="text-xl font-bold mb-4 text-center">Assurance Qualité</h3>
               <p className="text-gray-600 text-center">
                 Tous nos produits subissent des tests rigoureux et un contrôle de qualité pour garantir
-                qu'ils répondent aux normes et spécifications internationales.
+                qu&apos;ils répondent aux normes et spécifications internationales.
               </p>
               <div className="mt-6 pt-6 border-t border-gray-100">
                 <ul className="space-y-2">
@@ -139,7 +131,7 @@ export default function ValuePropositionSection() {
               </div>
               <h3 className="text-xl font-bold mb-4 text-center">Support Technique</h3>
               <p className="text-gray-600 text-center">
-                Notre équipe d'experts fournit un support technique complet et
+                Notre équipe d&apos;experts fournit un support technique complet et
                 des consultations pour tous nos produits et solutions.
               </p>
               <div className="mt-6 pt-6 border-t border-gray-100">
