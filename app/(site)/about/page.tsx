@@ -118,15 +118,15 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary text-white">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Rejoignez Notre Réseau</h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-6 text-gray-900">Rejoignez Notre Réseau</h2>
+          <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-600">
             Que vous recherchiez des équipements industriels ou des opportunités de partenariat,
             nous sommes là pour vous aider à réussir sur le marché mondial.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-white text-primary hover:bg-gray-100">
+            <Button asChild size="lg" className="bg-white border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300">
               <Link href="/contact">
                 Contactez-Nous
                 <ArrowRight className="ml-2 h-5 w-5" />

@@ -60,22 +60,6 @@ export default function ValuePropositionSection() {
                 Tous nos produits subissent des tests rigoureux et un contrôle de qualité pour garantir
                 qu&apos;ils répondent aux normes et spécifications internationales.
               </p>
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">✓</span>
-                    <span className="text-sm text-gray-600">Certifications internationales</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">✓</span>
-                    <span className="text-sm text-gray-600">Tests de performance</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">✓</span>
-                    <span className="text-sm text-gray-600">Garantie fabricant</span>
-                  </li>
-                </ul>
-              </div>
             </div>
           </motion.div>
 
@@ -97,22 +81,6 @@ export default function ValuePropositionSection() {
                 Nous offrons une expédition mondiale avec des solutions logistiques efficaces, garantissant
                 que vos commandes arrivent à temps et en parfait état.
               </p>
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">✓</span>
-                    <span className="text-sm text-gray-600">Livraison rapide</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">✓</span>
-                    <span className="text-sm text-gray-600">Suivi en temps réel</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">✓</span>
-                    <span className="text-sm text-gray-600">Emballage sécurisé</span>
-                  </li>
-                </ul>
-              </div>
             </div>
           </motion.div>
 
@@ -134,22 +102,6 @@ export default function ValuePropositionSection() {
                 Notre équipe d&apos;experts fournit un support technique complet et
                 des consultations pour tous nos produits et solutions.
               </p>
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">✓</span>
-                    <span className="text-sm text-gray-600">Assistance 24/7</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">✓</span>
-                    <span className="text-sm text-gray-600">Experts qualifiés</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">✓</span>
-                    <span className="text-sm text-gray-600">Documentation complète</span>
-                  </li>
-                </ul>
-              </div>
             </div>
           </motion.div>
         </div>
