@@ -216,7 +216,7 @@ export default function Navbar() {
               className={`text-sm font-medium transition-all duration-300 rounded-lg px-4 py-2 flex items-center gap-1.5 ${
                 pathname === contactLink.href
                   ? 'bg-orange-500 text-white'
-                  : 'border border-gray-300 text-text hover:border-orange-500 hover:text-orange-500'
+                  : 'bg-orange-500 text-white hover:bg-orange-600'
               }`}
             >
               <Mail className="h-4 w-4" />

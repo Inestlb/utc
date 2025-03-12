@@ -1,19 +1,11 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Globe } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
 import { useTranslation, Language } from '@/lib/context/TranslationContext';
+import { motion } from 'framer-motion';
 
 export default function LanguageSelector() {
   const { language, setLanguage, isClient } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   // Mark component as mounted on client
@@ -21,54 +13,55 @@ export default function LanguageSelector() {
     setMounted(true);
   }, []);
 
-  const handleLanguageChange = (lang: Language) => {
-    setLanguage(lang);
-    setIsOpen(false);
+  const handleLanguageChange = () => {
+    setLanguage(language === 'fr' ? 'ar' : 'fr');
   };
 
   // Static button for server-side rendering
-  const staticButton = (
-    <Button
-      variant="ghost"
-      size="sm"
-      className="flex items-center gap-1 px-2 py-1 rounded-md hover:bg-gray-100"
-    >
-      <Globe className="h-4 w-4 text-orange-500" />
-      <span className="text-sm font-medium">FR</span>
-    </Button>
+  const staticSwitch = (
+    <div className="relative w-[90px] h-[40px] bg-gray-100 rounded-full cursor-pointer">
+      <div className="absolute left-1 top-1 w-[34px] h-[34px] bg-white rounded-full shadow-md flex items-center justify-center">
+        <span className="text-sm font-medium text-gray-600">FR</span>
+      </div>
+    </div>
   );
 
   // Don't render dynamic content until client-side hydration is complete
   if (!isClient || !mounted) {
-    return staticButton;
+    return staticSwitch;
   }
 
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="flex items-center gap-1 px-2 py-1 rounded-md hover:bg-gray-100"
-        >
-          <Globe className="h-4 w-4 text-orange-500" />
-          <span className="text-sm font-medium">{language.toUpperCase()}</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-32">
-        <DropdownMenuItem
-          className={`${language === 'fr' ? 'text-orange-500 font-medium bg-orange-50' : ''}`}
-          onClick={() => handleLanguageChange('fr')}
-        >
-          Français
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className={`${language === 'ar' ? 'text-orange-500 font-medium bg-orange-50' : ''}`}
-          onClick={() => handleLanguageChange('ar')}
-        >
-          العربية
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div
+      onClick={handleLanguageChange}
+      className="relative w-[90px] h-[40px] bg-gray-100 rounded-full cursor-pointer select-none hover:bg-gray-200 transition-colors duration-200"
+    >
+      {/* Background text */}
+      <div className="absolute inset-0 flex items-center justify-between px-3 font-medium">
+        <span className={`text-sm transition-colors duration-200 ${
+          language === 'fr' 
+            ? 'opacity-0' 
+            : 'text-gray-600'
+        }`}>FR</span>
+        <span className={`text-sm transition-colors duration-200 ${
+          language === 'ar' 
+            ? 'opacity-0' 
+            : 'text-gray-600'
+        }`} dir="rtl">ع</span>
+      </div>
+      
+      {/* Animated circle */}
+      <motion.div
+        className="absolute top-1 w-[34px] h-[34px] bg-white rounded-full shadow-md flex items-center justify-center"
+        animate={{
+          left: language === 'fr' ? '4px' : 'calc(100% - 38px)',
+        }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+      >
+        <span className="text-sm font-medium text-gray-600">
+          {language === 'fr' ? 'FR' : 'ع'}
+        </span>
+      </motion.div>
+    </div>
   );
 }
