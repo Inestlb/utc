@@ -52,7 +52,7 @@ export default function PartnersPage() {
         <div className="container relative mx-auto px-4 z-10">
           <div className="max-w-3xl">
             <h1 className="text-4xl font-bold mb-4 text-white">
-              Nos <span className="text-orange-500">Partenaires</span> de Confiance
+              Nos <span className="text-orange-500">Partenaires</span>
             </h1>
             <div className="w-20 h-1 bg-orange-500 mb-5"></div>
             <p className="text-lg text-gray-200 mb-4 leading-relaxed">

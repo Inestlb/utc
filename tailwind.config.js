@@ -51,6 +51,7 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-inter)', ...fontFamily.sans],
         heading: ['var(--font-poppins)', ...fontFamily.sans],
+        arabic: ['Tajawal', 'Cairo', 'Noto Sans Arabic', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

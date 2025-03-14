@@ -12,6 +12,18 @@ const staticTranslations: Record<string, string> = {
   'nav.partners': 'Partenaires',
   'nav.contact': 'Contact',
   'footer.rights': 'Tous droits réservés',
+  'footer.company': 'UTC Industrie',
+  'footer.quickLinks': 'Liens Rapides',
+  'footer.productCategories': 'Catégories de Produits',
+  'footer.description': 'Fournisseur de produits industriels de haute qualité pour l\'exportation mondiale depuis 1985.',
+  'footer.privacy': 'Politique de Confidentialité',
+  'footer.terms': 'Conditions d\'Utilisation',
+  'footer.sitemap': 'Plan du Site',
+  'products.categories.pumps': 'Pompes',
+  'products.categories.valves': 'Vannes',
+  'products.categories.compressors': 'Compresseurs',
+  'products.categories.exchangers': 'Échangeurs de Chaleur',
+  'products.categories.filtration': 'Systèmes de Filtration',
 };
 
 export default function Footer() {
@@ -31,15 +43,19 @@ export default function Footer() {
         <div className="flex flex-wrap -mx-3">
           {/* Company Info */}
           <div className="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
-            <h3 className="text-xl font-bold mb-3 text-orange-500">UTC Industrie</h3>
+            <h3 className="text-xl font-bold mb-3 text-orange-500">
+              {getTextContent('footer.company')}
+            </h3>
             <p className="text-gray-400">
-              Fournisseur de produits industriels de haute qualité pour l&apos;exportation mondiale depuis 1985.
+              {getTextContent('footer.description')}
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
-            <h3 className="text-lg font-semibold mb-3">Liens <span className="text-orange-500">Rapides</span></h3>
+            <h3 className="text-lg font-semibold mb-3">
+              {getTextContent('footer.quickLinks')}
+            </h3>
             <ul className="space-y-1">
               <li>
                 <Link href="/" className="text-gray-400 hover:text-orange-500 transition-colors">
@@ -71,31 +87,33 @@ export default function Footer() {
 
           {/* Product Categories */}
           <div className="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
-            <h3 className="text-lg font-semibold mb-3">Catégories de <span className="text-orange-500">Produits</span></h3>
+            <h3 className="text-lg font-semibold mb-3">
+              {getTextContent('footer.productCategories')}
+            </h3>
             <ul className="space-y-1">
               <li>
                 <Link href="/products?category=Pumps" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Pompes
+                  {getTextContent('products.categories.pumps')}
                 </Link>
               </li>
               <li>
                 <Link href="/products?category=Valves" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Vannes
+                  {getTextContent('products.categories.valves')}
                 </Link>
               </li>
               <li>
                 <Link href="/products?category=Compressors" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Compresseurs
+                  {getTextContent('products.categories.compressors')}
                 </Link>
               </li>
               <li>
                 <Link href="/products?category=Heat Exchangers" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Échangeurs de Chaleur
+                  {getTextContent('products.categories.exchangers')}
                 </Link>
               </li>
               <li>
                 <Link href="/products?category=Filtration" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  Systèmes de Filtration
+                  {getTextContent('products.categories.filtration')}
                 </Link>
               </li>
             </ul>
@@ -103,22 +121,24 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div className="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
-            <h3 className="text-lg font-semibold mb-3"><span className="text-orange-500">Contactez</span>-Nous</h3>
+            <h3 className="text-lg font-semibold mb-3">
+              {getTextContent('nav.contact')}
+            </h3>
             <ul className="space-y-2">
               <li className="flex items-start">
-                <MapPin className="mr-2 h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+                <MapPin className={`mr-2 h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5 ${dir === 'rtl' ? 'ml-2 mr-0' : ''}`} />
                 <span className="text-gray-400">
-                450 Rue Baden Powell, Espace Optimum, Montpellier, 34000
+                  450 Rue Baden Powell, Espace Optimum, Montpellier, 34000
                 </span>
               </li>
               <li className="flex items-center">
-                <Phone className="mr-2 h-5 w-5 text-orange-500 flex-shrink-0" />
+                <Phone className={`mr-2 h-5 w-5 text-orange-500 flex-shrink-0 ${dir === 'rtl' ? 'ml-2 mr-0' : ''}`} />
                 <a href="tel:+1234567890" className="text-gray-400 hover:text-orange-500 transition-colors">
                   +1 (234) 567-890
                 </a>
               </li>
               <li className="flex items-center">
-                <Mail className="mr-2 h-5 w-5 text-orange-500 flex-shrink-0" />
+                <Mail className={`mr-2 h-5 w-5 text-orange-500 flex-shrink-0 ${dir === 'rtl' ? 'ml-2 mr-0' : ''}`} />
                 <a href="mailto:info@industrialexport.com" className="text-gray-400 hover:text-orange-500 transition-colors">
                   info@industrialexport.com
                 </a>
@@ -130,17 +150,17 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-4 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              &copy; {new Date().getFullYear()} UTC Industrie. {getTextContent('footer.rights')}
+              &copy; {new Date().getFullYear()} {getTextContent('footer.company')}. {getTextContent('footer.rights')}
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link href="/privacy-policy" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                Politique de Confidentialité
+                {getTextContent('footer.privacy')}
               </Link>
               <Link href="/terms-of-service" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                Conditions d&apos;Utilisation
+                {getTextContent('footer.terms')}
               </Link>
               <Link href="/sitemap" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
-                Plan du Site
+                {getTextContent('footer.sitemap')}
               </Link>
             </div>
           </div>

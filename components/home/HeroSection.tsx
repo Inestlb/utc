@@ -59,11 +59,6 @@ export default function HeroSection() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button asChild size="lg" className="bg-white text-gray-900 hover:bg-gray-100 transition-colors duration-300">
-              <Link href="/contact">
-                {t('button.contact')}
-              </Link>
-            </Button>
           </motion.div>
         </div>
       </div>
