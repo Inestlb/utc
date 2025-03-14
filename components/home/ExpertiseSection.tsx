@@ -18,7 +18,7 @@ export default function ExpertiseSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            Secteurs d'Expertise
+            {t('expertise.title')}
           </motion.h2>
 
           <motion.div
@@ -36,8 +36,7 @@ export default function ExpertiseSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            Nous proposons des solutions spécialisées pour répondre aux besoins spécifiques
-            de différents secteurs industriels.
+            {t('expertise.description')}
           </motion.p>
         </div>
 
@@ -47,10 +46,11 @@ export default function ExpertiseSection() {
             <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto group-hover:bg-orange-100">
               <Droplet className="h-8 w-8 text-blue-600 group-hover:text-orange-500" />
             </div>
-            <h3 className="text-xl font-semibold mb-4 text-center group-hover:text-orange-500">Hygiène</h3>
+            <h3 className="text-xl font-semibold mb-4 text-center group-hover:text-orange-500">
+              {t('expertise.hygiene.title')}
+            </h3>
             <p className="text-gray-600 text-center">
-              Équipements et solutions pour les industries nécessitant des normes d'hygiène strictes,
-              avec des matériaux conformes aux réglementations sanitaires.
+              {t('expertise.hygiene.description')}
             </p>
           </div>
 
@@ -59,10 +59,11 @@ export default function ExpertiseSection() {
             <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto group-hover:bg-orange-100">
               <Beaker className="h-8 w-8 text-green-600 group-hover:text-orange-500" />
             </div>
-            <h3 className="text-xl font-semibold mb-4 text-center group-hover:text-orange-500">Pharmaceutique</h3>
+            <h3 className="text-xl font-semibold mb-4 text-center group-hover:text-orange-500">
+              {t('expertise.pharmaceutical.title')}
+            </h3>
             <p className="text-gray-600 text-center">
-              Solutions de précision pour l'industrie pharmaceutique, respectant les normes GMP
-              et assurant la fiabilité des processus de production.
+              {t('expertise.pharmaceutical.description')}
             </p>
           </div>
 
@@ -71,10 +72,11 @@ export default function ExpertiseSection() {
             <div className="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto group-hover:bg-orange-100">
               <Apple className="h-8 w-8 text-yellow-600 group-hover:text-orange-500" />
             </div>
-            <h3 className="text-xl font-semibold mb-4 text-center group-hover:text-orange-500">Agroalimentaire</h3>
+            <h3 className="text-xl font-semibold mb-4 text-center group-hover:text-orange-500">
+              {t('expertise.food.title')}
+            </h3>
             <p className="text-gray-600 text-center">
-              Équipements spécialisés pour la transformation, le conditionnement et la conservation
-              des produits alimentaires, conformes aux normes HACCP.
+              {t('expertise.food.description')}
             </p>
           </div>
 
@@ -83,10 +85,11 @@ export default function ExpertiseSection() {
             <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto group-hover:bg-orange-100">
               <Bot className="h-8 w-8 text-purple-600 group-hover:text-orange-500" />
             </div>
-            <h3 className="text-xl font-semibold mb-4 text-center group-hover:text-orange-500">Robotique</h3>
+            <h3 className="text-xl font-semibold mb-4 text-center group-hover:text-orange-500">
+              {t('expertise.robotics.title')}
+            </h3>
             <p className="text-gray-600 text-center">
-              Solutions d'automatisation et de robotique industrielle pour optimiser les processus
-              de production et améliorer l'efficacité opérationnelle.
+              {t('expertise.robotics.description')}
             </p>
           </div>
         </div>

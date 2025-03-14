@@ -39,8 +39,8 @@ const translations: Translations = {
 
   // Search
   'search.placeholder': {
-    fr: 'Rechercher...',
-    ar: 'بحث...'
+    fr: 'Rechercher un produit',
+    ar: 'البحث عن منتج'
   },
 
   // Home Page
@@ -186,6 +186,234 @@ const translations: Translations = {
     fr: 'Tous droits réservés',
     ar: 'جميع الحقوق محفوظة'
   },
+
+  // Footer
+  'footer.company': {
+    fr: 'UTC Industrie',
+    ar: 'يو تي سي للصناعة'
+  },
+  'footer.description': {
+    fr: 'Fournisseur de produits industriels de haute qualité pour l\'exportation mondiale depuis 1985.',
+    ar: 'مورد منتجات صناعية عالية الجودة للتصدير العالمي منذ عام 1985'
+  },
+  'footer.quickLinks': {
+    fr: 'Liens Rapides',
+    ar: 'روابط سريعة'
+  },
+  'footer.productCategories': {
+    fr: 'Catégories de Produits',
+    ar: 'فئات المنتجات'
+  },
+  'footer.privacy': {
+    fr: 'Politique de Confidentialité',
+    ar: 'سياسة الخصوصية'
+  },
+  'footer.terms': {
+    fr: 'Conditions d\'Utilisation',
+    ar: 'شروط الاستخدام'
+  },
+  'footer.sitemap': {
+    fr: 'Plan du Site',
+    ar: 'خريطة الموقع'
+  },
+  'products.categories.pumps': {
+    fr: 'Pompes',
+    ar: 'مضخات'
+  },
+  'products.categories.valves': {
+    fr: 'Vannes',
+    ar: 'صمامات'
+  },
+  'products.categories.compressors': {
+    fr: 'Compresseurs',
+    ar: 'ضواغط'
+  },
+  'products.categories.exchangers': {
+    fr: 'Échangeurs de Chaleur',
+    ar: 'مبادلات حرارية'
+  },
+  'products.categories.filtration': {
+    fr: 'Systèmes de Filtration',
+    ar: 'أنظمة التصفية'
+  },
+
+  // Expertise Sections
+  'expertise.hygiene': {
+    fr: 'Hygiène',
+    ar: 'النظافة'
+  },
+  'expertise.pharmaceutical': {
+    fr: 'Pharmaceutique',
+    ar: 'الصيدلة'
+  },
+  'expertise.food': {
+    fr: 'Agroalimentaire',
+    ar: 'الصناعات الغذائية'
+  },
+  'expertise.robotics': {
+    fr: 'Robotique',
+    ar: 'الروبوتات'
+  },
+
+  // Value Propositions
+  'value.qualityAssurance': {
+    fr: 'Assurance Qualité',
+    ar: 'ضمان الجودة'
+  },
+  'value.worldwideShipping': {
+    fr: 'Expédition Mondiale',
+    ar: 'شحن عالمي'
+  },
+  'value.technicalSupport': {
+    fr: 'Support Technique',
+    ar: 'الدعم الفني'
+  },
+
+  // Solutions
+  'solutions.automation': {
+    fr: 'Automatismes',
+    ar: 'أنظمة التحكم الآلي'
+  },
+  'solutions.drives': {
+    fr: 'Entraînements',
+    ar: 'المحركات'
+  },
+  'solutions.custom': {
+    fr: 'Sur Mesure',
+    ar: 'حلول مخصصة'
+  },
+
+  // About Page
+  'about.ourHistory': {
+    fr: 'Notre Histoire',
+    ar: 'تاريخنا'
+  },
+  'about.companyImage': {
+    fr: 'Image de l\'entreprise',
+    ar: 'صورة الشركة'
+  },
+  'about.qualityExcellence': {
+    fr: 'Excellence de Qualité',
+    ar: 'التميز في الجودة'
+  },
+  'about.customerOrientation': {
+    fr: 'Orientation Client',
+    ar: 'التوجه نحو العملاء'
+  },
+  'about.globalPerspective': {
+    fr: 'Perspective Mondiale',
+    ar: 'رؤية عالمية'
+  },
+  'about.joinNetwork': {
+    fr: 'Rejoignez Notre Réseau',
+    ar: 'انضم إلى شبكتنا'
+  },
+
+  // Contact Page
+  'contact.companyInfo': {
+    fr: 'Informations de l\'Entreprise',
+    ar: 'معلومات الشركة'
+  },
+  'contact.address': {
+    fr: 'Adresse',
+    ar: 'العنوان'
+  },
+  'contact.phone': {
+    fr: 'Téléphone',
+    ar: 'الهاتف'
+  },
+
+  // Products Page
+  'products.browse': {
+    fr: 'Parcourez notre catalogue complet de produits industriels conçus pour la fiabilité, l\'efficacité et la performance.',
+    ar: 'تصفح كتالوج منتجاتنا الصناعية الكاملة المصممة للموثوقية والكفاءة والأداء.'
+  },
+  'products.filters': {
+    fr: 'Filtres',
+    ar: 'التصفية'
+  },
+  'products.categories': {
+    fr: 'Catégories',
+    ar: 'الفئات'
+  },
+  'products.noCategories': {
+    fr: 'Aucune catégorie disponible',
+    ar: 'لا توجد فئات متاحة'
+  },
+  'products.specifications': {
+    fr: 'Spécifications',
+    ar: 'المواصفات'
+  },
+  'products.related': {
+    fr: 'Produits Associés',
+    ar: 'منتجات ذات صلة'
+  },
+
+  // Common UI
+  'ui.close': {
+    fr: 'Fermer',
+    ar: 'إغلاق'
+  },
+  'ui.share': {
+    fr: 'Partager',
+    ar: 'مشاركة'
+  },
+  'ui.image': {
+    fr: 'Image',
+    ar: 'صورة'
+  },
+  'ui.photo': {
+    fr: 'Photo',
+    ar: 'صورة'
+  },
+
+  // Error Pages
+  'error.notFound': {
+    fr: 'Page Non Trouvée',
+    ar: 'الصفحة غير موجودة'
+  },
+
+  // Expertise Section
+  'expertise.title': {
+    fr: 'Secteurs d\'Expertise',
+    ar: 'مجالات الخبرة'
+  },
+  'expertise.description': {
+    fr: 'Nous proposons des solutions spécialisées pour répondre aux besoins spécifiques de différents secteurs industriels.',
+    ar: 'نقدم حلولاً متخصصة لتلبية الاحتياجات المحددة لمختلف القطاعات الصناعية'
+  },
+  'expertise.hygiene.title': {
+    fr: 'Hygiène',
+    ar: 'النظافة'
+  },
+  'expertise.hygiene.description': {
+    fr: 'Équipements et solutions pour les industries nécessitant des normes d\'hygiène strictes, avec des matériaux conformes aux réglementations sanitaires.',
+    ar: 'معدات وحلول للصناعات التي تتطلب معايير نظافة صارمة، مع مواد متوافقة مع اللوائح الصحية'
+  },
+  'expertise.pharmaceutical.title': {
+    fr: 'Pharmaceutique',
+    ar: 'الصناعات الدوائية'
+  },
+  'expertise.pharmaceutical.description': {
+    fr: 'Solutions de précision pour l\'industrie pharmaceutique, respectant les normes GMP et assurant la fiabilité des processus de production.',
+    ar: 'حلول دقيقة للصناعات الدوائية، تلتزم بمعايير التصنيع الجيد وتضمن موثوقية عمليات الإنتاج'
+  },
+  'expertise.food.title': {
+    fr: 'Agroalimentaire',
+    ar: 'الصناعات الغذائية'
+  },
+  'expertise.food.description': {
+    fr: 'Équipements spécialisés pour la transformation, le conditionnement et la conservation des produits alimentaires, conformes aux normes HACCP.',
+    ar: 'معدات متخصصة لتصنيع وتعبئة وحفظ المنتجات الغذائية، متوافقة مع معايير تحليل المخاطر ونقاط التحكم الحرجة'
+  },
+  'expertise.robotics.title': {
+    fr: 'Robotique',
+    ar: 'الروبوتات'
+  },
+  'expertise.robotics.description': {
+    fr: 'Solutions d\'automatisation et de robotique industrielle pour optimiser les processus de production et améliorer l\'efficacité opérationnelle.',
+    ar: 'حلول الأتمتة والروبوتات الصناعية لتحسين عمليات الإنتاج وتحسين الكفاءة التشغيلية'
+  },
 };
 
 // Define the context type
@@ -202,24 +430,50 @@ const TranslationContext = createContext<TranslationContextType | undefined>(und
 
 // Provider component
 export function TranslationProvider({ children }: { children: ReactNode }) {
-  // Default language state
   const [language, setLanguage] = useState<Language>('fr');
   const [dir, setDir] = useState<string>('ltr');
   const [isClient, setIsClient] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Handle client-side hydration
+  // Function to detect user's browser language
+  const detectBrowserLanguage = (): Language => {
+    if (typeof window === 'undefined') return 'fr';
+    
+    const storedLang = localStorage.getItem('preferredLanguage') as Language;
+    if (storedLang && (storedLang === 'fr' || storedLang === 'ar')) {
+      return storedLang;
+    }
+
+    const browserLang = navigator.language.toLowerCase();
+    if (browserLang.startsWith('ar')) return 'ar';
+    return 'fr'; // Default to French for all other languages
+  };
+
+  // Handle client-side hydration and language detection
   useEffect(() => {
     setIsClient(true);
     setMounted(true);
+    const detectedLang = detectBrowserLanguage();
+    setLanguage(detectedLang);
   }, []);
 
-  // Update document direction when language changes
+  // Update document direction and store language preference when language changes
   useEffect(() => {
     if (typeof document !== 'undefined' && mounted) {
-      setDir(language === 'ar' ? 'rtl' : 'ltr');
-      document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+      const isArabic = language === 'ar';
+      setDir(isArabic ? 'rtl' : 'ltr');
+      document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
       document.documentElement.lang = language;
+      
+      // Update font family based on language
+      if (isArabic) {
+        document.documentElement.classList.add('font-arabic');
+      } else {
+        document.documentElement.classList.remove('font-arabic');
+      }
+
+      // Store language preference
+      localStorage.setItem('preferredLanguage', language);
     }
   }, [language, mounted]);
 

@@ -45,6 +45,38 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* RTL and Arabic Font Styles */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .font-arabic {
+  font-family: var(--font-noto-arabic), var(--font-cairo), sans-serif;
+}
+
+/* Flip icons and arrows in RTL mode */
+[dir="rtl"] .transform-flip {
+  transform: scaleX(-1);
+}
+
+/* Adjust margins and paddings for RTL */
+[dir="rtl"] .ml-auto {
+  margin-left: unset;
+  margin-right: auto;
+}
+
+[dir="rtl"] .mr-auto {
+  margin-right: unset;
+  margin-left: auto;
+}
+
+[dir="rtl"] .space-x-1 > :not([hidden]) ~ :not([hidden]),
+[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]),
+[dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]),
+[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
