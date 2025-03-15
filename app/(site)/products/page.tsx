@@ -43,7 +43,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
   return (
     <div className="py-12">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-2 sm:px-3 lg:px-4 max-w-[1400px]">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-4">Nos Produits</h1>
           <p className="text-gray-600 max-w-3xl">
