@@ -49,176 +49,186 @@ export default function PartnersPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"></div>
 
         {/* Content */}
-        <div className="container relative mx-auto px-4 z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl font-bold mb-4 text-white">
-              Nos <span className="text-orange-500">Partenaires</span>
-            </h1>
-            <div className="w-20 h-1 bg-orange-500 mb-5"></div>
-            <p className="text-lg text-gray-200 mb-4 leading-relaxed">
-              Nous collaborons avec des leaders mondiaux de l&apos;industrie pour vous offrir des solutions de haute qualité et des technologies innovantes qui répondent à vos besoins spécifiques.
-            </p>
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-[1600px]">
+            <div className="px-4">
+              <div className="max-w-3xl relative z-10">
+                <h1 className="text-4xl font-bold mb-4 text-white">
+                  Nos <span className="text-orange-500">Partenaires</span>
+                </h1>
+                <div className="w-20 h-1 bg-orange-500 mb-5"></div>
+                <p className="text-lg text-gray-200 mb-4 leading-relaxed">
+                  Nous collaborons avec des leaders mondiaux de l'industrie pour vous offrir des solutions de haute qualité et des technologies innovantes qui répondent à vos besoins spécifiques.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Partners Section */}
       <section id="partners" className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 gap-16">
-            {partners.map((partner, index) => (
-              <div key={partner.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
-                <div className="bg-gray-50 rounded-lg p-12 flex items-center justify-center h-80">
-                  {partner.name === "IFM" ? (
-                    <Image
-                      src="/images/logo-ifm.svg"
-                      alt="IFM"
-                      width={250}
-                      height={250}
-                      className="object-contain"
-                    />
-                  ) : partner.name === "Lenze" ? (
-                    <Image
-                      src="/images/logo-Lenze.svg"
-                      alt="Lenze"
-                      width={250}
-                      height={76}
-                      className="object-contain"
-                    />
-                  ) : partner.name === "Wago" ? (
-                    <Image
-                      src="/images/logo-WAGO.svg"
-                      alt="Wago"
-                      width={250}
-                      height={90}
-                      className="object-contain"
-                    />
-                  ) : (
-                    <div className="font-bold text-5xl text-gray-800">{partner.name}</div>
-                  )}
-                </div>
-                <div>
-                  <h3 className="text-3xl font-bold mb-4">{partner.name}</h3>
-                  <p className="text-gray-600 mb-6">
-                    {partner.description}
-                  </p>
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-[1600px]">
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 gap-16">
+                {partners.map((partner, index) => (
+                  <div key={partner.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+                    <div className="bg-gray-50 rounded-lg p-12 flex items-center justify-center h-80">
+                      {partner.name === "IFM" ? (
+                        <Image
+                          src="/images/logo-ifm.svg"
+                          alt="IFM"
+                          width={250}
+                          height={250}
+                          className="object-contain"
+                        />
+                      ) : partner.name === "Lenze" ? (
+                        <Image
+                          src="/images/logo-Lenze.svg"
+                          alt="Lenze"
+                          width={250}
+                          height={76}
+                          className="object-contain"
+                        />
+                      ) : partner.name === "Wago" ? (
+                        <Image
+                          src="/images/logo-WAGO.svg"
+                          alt="Wago"
+                          width={250}
+                          height={90}
+                          className="object-contain"
+                        />
+                      ) : (
+                        <div className="font-bold text-5xl text-gray-800">{partner.name}</div>
+                      )}
+                    </div>
+                    <div>
+                      <h3 className="text-3xl font-bold mb-4">{partner.name}</h3>
+                      <p className="text-gray-600 mb-6">
+                        {partner.description}
+                      </p>
 
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-lg mb-2">Spécialités:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {partner.specialties.map((specialty, i) => (
-                        <span key={i} className="bg-orange-100 text-orange-700 text-sm px-3 py-1 rounded-full">
-                          {specialty}
-                        </span>
-                      ))}
+                      <div className="mb-6">
+                        <h4 className="font-semibold text-lg mb-2">Spécialités:</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {partner.specialties.map((specialty, i) => (
+                            <span key={i} className="bg-orange-100 text-orange-700 text-sm px-3 py-1 rounded-full">
+                              {specialty}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
                     </div>
                   </div>
-
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Partnership Benefits - Completely Redesigned */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Pourquoi Choisir Nos <span className="text-orange-500">Partenaires</span></h2>
-            <div className="w-24 h-1 bg-orange-500 mx-auto mb-5"></div>
-            <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-              Notre réseau de partenaires stratégiques nous permet de vous offrir des solutions industrielles complètes et de haute qualité, adaptées à vos besoins spécifiques.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {/* Card 1 */}
-            <div className="bg-white rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-              <div className="h-3 bg-orange-500"></div>
-              <div className="p-8">
-                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <CheckCircle className="h-8 w-8 text-orange-500" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-center">Qualité Garantie</h3>
-                <p className="text-gray-600 text-center">
-                  Nos partenaires sont des leaders mondiaux reconnus pour la qualité et la fiabilité de leurs produits, garantissant des solutions performantes pour vos besoins industriels.
-                </p>
-                <div className="mt-6 pt-6 border-t border-gray-100">
-                  <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-orange-500 mr-2">✓</span>
-                      <span className="text-sm text-gray-600">Produits certifiés aux normes internationales</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-500 mr-2">✓</span>
-                      <span className="text-sm text-gray-600">Garantie fabricant étendue</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-500 mr-2">✓</span>
-                      <span className="text-sm text-gray-600">Contrôle qualité rigoureux</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-[1600px]">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Pourquoi Choisir Nos <span className="text-orange-500">Partenaires</span></h2>
+              <div className="w-24 h-1 bg-orange-500 mx-auto mb-5"></div>
+              <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+                Notre réseau de partenaires stratégiques nous permet de vous offrir des solutions industrielles complètes et de haute qualité, adaptées à vos besoins spécifiques.
+              </p>
             </div>
 
-            {/* Card 2 */}
-            <div className="bg-white rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-              <div className="h-3 bg-orange-500"></div>
-              <div className="p-8">
-                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <Zap className="h-8 w-8 text-orange-500" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-center">Innovation Technologique</h3>
-                <p className="text-gray-600 text-center">
-                  Accédez aux dernières innovations et technologies de pointe grâce à nos partenariats stratégiques avec des entreprises à la pointe de leur secteur.
-                </p>
-                <div className="mt-6 pt-6 border-t border-gray-100">
-                  <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-orange-500 mr-2">✓</span>
-                      <span className="text-sm text-gray-600">Solutions d&apos;automatisation avancées</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-500 mr-2">✓</span>
-                      <span className="text-sm text-gray-600">Technologies connectées (IoT)</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-500 mr-2">✓</span>
-                      <span className="text-sm text-gray-600">Mises à jour régulières des produits</span>
-                    </li>
-                  </ul>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {/* Card 1 */}
+              <div className="bg-white rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                <div className="h-3 bg-orange-500"></div>
+                <div className="p-8">
+                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <CheckCircle className="h-8 w-8 text-orange-500" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-center">Qualité Garantie</h3>
+                  <p className="text-gray-600 text-center">
+                    Nos partenaires sont des leaders mondiaux reconnus pour la qualité et la fiabilité de leurs produits, garantissant des solutions performantes pour vos besoins industriels.
+                  </p>
+                  <div className="mt-6 pt-6 border-t border-gray-100">
+                    <ul className="space-y-2">
+                      <li className="flex items-start">
+                        <span className="text-orange-500 mr-2">✓</span>
+                        <span className="text-sm text-gray-600">Produits certifiés aux normes internationales</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-orange-500 mr-2">✓</span>
+                        <span className="text-sm text-gray-600">Garantie fabricant étendue</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-orange-500 mr-2">✓</span>
+                        <span className="text-sm text-gray-600">Contrôle qualité rigoureux</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Card 3 */}
-            <div className="bg-white rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
-              <div className="h-3 bg-orange-500"></div>
-              <div className="p-8">
-                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <HeadphonesIcon className="h-8 w-8 text-orange-500" />
+              {/* Card 2 */}
+              <div className="bg-white rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                <div className="h-3 bg-orange-500"></div>
+                <div className="p-8">
+                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <Zap className="h-8 w-8 text-orange-500" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-center">Innovation Technologique</h3>
+                  <p className="text-gray-600 text-center">
+                    Accédez aux dernières innovations et technologies de pointe grâce à nos partenariats stratégiques avec des entreprises à la pointe de leur secteur.
+                  </p>
+                  <div className="mt-6 pt-6 border-t border-gray-100">
+                    <ul className="space-y-2">
+                      <li className="flex items-start">
+                        <span className="text-orange-500 mr-2">✓</span>
+                        <span className="text-sm text-gray-600">Solutions d&apos;automatisation avancées</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-orange-500 mr-2">✓</span>
+                        <span className="text-sm text-gray-600">Technologies connectées (IoT)</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-orange-500 mr-2">✓</span>
+                        <span className="text-sm text-gray-600">Mises à jour régulières des produits</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-center">Support Expert</h3>
-                <p className="text-gray-600 text-center">
-                  Bénéficiez d&apos;un support technique complet et d&apos;une expertise approfondie grâce à notre réseau de partenaires et à nos équipes formées directement par les fabricants.
-                </p>
-                <div className="mt-6 pt-6 border-t border-gray-100">
-                  <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-orange-500 mr-2">✓</span>
-                      <span className="text-sm text-gray-600">Assistance technique dédiée</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-500 mr-2">✓</span>
-                      <span className="text-sm text-gray-600">Formation et documentation complète</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-orange-500 mr-2">✓</span>
-                      <span className="text-sm text-gray-600">Service après-vente réactif</span>
-                    </li>
-                  </ul>
+              </div>
+
+              {/* Card 3 */}
+              <div className="bg-white rounded-xl overflow-hidden shadow-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                <div className="h-3 bg-orange-500"></div>
+                <div className="p-8">
+                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 mx-auto">
+                    <HeadphonesIcon className="h-8 w-8 text-orange-500" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-center">Support Expert</h3>
+                  <p className="text-gray-600 text-center">
+                    Bénéficiez d&apos;un support technique complet et d&apos;une expertise approfondie grâce à notre réseau de partenaires et à nos équipes formées directement par les fabricants.
+                  </p>
+                  <div className="mt-6 pt-6 border-t border-gray-100">
+                    <ul className="space-y-2">
+                      <li className="flex items-start">
+                        <span className="text-orange-500 mr-2">✓</span>
+                        <span className="text-sm text-gray-600">Assistance technique dédiée</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-orange-500 mr-2">✓</span>
+                        <span className="text-sm text-gray-600">Formation et documentation complète</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-orange-500 mr-2">✓</span>
+                        <span className="text-sm text-gray-600">Service après-vente réactif</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>

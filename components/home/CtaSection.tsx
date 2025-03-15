@@ -11,7 +11,7 @@ export default function CtaSection() {
 
   return (
     <section className="py-16 bg-orange-500 text-white" dir={dir}>
-      <div className="container mx-auto px-4 text-center">
+      <div className="container mx-auto px-2 sm:px-3 lg:px-4 max-w-[1400px] text-center">
         <motion.h2
           className="text-3xl font-bold mb-4"
           initial={{ opacity: 0, y: 20 }}

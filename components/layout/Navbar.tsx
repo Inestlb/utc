@@ -109,8 +109,8 @@ export default function Navbar() {
       }`}
       dir={dir}
     >
-      <div className="container mx-auto px-2 sm:px-3 lg:px-4 max-w-[1400px]">
-        <div className="flex items-center justify-between h-18 md:h-22">
+      <div className="flex justify-center w-full">
+        <div className="w-full max-w-[1600px] flex items-center justify-between h-18 md:h-22">
           {/* Left section: Logo and main navigation */}
           <div className="flex items-center">
             {/* Logo */}

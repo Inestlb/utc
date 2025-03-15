@@ -167,7 +167,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     <>
       {/* Hero Section */}
       <section className="bg-gray-900 text-white py-16">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-1 sm:px-2 lg:px-3 max-w-[1400px]">
           <div className="max-w-3xl mx-auto text-center">
             <Link
               href="/blog"
@@ -197,7 +197,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* Featured Image */}
       <section className="py-8">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-1 sm:px-2 lg:px-3 max-w-[1400px]">
           <div className="max-w-4xl mx-auto">
             <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
               <p className="text-gray-500">Image à la une</p>
@@ -216,7 +216,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* Content */}
       <section className="py-12">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-1 sm:px-2 lg:px-3 max-w-[1400px]">
           <div className="max-w-3xl mx-auto">
             <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
 
@@ -252,7 +252,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       {/* Related Posts */}
       <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-1 sm:px-2 lg:px-3 max-w-[1400px]">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold mb-12 text-center">Articles Associés</h2>
 
