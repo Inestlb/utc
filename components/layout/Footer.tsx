@@ -39,107 +39,73 @@ export default function Footer() {
 
   return (
     <footer className="bg-gray-900 text-white" dir={dir}>
-      <div className="container mx-auto px-4 py-10">
-        <div className="flex flex-wrap -mx-3">
+      <div className="container mx-auto px-2 sm:px-3 lg:px-4 max-w-[1400px] py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Company Info */}
-          <div className="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
-            <h3 className="text-xl font-bold mb-3 text-orange-500">
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-orange-500">
               {getTextContent('footer.company')}
             </h3>
-            <p className="text-gray-400">
+            <p className="text-gray-400 text-sm leading-relaxed">
               {getTextContent('footer.description')}
             </p>
           </div>
 
           {/* Quick Links */}
-          <div className="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
-            <h3 className="text-lg font-semibold mb-3">
+          <div>
+            <h3 className="text-lg font-semibold mb-4">
               {getTextContent('footer.quickLinks')}
             </h3>
-            <ul className="space-y-1">
+            <ul className="grid grid-cols-2 gap-2">
               <li>
-                <Link href="/" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   {getTextContent('nav.home')}
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/products" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   {getTextContent('nav.products')}
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/about" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   {getTextContent('nav.about')}
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/blog" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   {getTextContent('nav.partners')}
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-400 hover:text-orange-500 transition-colors">
+                <Link href="/contact" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   {getTextContent('nav.contact')}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Product Categories */}
-          <div className="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
-            <h3 className="text-lg font-semibold mb-3">
-              {getTextContent('footer.productCategories')}
-            </h3>
-            <ul className="space-y-1">
-              <li>
-                <Link href="/products?category=Pumps" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  {getTextContent('products.categories.pumps')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=Valves" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  {getTextContent('products.categories.valves')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=Compressors" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  {getTextContent('products.categories.compressors')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=Heat Exchangers" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  {getTextContent('products.categories.exchangers')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=Filtration" className="text-gray-400 hover:text-orange-500 transition-colors">
-                  {getTextContent('products.categories.filtration')}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
           {/* Contact Info */}
-          <div className="w-full md:w-1/2 lg:w-1/4 px-3 mb-6">
-            <h3 className="text-lg font-semibold mb-3">
+          <div>
+            <h3 className="text-lg font-semibold mb-4">
               {getTextContent('nav.contact')}
             </h3>
-            <ul className="space-y-2">
-              <li className="flex items-start">
-                <MapPin className={`mr-2 h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5 ${dir === 'rtl' ? 'ml-2 mr-0' : ''}`} />
-                <span className="text-gray-400">
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+                <span className="text-gray-400 text-sm">
                   450 Rue Baden Powell, Espace Optimum, Montpellier, 34000
                 </span>
               </li>
-              <li className="flex items-center">
-                <Phone className={`mr-2 h-5 w-5 text-orange-500 flex-shrink-0 ${dir === 'rtl' ? 'ml-2 mr-0' : ''}`} />
-                <a href="tel:+1234567890" className="text-gray-400 hover:text-orange-500 transition-colors">
+              <li className="flex items-center gap-3">
+                <Phone className="h-5 w-5 text-orange-500 flex-shrink-0" />
+                <a href="tel:+1234567890" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   +1 (234) 567-890
                 </a>
               </li>
-              <li className="flex items-center">
-                <Mail className={`mr-2 h-5 w-5 text-orange-500 flex-shrink-0 ${dir === 'rtl' ? 'ml-2 mr-0' : ''}`} />
-                <a href="mailto:info@industrialexport.com" className="text-gray-400 hover:text-orange-500 transition-colors">
+              <li className="flex items-center gap-3">
+                <Mail className="h-5 w-5 text-orange-500 flex-shrink-0" />
+                <a href="mailto:info@industrialexport.com" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                   info@industrialexport.com
                 </a>
               </li>
@@ -147,12 +113,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-4 pt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-gray-800 mt-8 pt-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
               &copy; {new Date().getFullYear()} {getTextContent('footer.company')}. {getTextContent('footer.rights')}
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
+            <div className="flex gap-6">
               <Link href="/privacy-policy" className="text-gray-400 hover:text-orange-500 transition-colors text-sm">
                 {getTextContent('footer.privacy')}
               </Link>

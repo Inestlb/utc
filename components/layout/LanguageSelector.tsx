@@ -19,9 +19,13 @@ export default function LanguageSelector() {
 
   // Static button for server-side rendering
   const staticSwitch = (
-    <div className="relative w-[90px] h-[40px] bg-gray-100 rounded-full cursor-pointer">
-      <div className="absolute left-1 top-1 w-[34px] h-[34px] bg-white rounded-full shadow-md flex items-center justify-center">
-        <span className="text-sm font-medium text-gray-600">FR</span>
+    <div className="relative w-[120px] h-[34px] rounded-lg cursor-pointer overflow-hidden">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-orange-500">FR</span>
+          <span className="text-sm font-medium text-orange-500 opacity-50">|</span>
+          <span className="text-sm font-medium text-orange-500 opacity-50">AR</span>
+        </div>
       </div>
     </div>
   );
@@ -31,37 +35,36 @@ export default function LanguageSelector() {
     return staticSwitch;
   }
 
+  const handleFrClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setLanguage('fr');
+  };
+
+  const handleArClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setLanguage('ar');
+  };
+
   return (
-    <div
-      onClick={handleLanguageChange}
-      className="relative w-[90px] h-[40px] bg-gray-100 rounded-full cursor-pointer select-none hover:bg-gray-200 transition-colors duration-200"
-    >
+    <div className="relative w-[120px] h-[34px] rounded-lg cursor-pointer select-none hover:bg-gray-50/50 transition-colors duration-200 overflow-hidden">
       {/* Background text */}
-      <div className="absolute inset-0 flex items-center justify-between px-3 font-medium">
-        <span className={`text-sm transition-colors duration-200 ${
-          language === 'fr' 
-            ? 'opacity-0' 
-            : 'text-gray-600'
-        }`}>FR</span>
-        <span className={`text-sm transition-colors duration-200 ${
-          language === 'ar' 
-            ? 'opacity-0' 
-            : 'text-gray-600'
-        }`} dir="rtl">ع</span>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="flex items-center gap-3">
+          <span 
+            onClick={handleFrClick}
+            className={`text-sm font-medium text-orange-500 transition-opacity duration-200 hover:opacity-80 ${language !== 'fr' ? 'opacity-50' : ''}`}
+          >
+            FR
+          </span>
+          <span className="text-sm font-medium text-orange-500 opacity-50">|</span>
+          <span 
+            onClick={handleArClick}
+            className={`text-sm font-medium text-orange-500 transition-opacity duration-200 hover:opacity-80 ${language !== 'ar' ? 'opacity-50' : ''}`}
+          >
+            AR
+          </span>
+        </div>
       </div>
-      
-      {/* Animated circle */}
-      <motion.div
-        className="absolute top-1 w-[34px] h-[34px] bg-white rounded-full shadow-md flex items-center justify-center"
-        animate={{
-          left: language === 'fr' ? '4px' : 'calc(100% - 38px)',
-        }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-      >
-        <span className="text-sm font-medium text-gray-600">
-          {language === 'fr' ? 'FR' : 'ع'}
-        </span>
-      </motion.div>
     </div>
   );
 }

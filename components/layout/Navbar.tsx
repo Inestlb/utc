@@ -109,26 +109,26 @@ export default function Navbar() {
       }`}
       dir={dir}
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-2 sm:px-3 lg:px-4 max-w-[1400px]">
         <div className="flex items-center justify-between h-18 md:h-22">
           {/* Left section: Logo and main navigation */}
           <div className="flex items-center">
             {/* Logo */}
-            <Link href="/" className="flex items-center mr-16">
-              <div className="flex items-center justify-center -mt-3">
+            <Link href="/" className="flex items-center mr-12">
+              <div className="flex items-center justify-center -mt-2">
                 <Image
                   src="/images/LOGO-UTC.svg"
                   alt="UTC Logo"
                   width={200}
                   height={200}
                   priority={true}
-                  className="h-[115px] w-auto"
+                  className="h-[95px] w-auto"
                 />
               </div>
             </Link>
 
             {/* Main navigation links (desktop only) */}
-            <nav className="hidden md:flex items-center space-x-10">
+            <nav className="hidden md:flex items-center space-x-8">
               {mainNavLinks.map((link) => (
                 link.hasSubmenu ? (
                   <div
@@ -138,7 +138,7 @@ export default function Navbar() {
                     onMouseLeave={() => setIsProductsHovered(false)}
                   >
                     <button
-                      className={`text-base md:text-lg font-medium transition-colors hover:text-orange-500 flex items-center gap-1 ${
+                      className={`text-sm md:text-base font-medium transition-colors hover:text-orange-500 flex items-center gap-1 ${
                         pathname.startsWith(link.href)
                           ? 'text-orange-500 font-bold'
                           : isScrolled
@@ -147,7 +147,7 @@ export default function Navbar() {
                       }`}
                     >
                       {getTextContent(link.key)}
-                      <ChevronDown className={`h-4 w-4 opacity-70 transition-transform duration-300 ${isProductsHovered ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`h-3.5 w-3.5 opacity-70 transition-transform duration-300 ${isProductsHovered ? 'rotate-180' : ''}`} />
                     </button>
 
                     {/* Menu déroulant au survol */}
@@ -186,7 +186,7 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`text-base md:text-lg font-medium transition-colors hover:text-orange-500 relative group ${
+                    className={`text-sm md:text-base font-medium transition-colors hover:text-orange-500 relative group ${
                       pathname === link.href
                         ? 'text-orange-500 font-bold'
                         : isScrolled
