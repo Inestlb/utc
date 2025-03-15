@@ -43,40 +43,42 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
   return (
     <div className="py-12">
-      <div className="container mx-auto px-2 sm:px-3 lg:px-4 max-w-[1400px]">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">Nos Produits</h1>
-          <p className="text-gray-600 max-w-3xl">
-            Parcourez notre catalogue complet de produits industriels conçus pour la <span className="font-medium">fiabilité</span>,
-            l&apos;<span className="font-medium">efficacité</span> et la <span className="font-medium">performance</span>. Utilisez les filtres pour trouver exactement ce dont vous avez besoin.
-          </p>
-        </div>
-
-        {/* Search Bar */}
-        <div className="mb-8">
-          <SearchBar
-            products={products}
-            initialQuery={search || ''}
-          />
-        </div>
-
-        {/* Product Grid with Filters */}
-        <Suspense fallback={
-          <div className="flex justify-center items-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+      <div className="flex justify-center w-full">
+        <div className="w-full max-w-[1600px]">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-4">Nos Produits</h1>
+            <p className="text-gray-600 max-w-3xl">
+              Parcourez notre catalogue complet de produits industriels conçus pour la <span className="font-medium">fiabilité</span>,
+              l&apos;<span className="font-medium">efficacité</span> et la <span className="font-medium">performance</span>. Utilisez les filtres pour trouver exactement ce dont vous avez besoin.
+            </p>
           </div>
-        }>
-          <ProductGrid
-            products={products}
-            categories={categories}
-            filterOptions={{
-              category,
-              search,
-              page,
-            }}
-            totalPages={totalPages}
-          />
-        </Suspense>
+
+          {/* Search Bar */}
+          <div className="mb-8">
+            <SearchBar
+              products={products}
+              initialQuery={search || ''}
+            />
+          </div>
+
+          {/* Product Grid with Filters */}
+          <Suspense fallback={
+            <div className="flex justify-center items-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+            </div>
+          }>
+            <ProductGrid
+              products={products}
+              categories={categories}
+              filterOptions={{
+                category,
+                search,
+                page,
+              }}
+              totalPages={totalPages}
+            />
+          </Suspense>
+        </div>
       </div>
     </div>
   );

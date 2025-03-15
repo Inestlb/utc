@@ -9,7 +9,7 @@ export default function ValuePropositionSection() {
 
   return (
     <section className="py-20 bg-gradient-to-b from-white to-gray-50" dir={dir}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-1 sm:px-2 lg:px-3 max-w-[1400px]">
         <div className="text-center mb-16">
           <motion.h2
             className="text-3xl md:text-4xl font-bold mb-4"
