@@ -19,19 +19,17 @@ export default function AboutPage() {
 
         {/* Content */}
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px]">
-            <div className="px-4">
-              <div className="max-w-3xl relative z-10">
-                <h1 className="text-4xl font-bold mb-4 text-white">
-                  Notre <span className="text-orange-500">Société</span>
-                </h1>
-                <div className="w-20 h-1 bg-orange-500 mb-5"></div>
-                <p className="text-lg text-gray-200 mb-4 leading-relaxed">
-                  Depuis 2006, UTC Industrie est le premier fournisseur national d'équipements
-                  et de composants industriels de haute qualité, répondant aux exigences
-                  des marchés mondiaux.
-                </p>
-              </div>
+          <div className="w-full max-w-[1600px] px-4">
+            <div className="max-w-3xl relative z-10">
+              <h1 className="text-4xl font-bold mb-4 text-white">
+                Notre <span className="text-orange-500">Société</span>
+              </h1>
+              <div className="w-20 h-1 bg-orange-500 mb-5"></div>
+              <p className="text-lg text-gray-200 mb-4 leading-relaxed">
+                Depuis 2006, UTC Industrie est le premier fournisseur national d'équipements
+                et de composants industriels de haute qualité, répondant aux exigences
+                des marchés mondiaux.
+              </p>
             </div>
           </div>
         </div>
@@ -40,7 +38,7 @@ export default function AboutPage() {
       {/* Our Story Section */}
       <section className="py-16">
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px]">
+          <div className="w-full max-w-[1600px] px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-3xl font-bold mb-6">Notre Histoire</h2>
@@ -72,7 +70,7 @@ export default function AboutPage() {
       {/* Mission & Values Section */}
       <section className="py-16 bg-gray-50">
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px]">
+          <div className="w-full max-w-[1600px] px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Notre Mission & Nos Valeurs</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
@@ -128,7 +126,7 @@ export default function AboutPage() {
       {/* CTA Section */}
       <section className="py-16 bg-gray-50">
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px] text-center">
+          <div className="w-full max-w-[1600px] px-4 text-center">
             <h2 className="text-3xl font-bold mb-6 text-gray-900">Rejoignez Notre Réseau</h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-600">
               Que vous recherchiez des équipements industriels ou des opportunités de partenariat,

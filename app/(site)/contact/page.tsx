@@ -10,73 +10,75 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <div className="py-12">
-      <div className="container mx-auto px-1 sm:px-2 lg:px-3 max-w-[1400px]">
-        <div className="mb-12 text-center">
-          <h1 className="text-3xl font-bold mb-4"><span className="text-orange-500">Contactez</span>-Nous</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Vous avez des questions sur nos produits ou services ? Notre équipe est là pour vous aider.
-            Remplissez le formulaire ci-dessous ou utilisez nos coordonnées pour nous contacter.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <div>
-            <ContactForm />
+      <div className="flex justify-center w-full">
+        <div className="w-full max-w-[1600px] px-4">
+          <div className="mb-12 text-center">
+            <h1 className="text-3xl font-bold mb-4"><span className="text-orange-500">Contactez</span>-Nous</h1>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Vous avez des questions sur nos produits ou services ? Notre équipe est là pour vous aider.
+              Remplissez le formulaire ci-dessous ou utilisez nos coordonnées pour nous contacter.
+            </p>
           </div>
 
-          {/* Company Information */}
-          <div>
-            <div className="bg-gray-50 p-6 rounded-lg mb-8 border-l-4 border-orange-500">
-              <h2 className="text-xl font-semibold mb-6">Informations de l&apos;<span className="text-orange-500">Entreprise</span></h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div>
+              <ContactForm />
+            </div>
 
-              <div className="space-y-6">
-                <div className="flex">
-                  <MapPin className="h-5 w-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="font-medium mb-1">Adresse</h3>
-                    <p className="text-gray-600">
-                      450 Rue Baden Powell<br />
-                      Espace Optimum<br />
-                      Montpellier, 34000<br />
-                      France
-                    </p>
+            {/* Company Information */}
+            <div>
+              <div className="bg-gray-50 p-6 rounded-lg mb-8 border-l-4 border-orange-500">
+                <h2 className="text-xl font-semibold mb-6">Informations de l&apos;<span className="text-orange-500">Entreprise</span></h2>
+
+                <div className="space-y-6">
+                  <div className="flex">
+                    <MapPin className="h-5 w-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-medium mb-1">Adresse</h3>
+                      <p className="text-gray-600">
+                        450 Rue Baden Powell<br />
+                        Espace Optimum<br />
+                        Montpellier, 34000<br />
+                        France
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex">
-                  <Phone className="h-5 w-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="font-medium mb-1">Téléphone</h3>
-                    <p className="text-gray-600">
-                      <a href="tel:+1234567890" className="hover:text-orange-500">
-                        +1 (234) 567-890
-                      </a>
-                    </p>
+                  <div className="flex">
+                    <Phone className="h-5 w-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-medium mb-1">Téléphone</h3>
+                      <p className="text-gray-600">
+                        <a href="tel:+1234567890" className="hover:text-orange-500">
+                          +1 (234) 567-890
+                        </a>
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex">
-                  <Mail className="h-5 w-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <h3 className="font-medium mb-1">Email</h3>
-                    <p className="text-gray-600">
-                      <a href="mailto:info@industrialexport.com" className="hover:text-orange-500">
-                        info@industrialexport.com
-                      </a>
-                    </p>
+                  <div className="flex">
+                    <Mail className="h-5 w-5 text-orange-500 mr-3 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-medium mb-1">Email</h3>
+                      <p className="text-gray-600">
+                        <a href="mailto:info@industrialexport.com" className="hover:text-orange-500">
+                          info@industrialexport.com
+                        </a>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Map */}
-            <MapContainer
-              longitude={3.8767}
-              latitude={43.6108}
-              zoom={12}
-              markerTitle="UTC Industrie - Montpellier"
-            />
+              {/* Map */}
+              <MapContainer
+                longitude={3.8767}
+                latitude={43.6108}
+                zoom={12}
+                markerTitle="UTC Industrie - Montpellier"
+              />
+            </div>
           </div>
         </div>
       </div>
