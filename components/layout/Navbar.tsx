@@ -121,7 +121,7 @@ export default function Navbar() {
             </Link>
 
             {/* Main navigation links (desktop only) */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-10">
               {mainNavLinks.map((link) => (
                 link.hasSubmenu ? (
                   <div
@@ -131,21 +131,21 @@ export default function Navbar() {
                     onMouseLeave={() => setIsProductsHovered(false)}
                   >
                     <button
-                      className={`text-sm md:text-base font-medium transition-colors hover:text-orange-500 flex items-center gap-1 ${
+                      className={`text-[15px] tracking-wide font-medium transition-colors hover:text-orange-500 flex items-center gap-2 ${
                         pathname.startsWith(link.href)
-                          ? 'text-orange-500 font-bold'
+                          ? 'text-orange-500 font-semibold'
                           : isScrolled
-                          ? 'text-text'
-                          : 'text-text'
+                          ? 'text-gray-800'
+                          : 'text-gray-800'
                       }`}
                     >
                       {getTextContent(link.key)}
-                      <ChevronDown className={`h-3.5 w-3.5 opacity-70 transition-transform duration-300 ${isProductsHovered ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`h-4 w-4 opacity-70 transition-transform duration-300 ${isProductsHovered ? 'rotate-180' : ''}`} />
                     </button>
 
                     {/* Menu déroulant au survol */}
                     <div
-                      className={`absolute left-0 mt-2 w-[280px] p-3 bg-white rounded-md shadow-lg border border-gray-100 transition-all duration-300 ${
+                      className={`absolute left-0 mt-2 w-[280px] p-3 bg-white rounded-md shadow-lg transition-all duration-300 ${
                         isProductsHovered
                           ? 'opacity-100 translate-y-0 pointer-events-auto'
                           : 'opacity-0 -translate-y-2 pointer-events-none'
@@ -156,7 +156,7 @@ export default function Navbar() {
                           <Link
                             key={item.href}
                             href={item.href}
-                            className="flex items-center p-3 rounded-md hover:bg-orange-50 transition-colors duration-200"
+                            className="flex items-center p-3 rounded-md hover:bg-gray-50 transition-colors duration-200"
                           >
                             <div className="flex-shrink-0 h-10 w-10 mr-3 flex items-center justify-center">
                               {item.logo && (
@@ -169,7 +169,7 @@ export default function Navbar() {
                                 />
                               )}
                             </div>
-                            <div className="font-medium">{item.name}</div>
+                            <div className="font-medium text-gray-800">{item.name}</div>
                           </Link>
                         ))}
                       </div>
@@ -179,16 +179,18 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`text-sm md:text-base font-medium transition-colors hover:text-orange-500 relative group ${
+                    className={`text-[15px] tracking-wide font-medium transition-colors hover:text-orange-500 relative inline-flex group ${
                       pathname === link.href
-                        ? 'text-orange-500 font-bold'
+                        ? 'text-orange-500 font-semibold'
                         : isScrolled
-                        ? 'text-text'
-                        : 'text-text'
+                        ? 'text-gray-800'
+                        : 'text-gray-800'
                     }`}
                   >
-                    {getTextContent(link.key)}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 transition-all duration-300 group-hover:w-full"></span>
+                    <span className="relative">
+                      {getTextContent(link.key)}
+                      <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-orange-500 opacity-0 group-hover:opacity-100 group-hover:w-full transition-all duration-300 ease-out"></span>
+                    </span>
                   </Link>
                 )
               ))}
@@ -196,7 +198,7 @@ export default function Navbar() {
           </div>
 
           {/* Right section: Search, Language, Contact */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-6">
             {/* Search Bar */}
             <NavbarSearch />
 
@@ -206,13 +208,13 @@ export default function Navbar() {
             {/* Contact link */}
             <Link
               href={contactLink.href}
-              className={`text-sm font-medium transition-all duration-300 rounded-lg px-4 py-2 flex items-center gap-1.5 ${
+              className={`text-[15px] font-medium transition-all duration-300 rounded-lg px-5 py-2.5 flex items-center gap-2 ${
                 pathname === contactLink.href
-                  ? 'bg-orange-500 text-white'
-                  : 'bg-orange-500 text-white hover:bg-orange-600'
+                  ? 'bg-orange-500 text-white shadow-md shadow-orange-500/20 scale-[0.98]'
+                  : 'bg-orange-500 text-white hover:bg-orange-600 shadow-sm hover:shadow-md shadow-orange-500/15 hover:shadow-orange-500/20 hover:scale-[1.02]'
               }`}
             >
-              <Mail className="h-4 w-4" />
+              <Mail className="h-[18px] w-[18px]" />
               {getTextContent(contactLink.key)}
             </Link>
           </div>
