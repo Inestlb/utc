@@ -34,7 +34,7 @@ export default function ProductGrid({
 
   return (
     <div className="flex justify-center w-full">
-      <div className="w-full max-w-[1600px]">
+      <div className="w-full max-w-[1600px] px-4">
         <div className="flex flex-col md:flex-row gap-6">
           {/* Filters */}
           <div className="w-full md:w-64 flex-shrink-0">

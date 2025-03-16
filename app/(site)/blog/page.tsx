@@ -50,17 +50,15 @@ export default function PartnersPage() {
 
         {/* Content */}
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px]">
-            <div className="px-4">
-              <div className="max-w-3xl relative z-10">
-                <h1 className="text-4xl font-bold mb-4 text-white">
-                  Nos <span className="text-orange-500">Partenaires</span>
-                </h1>
-                <div className="w-20 h-1 bg-orange-500 mb-5"></div>
-                <p className="text-lg text-gray-200 mb-4 leading-relaxed">
-                  Nous collaborons avec des leaders mondiaux de l'industrie pour vous offrir des solutions de haute qualité et des technologies innovantes qui répondent à vos besoins spécifiques.
-                </p>
-              </div>
+          <div className="w-full max-w-[1600px] px-12">
+            <div className="max-w-3xl relative z-10">
+              <h1 className="text-4xl font-bold mb-4 text-white">
+                Nos <span className="text-orange-500">Partenaires</span>
+              </h1>
+              <div className="w-20 h-1 bg-orange-500 mb-5"></div>
+              <p className="text-lg text-gray-200 mb-4 leading-relaxed">
+                Nous collaborons avec des leaders mondiaux de l'industrie pour vous offrir des solutions de haute qualité et des technologies innovantes qui répondent à vos besoins spécifiques.
+              </p>
             </div>
           </div>
         </div>
@@ -69,61 +67,59 @@ export default function PartnersPage() {
       {/* Partners Section */}
       <section id="partners" className="py-20">
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px]">
-            <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 gap-16">
-                {partners.map((partner, index) => (
-                  <div key={partner.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
-                    <div className="bg-gray-50 rounded-lg p-12 flex items-center justify-center h-80">
-                      {partner.name === "IFM" ? (
-                        <Image
-                          src="/images/logo-ifm.svg"
-                          alt="IFM"
-                          width={250}
-                          height={250}
-                          className="object-contain"
-                        />
-                      ) : partner.name === "Lenze" ? (
-                        <Image
-                          src="/images/logo-Lenze.svg"
-                          alt="Lenze"
-                          width={250}
-                          height={76}
-                          className="object-contain"
-                        />
-                      ) : partner.name === "Wago" ? (
-                        <Image
-                          src="/images/logo-WAGO.svg"
-                          alt="Wago"
-                          width={250}
-                          height={90}
-                          className="object-contain"
-                        />
-                      ) : (
-                        <div className="font-bold text-5xl text-gray-800">{partner.name}</div>
-                      )}
-                    </div>
-                    <div>
-                      <h3 className="text-3xl font-bold mb-4">{partner.name}</h3>
-                      <p className="text-gray-600 mb-6">
-                        {partner.description}
-                      </p>
-
-                      <div className="mb-6">
-                        <h4 className="font-semibold text-lg mb-2">Spécialités:</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {partner.specialties.map((specialty, i) => (
-                            <span key={i} className="bg-orange-100 text-orange-700 text-sm px-3 py-1 rounded-full">
-                              {specialty}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                    </div>
+          <div className="w-full max-w-[1600px] px-12">
+            <div className="grid grid-cols-1 gap-16">
+              {partners.map((partner, index) => (
+                <div key={partner.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+                  <div className="bg-gray-50 rounded-lg p-12 flex items-center justify-center h-80">
+                    {partner.name === "IFM" ? (
+                      <Image
+                        src="/images/logo-ifm.svg"
+                        alt="IFM"
+                        width={250}
+                        height={250}
+                        className="object-contain"
+                      />
+                    ) : partner.name === "Lenze" ? (
+                      <Image
+                        src="/images/logo-Lenze.svg"
+                        alt="Lenze"
+                        width={250}
+                        height={76}
+                        className="object-contain"
+                      />
+                    ) : partner.name === "Wago" ? (
+                      <Image
+                        src="/images/logo-WAGO.svg"
+                        alt="Wago"
+                        width={250}
+                        height={90}
+                        className="object-contain"
+                      />
+                    ) : (
+                      <div className="font-bold text-5xl text-gray-800">{partner.name}</div>
+                    )}
                   </div>
-                ))}
-              </div>
+                  <div>
+                    <h3 className="text-3xl font-bold mb-4">{partner.name}</h3>
+                    <p className="text-gray-600 mb-6">
+                      {partner.description}
+                    </p>
+
+                    <div className="mb-6">
+                      <h4 className="font-semibold text-lg mb-2">Spécialités:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {partner.specialties.map((specialty, i) => (
+                          <span key={i} className="bg-orange-100 text-orange-700 text-sm px-3 py-1 rounded-full">
+                            {specialty}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -132,7 +128,7 @@ export default function PartnersPage() {
       {/* Partnership Benefits - Completely Redesigned */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px]">
+          <div className="w-full max-w-[1600px] px-12">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold mb-4">Pourquoi Choisir Nos <span className="text-orange-500">Partenaires</span></h2>
               <div className="w-24 h-1 bg-orange-500 mx-auto mb-5"></div>

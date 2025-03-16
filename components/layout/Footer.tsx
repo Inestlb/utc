@@ -33,7 +33,7 @@ export default function Footer() {
       <div className="w-full border-t border-white/20"></div>
       
       <div className="flex justify-center w-full">
-        <div className="w-full max-w-[1600px] py-12 px-4">
+        <div className="w-full max-w-[1600px] py-12 px-12">
           {/* Top section with logo and contact */}
           <div className="flex justify-between items-center mb-6">
             {/* Logo and tagline */}

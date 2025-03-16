@@ -12,7 +12,7 @@ export default function SolutionsSection() {
   return (
     <section className="py-20 bg-gray-50" dir={dir}>
       <div className="flex justify-center w-full">
-        <div className="w-full max-w-[1600px]">
+        <div className="w-full max-w-[1600px] px-12">
           <div className="text-center mb-16">
             <motion.h2
               className="text-3xl md:text-4xl font-bold mb-4"

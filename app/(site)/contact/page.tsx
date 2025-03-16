@@ -11,7 +11,7 @@ export default function ContactPage() {
   return (
     <div className="py-12">
       <div className="flex justify-center w-full">
-        <div className="w-full max-w-[1600px] px-4">
+        <div className="w-full max-w-[1600px] px-12">
           <div className="mb-12 text-center">
             <h1 className="text-3xl font-bold mb-4"><span className="text-orange-500">Contactez</span>-Nous</h1>
             <p className="text-gray-600 max-w-2xl mx-auto">
