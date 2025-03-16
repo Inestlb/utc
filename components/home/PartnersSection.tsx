@@ -19,7 +19,7 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
     <>
       <section className="py-20 bg-gray-50" dir={dir}>
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px]">
+          <div className="w-full max-w-[1600px] px-12">
             <div className="text-center mb-12">
               <motion.h2
                 className="text-3xl font-bold mb-4"
@@ -100,18 +100,20 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
 
       {/* CTA Section */}
       <section className="py-16 bg-orange-500 text-white" dir={dir}>
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Prêt à Commencer?</h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto">
-            Contactez notre équipe dès aujourd'hui pour discuter de vos besoins en équipement industriel et découvrir
-            comment nous pouvons aider votre entreprise à réussir.
-          </p>
-          <Button asChild size="lg" className="bg-white text-orange-500 hover:bg-gray-100">
-            <Link href="/contact">
-              {t('button.contact')}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-[1600px] px-4 text-center">
+            <h2 className="text-3xl font-bold mb-6">Prêt à Commencer?</h2>
+            <p className="text-lg mb-8 max-w-2xl mx-auto">
+              Contactez notre équipe dès aujourd'hui pour discuter de vos besoins en équipement industriel et découvrir
+              comment nous pouvons aider votre entreprise à réussir.
+            </p>
+            <Button asChild size="lg" className="bg-white text-orange-500 hover:bg-gray-100">
+              <Link href="/contact">
+                {t('button.contact')}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
     </>

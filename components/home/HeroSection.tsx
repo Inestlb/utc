@@ -10,13 +10,10 @@ export default function HeroSection() {
   const { t, dir } = useTranslation();
 
   return (
-    <section
-      className="relative h-[80vh] flex items-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden"
-      dir={dir}
-    >
-      <div className="absolute inset-0 opacity-20 bg-[url('/images/hero-bg.jpg')] bg-cover bg-center"></div>
+    <section className="relative min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 overflow-hidden">
+      <div className="absolute inset-0 bg-[url('/images/hero-pattern.svg')] opacity-30"></div>
       <div className="flex justify-center w-full">
-        <div className="w-full max-w-[1600px]">
+        <div className="w-full max-w-[1600px] px-12 flex flex-col justify-center min-h-screen text-white">
           <div className="max-w-2xl">
             <motion.h1
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"

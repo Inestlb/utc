@@ -44,7 +44,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   return (
     <div className="py-12">
       <div className="flex justify-center w-full">
-        <div className="w-full max-w-[1600px]">
+        <div className="w-full max-w-[1600px] px-12">
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-4">Nos Produits</h1>
             <p className="text-gray-600 max-w-3xl">

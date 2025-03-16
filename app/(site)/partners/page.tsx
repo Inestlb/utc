@@ -13,7 +13,7 @@ const partners = [
   {
     id: 1,
     name: 'Lenze',
-    logo: '/images/logo-lenze.svg', // Placeholder, remplacer par le vrai logo
+    logo: '/images/logo-lenze.svg',
     description: 'Lenze est un leader mondial dans le domaine des solutions d\'entraînement et d\'automatisation. Avec plus de 70 ans d\'expérience, Lenze fournit des produits, des solutions d\'entraînement, des systèmes d\'automatisation et des services pour l\'industrie.',
     specialties: ['Automatisation', 'Entraînements', 'Moteurs', 'Contrôle de mouvement'],
     headquarters: 'Hamelin, Allemagne',
@@ -22,7 +22,7 @@ const partners = [
   {
     id: 2,
     name: 'Wago',
-    logo: '/images/logo-wago.svg', // Placeholder, remplacer par le vrai logo
+    logo: '/images/logo-wago.svg',
     description: 'WAGO est un leader innovant dans les technologies de connexion électrique et d\'automatisation industrielle. Leurs solutions sont utilisées dans de nombreux secteurs, de la construction à l\'industrie manufacturière.',
     specialties: ['Bornes de connexion', 'Automatisation', 'Interfaces électroniques', 'Systèmes de contrôle'],
     headquarters: 'Minden, Allemagne',
@@ -50,7 +50,7 @@ export default function PartnersPage() {
 
         {/* Content */}
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px] px-12">
+          <div className="w-full max-w-[1600px] px-4">
             <div className="max-w-3xl relative z-10">
               <h1 className="text-4xl font-bold mb-4 text-white">
                 Nos <span className="text-orange-500">Partenaires</span>
@@ -67,7 +67,7 @@ export default function PartnersPage() {
       {/* Partners Section */}
       <section id="partners" className="py-20">
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px] px-12">
+          <div className="w-full max-w-[1600px] px-4">
             <div className="grid grid-cols-1 gap-16">
               {partners.map((partner, index) => (
                 <div key={partner.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
@@ -128,7 +128,7 @@ export default function PartnersPage() {
       {/* Partnership Benefits - Completely Redesigned */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-[1600px] px-12">
+          <div className="w-full max-w-[1600px] px-4">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold mb-4">Pourquoi Choisir Nos <span className="text-orange-500">Partenaires</span></h2>
               <div className="w-24 h-1 bg-orange-500 mx-auto mb-5"></div>
@@ -183,7 +183,7 @@ export default function PartnersPage() {
                     <ul className="space-y-2">
                       <li className="flex items-start">
                         <span className="text-orange-500 mr-2">✓</span>
-                        <span className="text-sm text-gray-600">Solutions d&apos;automatisation avancées</span>
+                        <span className="text-sm text-gray-600">Solutions d'automatisation avancées</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-orange-500 mr-2">✓</span>
@@ -207,7 +207,7 @@ export default function PartnersPage() {
                   </div>
                   <h3 className="text-2xl font-bold mb-4 text-center">Support Expert</h3>
                   <p className="text-gray-600 text-center">
-                    Bénéficiez d&apos;un support technique complet et d&apos;une expertise approfondie grâce à notre réseau de partenaires et à nos équipes formées directement par les fabricants.
+                    Bénéficiez d'un support technique complet et d'une expertise approfondie grâce à notre réseau de partenaires et à nos équipes formées directement par les fabricants.
                   </p>
                   <div className="mt-6 pt-6 border-t border-gray-100">
                     <ul className="space-y-2">
@@ -231,6 +231,27 @@ export default function PartnersPage() {
           </div>
         </div>
       </section>
+
+      {/* Products CTA Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+        <div className="flex justify-center w-full">
+          <div className="w-full max-w-[1600px] px-4">
+            <div className="text-center">
+              <h2 className="text-4xl font-bold mb-4">Découvrez Nos <span className="text-orange-500">Produits</span></h2>
+              <div className="w-24 h-1 bg-orange-500 mx-auto mb-6"></div>
+              <p className="text-gray-600 max-w-3xl mx-auto text-lg mb-8">
+                Explorez notre gamme complète de produits industriels de haute qualité, fournis par nos partenaires de confiance.
+              </p>
+              <Button asChild size="lg" className="bg-orange-500 text-white hover:bg-orange-600 transition-all duration-300 shadow-[0_3px_16px_-5px_rgba(249,115,22,0.25)] hover:shadow-[0_3px_16px_-5px_rgba(249,115,22,0.4)]">
+                <Link href="/products" className="flex items-center gap-2 px-8 py-6 text-lg">
+                  Voir nos Produits
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
-}
+} 
