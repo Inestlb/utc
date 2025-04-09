@@ -24,6 +24,7 @@ export default function SearchBar({
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const router = useRouter();
   const searchRef = useRef<HTMLDivElement>(null);
@@ -33,6 +34,7 @@ export default function SearchBar({
     function handleClickOutside(event: MouseEvent) {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
+        setIsFocused(false);
       }
     }
 
@@ -93,26 +95,34 @@ export default function SearchBar({
           placeholder="Rechercher des produits..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pr-16"
-          onFocus={() => setIsDropdownOpen(!!searchTerm)}
+          className={`pr-16 text-base py-6 transition-all duration-300 ${isFocused ? 'shadow-md border-custom-orange ring-2 ring-[#fef2e1]' : 'hover:border-custom-orange'}`}
+          onFocus={() => {
+            setIsFocused(true);
+            setIsDropdownOpen(!!searchTerm);
+          }}
         />
-        <div className="absolute right-0 top-0 h-full flex items-center pr-2">
+        <div className="absolute right-0 top-0 h-full flex items-center pr-3">
           {searchTerm && (
             <Button
               type="button"
               variant="ghost"
               size="icon"
-              className="h-8 w-8"
+              className="h-9 w-9 mr-1 transition-transform duration-200 hover:scale-110 hover:text-custom-orange"
               onClick={clearSearch}
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5" />
             </Button>
           )}
-          <Button type="submit" variant="ghost" size="icon" className="h-8 w-8">
+          <Button 
+            type="submit" 
+            variant="ghost" 
+            size="icon" 
+            className="h-9 w-9 transition-all duration-200 hover:scale-110 hover:text-custom-orange"
+          >
             {isSearching ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
-              <Search className="h-4 w-4" />
+              <Search className="h-5 w-5" />
             )}
           </Button>
         </div>
@@ -120,24 +130,24 @@ export default function SearchBar({
 
       {/* Search Results Dropdown */}
       {isDropdownOpen && searchResults.length > 0 && (
-        <div className="absolute z-10 w-full mt-1 bg-white rounded-md shadow-lg border">
-          <ul className="py-1">
+        <div className="absolute z-10 w-full mt-2 bg-white rounded-md shadow-lg border border-[#fef2e1] animate-in fade-in-0 zoom-in-95 duration-200">
+          <ul className="py-2">
             {searchResults.map((product) => (
               <li key={product.id}>
                 <Link
                   href={`/products/${product.id}`}
-                  className="block px-4 py-2 hover:bg-gray-100 text-sm"
+                  className="block px-5 py-3 hover:bg-[#fef2e1] transition-colors duration-150 text-sm"
                   onClick={() => setIsDropdownOpen(false)}
                 >
-                  <div className="font-medium">{product.name}</div>
-                  <div className="text-xs text-gray-500">{product.category}</div>
+                  <div className="font-medium text-base">{product.name}</div>
+                  <div className="text-xs text-gray-500 mt-1">{product.category}</div>
                 </Link>
               </li>
             ))}
-            <li className="border-t">
+            <li className="border-t border-[#fef2e1] pt-1">
               <Button
                 variant="ghost"
-                className="w-full justify-start px-4 py-2 text-sm text-primary"
+                className="w-full justify-start px-5 py-3 text-sm text-custom-orange hover:bg-[#fef2e1] hover:text-[#d47d0e] transition-colors duration-150"
                 onClick={handleSubmit}
               >
                 Voir tous les résultats pour "{searchTerm}"

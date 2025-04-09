@@ -105,7 +105,7 @@ const blogPosts = [
     id: 5,
     slug: 'maintenance-best-practices',
     title: 'Meilleures Pratiques pour l\'Entretien des Équipements Industriels',
-    excerpt: 'Conseils d\'experts pour prolonger la durée de vie de vos équipements industriels et minimiser les temps d'arrêt.',
+    excerpt: 'Conseils d\'experts pour prolonger la durée de vie de vos équipements industriels et minimiser les temps d\'arrêt.',
     date: '18 février 2023',
     author: 'Michael Rodriguez',
     authorRole: 'Directeur Technique',

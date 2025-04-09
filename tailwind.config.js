@@ -23,8 +23,9 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#F97316',
-        accent: '#F97316',
+        primary: '#f29013',
+        accent: '#f29013',
+        'custom-orange': '#f29013',
         text: '#333333',
         background: '#FFFFFF',
         border: "hsl(var(--border))",
