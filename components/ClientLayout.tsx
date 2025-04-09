@@ -5,6 +5,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ClientContactButtonWrapper from "@/components/ClientContactButtonWrapper";
 import { TranslationProvider } from "@/lib/context/TranslationContext";
+import { usePathname } from 'next/navigation';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function ClientLayout({
   children,
@@ -12,12 +14,54 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   const [isMounted, setIsMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsMounted(true);
+    
+    // Simule un chargement initial rapide
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+    
+    return () => clearTimeout(timer);
   }, []);
 
-  // During SSR and initial client render, show a simplified version
+  // Animations pour les transitions de page
+  const pageVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.4, 
+        ease: [0.25, 0.1, 0.25, 1.0] 
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      transition: { 
+        duration: 0.2, 
+        ease: [0.25, 0.1, 0.25, 1.0] 
+      }
+    }
+  };
+
+  // Pendant le chargement initial, afficher un écran de chargement élégant
+  if (isLoading) {
+    return (
+      <TranslationProvider>
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
+          <div className="relative w-14 h-14">
+            <div className="absolute inset-0 rounded-full border-4 border-t-orange-500 border-r-orange-300 border-b-orange-200 border-l-orange-100 animate-spin"></div>
+          </div>
+        </div>
+      </TranslationProvider>
+    );
+  }
+
+  // Si non monté (SSR), afficher une version simplifiée
   if (!isMounted) {
     return (
       <TranslationProvider>
@@ -30,13 +74,22 @@ export default function ClientLayout({
     );
   }
 
-  // Once mounted on the client, show the full version with all interactive elements
+  // Version complète avec animations
   return (
     <TranslationProvider>
       <Navbar />
-      <main className="flex-grow pt-16 md:pt-20">
-        {children}
-      </main>
+      <AnimatePresence mode="wait">
+        <motion.main 
+          key={pathname}
+          className="flex-grow pt-16 md:pt-20"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={pageVariants}
+        >
+          {children}
+        </motion.main>
+      </AnimatePresence>
       <Footer />
       <ClientContactButtonWrapper />
     </TranslationProvider>

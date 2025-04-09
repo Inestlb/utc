@@ -50,10 +50,29 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
               </motion.p>
             </div>
 
-            <div className="flex justify-center items-center">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl">
-                {partners.map(partner => (
-                  <div key={partner.id} className="bg-white p-10 rounded-lg shadow-md flex flex-col items-center justify-center h-52 transition-transform hover:scale-105 hover:shadow-lg border border-gray-100 hover:border-orange-500">
+            <div className="flex justify-center items-center py-6">
+              <div className="w-full flex flex-col md:flex-row justify-center items-center space-y-12 md:space-y-0 md:space-x-16 lg:space-x-20">
+                {partners.map((partner, index) => (
+                  <motion.div 
+                    key={partner.id} 
+                    className="bg-white p-12 rounded-xl shadow-sm flex flex-col items-center justify-center w-64 h-56 transition-all hover:shadow-lg border border-gray-50 gpu-accelerated"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ 
+                      opacity: 1, 
+                      y: 0,
+                      transition: { 
+                        duration: 0.6, 
+                        delay: index * 0.15,
+                        ease: [0.25, 0.1, 0.25, 1.0]
+                      }
+                    }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    whileHover={{ 
+                      scale: 1.03, 
+                      boxShadow: "0 10px 30px -8px rgba(0, 0, 0, 0.1)",
+                      transition: { duration: 0.3 }
+                    }}
+                  >
                     {partner.name === "IFM" ? (
                       <Image
                         src="/images/logo-ifm.svg"
@@ -81,18 +100,25 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
                     ) : (
                       <div className="font-bold text-4xl text-gray-800 hover:text-orange-500 transition-colors">{partner.name}</div>
                     )}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
 
             <div className="text-center mt-12">
-              <Button asChild variant="outline" className="hover:border-orange-500 hover:text-orange-500">
-                <Link href="/blog">
-                  {t('button.readMore')}
-                  <ArrowRight className="ml-1 h-4 w-4"/>
-                </Link>
-              </Button>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <Button asChild variant="outline" className="hover:border-orange-500 hover:text-orange-500">
+                  <Link href="/blog">
+                    {t('button.readMore')}
+                    <ArrowRight className="ml-1 h-4 w-4"/>
+                  </Link>
+                </Button>
+              </motion.div>
             </div>
           </div>
         </div>

@@ -140,38 +140,42 @@ export default function Navbar() {
                       }`}
                     >
                       {getTextContent(link.key)}
-                      <ChevronDown className={`h-4 w-4 opacity-70 transition-transform duration-300 ${isProductsHovered ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`h-4 w-4 opacity-70 transition-transform duration-500 ${isProductsHovered ? 'rotate-180' : ''}`} />
                     </button>
 
-                    {/* Menu déroulant au survol */}
-                    <div
-                      className={`absolute left-0 mt-2 w-[280px] p-3 bg-white rounded-md shadow-lg transition-all duration-300 ${
-                        isProductsHovered
-                          ? 'opacity-100 translate-y-0 pointer-events-auto'
-                          : 'opacity-0 -translate-y-2 pointer-events-none'
+                    {/* Conteneur du menu déroulant avec une grande zone de détection */}
+                    <div 
+                      className={`absolute left-0 w-[320px] -mt-6 pt-10 transition-opacity duration-200 ${
+                        isProductsHovered 
+                          ? 'opacity-100 pointer-events-auto' 
+                          : 'opacity-0 pointer-events-none'
                       }`}
+                      onMouseEnter={() => setIsProductsHovered(true)}
+                      onMouseLeave={() => setIsProductsHovered(false)}
                     >
-                      <div className="grid gap-2">
-                        {link.submenu?.map((item) => (
-                          <Link
-                            key={item.href}
-                            href={item.href}
-                            className="flex items-center p-3 rounded-md hover:bg-gray-50 transition-colors duration-200"
-                          >
-                            <div className="flex-shrink-0 h-10 w-10 mr-3 flex items-center justify-center">
-                              {item.logo && (
-                                <Image
-                                  src={item.logo}
-                                  alt={item.name}
-                                  width={30}
-                                  height={30}
-                                  className="object-contain"
-                                />
-                              )}
-                            </div>
-                            <div className="font-medium text-gray-800">{item.name}</div>
-                          </Link>
-                        ))}
+                      <div className="bg-white rounded-md shadow-lg w-[280px]">
+                        <div className="grid gap-2 p-3">
+                          {link.submenu?.map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className="flex items-center p-3 rounded-md hover:bg-gray-50 transition-colors duration-200"
+                            >
+                              <div className="flex-shrink-0 h-10 w-10 mr-3 flex items-center justify-center">
+                                {item.logo && (
+                                  <Image
+                                    src={item.logo}
+                                    alt={item.name}
+                                    width={30}
+                                    height={30}
+                                    className="object-contain"
+                                  />
+                                )}
+                              </div>
+                              <div className="font-medium text-gray-800">{item.name}</div>
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -208,10 +212,10 @@ export default function Navbar() {
             {/* Contact link */}
             <Link
               href={contactLink.href}
-              className={`text-[15px] font-medium transition-all duration-300 rounded-lg px-5 py-2.5 flex items-center gap-2 ${
+              className={`text-[15px] font-medium transition-colors duration-300 rounded-lg px-5 py-2.5 flex items-center gap-2 ${
                 pathname === contactLink.href
-                  ? 'bg-orange-500 text-white shadow-md shadow-orange-500/20 scale-[0.98]'
-                  : 'bg-orange-500 text-white hover:bg-orange-600 shadow-sm hover:shadow-md shadow-orange-500/15 hover:shadow-orange-500/20 hover:scale-[1.02]'
+                  ? 'bg-orange-600 text-white'
+                  : 'bg-orange-500 text-white hover:bg-orange-600'
               }`}
             >
               <Mail className="h-[18px] w-[18px]" />

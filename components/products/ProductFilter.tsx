@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Filter, X } from 'lucide-react';
+import { IFM_CATEGORIES, LENZE_CATEGORIES, WAGO_CATEGORIES } from '@/lib/types';
+import { useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 interface ProductFilterProps {
   categories: string[];
@@ -18,77 +15,76 @@ export default function ProductFilter({
   selectedCategory,
   onCategoryChange,
 }: ProductFilterProps) {
-  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const searchParams = useSearchParams();
+  const brand = searchParams.get('brand');
 
-  const handleCategoryChange = (category: string) => {
-    if (category === selectedCategory) {
-      onCategoryChange(undefined); // Clear filter if already selected
-    } else {
-      onCategoryChange(category);
-    }
-  };
+  // Détermine les catégories à afficher en fonction de la marque
+  let displayCategories: string[] = [];
+  
+  if (brand === 'ifm') {
+    // Ordre exact comme sur l'image pour IFM
+    const orderedCategories = [
+      'Capteurs',
+      'IO-Link',
+      'Traitement d\'images',
+      'Accessoires',
+      'Technologies de sécurité',
+      'Alimentation en tension',
+      'Technologies de connexion',
+      'Interface de câblage capteurs/actionneurs'
+    ];
+    displayCategories = orderedCategories;
+  } else if (brand === 'lenze') {
+    // Catégories pour Lenze
+    displayCategories = [
+      'Variateurs et servovariateurs',
+      'Moteurs',
+      'Motoréducteurs',
+      'Réducteurs',
+      'Solutions et passerelles llot',
+      'Accessoires',
+      'Software'
+    ];
+  } else if (brand === 'wago') {
+    // Catégories pour WAGO
+    displayCategories = [
+      'Technologies de raccordement électriques',
+      'Interfaces électroniques',
+      'Techniques d\'automatisation'
+    ];
+  } else {
+    displayCategories = categories;
+  }
+
+  // Ajouter "All" comme première option
+  const allCategories = ["All", ...displayCategories];
 
   return (
-    <>
-      {/* Mobile Filter Toggle */}
-      <div className="md:hidden mb-4">
-        <Button
-          variant="outline"
-          className="w-full flex items-center justify-center"
-          onClick={() => setIsFilterVisible(!isFilterVisible)}
-        >
-          <Filter className="mr-2 h-4 w-4" />
-          {isFilterVisible ? 'Masquer les filtres' : 'Afficher les filtres'}
-        </Button>
-      </div>
-
-      {/* Filter Card */}
-      <Card className={`${isFilterVisible ? 'block' : 'hidden'} md:block`}>
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-lg">Filtres</CardTitle>
-            {selectedCategory && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onCategoryChange(undefined)}
-                className="h-8 px-2 text-xs"
-              >
-                Tout effacer
-                <X className="ml-1 h-3 w-3" />
-              </Button>
-            )}
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-sm font-medium mb-3">Catégories</h3>
-              <div className="space-y-3">
-                {categories.map((category) => (
-                  <div key={category} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`category-${category}`}
-                      checked={category === selectedCategory}
-                      onCheckedChange={() => handleCategoryChange(category)}
-                    />
-                    <Label
-                      htmlFor={`category-${category}`}
-                      className="text-sm cursor-pointer"
-                    >
-                      {category}
-                    </Label>
-                  </div>
-                ))}
-
-                {categories.length === 0 && (
-                  <p className="text-sm text-gray-500">Aucune catégorie disponible</p>
+    <div className="w-full">
+      <div className="px-6 md:px-12">
+        <div className="flex flex-wrap gap-3">
+          {allCategories.map((category) => {
+            const isSelected = 
+              (category === "All" && !selectedCategory) || 
+              category === selectedCategory;
+            
+            return (
+              <button
+                key={category}
+                onClick={() => onCategoryChange(category === "All" ? undefined : category)}
+                className={cn(
+                  "px-5 py-3.5 text-center rounded-md text-sm font-medium transition-all duration-300 ease-in-out",
+                  isSelected 
+                    ? "bg-orange-500 text-white shadow-md" 
+                    : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
                 )}
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </>
+              >
+                {category}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 }

@@ -42,19 +42,19 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const totalPages = Math.ceil(products.length / 4);
 
   return (
-    <div className="py-12">
+    <div className="py-16">
       <div className="flex justify-center w-full">
-        <div className="w-full max-w-[1600px] px-12">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-4">Nos Produits</h1>
-            <p className="text-gray-600 max-w-3xl">
+        <div className="w-full max-w-[1600px]">
+          <div className="mb-10 px-6 md:px-12">
+            <h1 className="text-4xl font-bold mb-5">Nos Produits</h1>
+            <p className="text-gray-600 max-w-3xl text-lg">
               Parcourez notre catalogue complet de produits industriels conçus pour la <span className="font-medium">fiabilité</span>,
               l&apos;<span className="font-medium">efficacité</span> et la <span className="font-medium">performance</span>. Utilisez les filtres pour trouver exactement ce dont vous avez besoin.
             </p>
           </div>
 
           {/* Search Bar */}
-          <div className="mb-8">
+          <div className="mb-12 px-6 md:px-12">
             <SearchBar
               products={products}
               initialQuery={search || ''}
@@ -63,8 +63,8 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
           {/* Product Grid with Filters */}
           <Suspense fallback={
-            <div className="flex justify-center items-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+            <div className="flex justify-center items-center py-16">
+              <Loader2 className="h-10 w-10 animate-spin text-custom-orange" />
             </div>
           }>
             <ProductGrid

@@ -68,22 +68,22 @@ export default function Footer() {
             <div className="col-span-3">
               <ul className="space-y-6">
                 <li>
-                  <Link href="/" className="text-white hover:text-orange-500 transition-colors duration-200 underline decoration-1 underline-offset-4">
+                  <Link href="/" className="text-white hover:text-orange-500 transition-colors duration-200">
                     {getTextContent('nav.home')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/products" className="text-white hover:text-orange-500 transition-colors duration-200 underline decoration-1 underline-offset-4">
+                  <Link href="/products" className="text-white hover:text-orange-500 transition-colors duration-200">
                     {getTextContent('nav.products')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/about" className="text-white hover:text-orange-500 transition-colors duration-200 underline decoration-1 underline-offset-4">
+                  <Link href="/about" className="text-white hover:text-orange-500 transition-colors duration-200">
                     {getTextContent('nav.about')}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blog" className="text-white hover:text-orange-500 transition-colors duration-200 underline decoration-1 underline-offset-4">
+                  <Link href="/blog" className="text-white hover:text-orange-500 transition-colors duration-200">
                     {getTextContent('nav.partners')}
                   </Link>
                 </li>
