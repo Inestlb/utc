@@ -79,7 +79,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           {/* Back Button */}
           <div className="mb-8 animate-in slide-in-from-left-5 duration-700 delay-300">
             <Button variant="outline" size="sm" asChild>
-              <Link href="/products?category=Variateurs%20et%20servovariateurs&brand=lenze">
+              <Link href={`/products?category=${encodeURIComponent(product.category)}&brand=lenze`}>
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Retour
               </Link>

@@ -2,7 +2,12 @@
 
 import { useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { LENZE_VARIATEUR_SUBCATEGORIES, LenzeVariateurSubCategory } from '@/lib/types';
+import { 
+  LENZE_VARIATEUR_SUBCATEGORIES, 
+  LenzeVariateurSubCategory,
+  LENZE_MOTOREDUCTEUR_SUBCATEGORIES,
+  LenzeMotoreducteurSubCategory
+} from '@/lib/types';
 
 interface SubCategoryFilterProps {
   mainCategory: string;
@@ -23,16 +28,44 @@ export default function SubCategoryFilter({
   console.log("mainCategory:", mainCategory);
   console.log("brand:", brand);
   
-  // Si ce n'est pas la page Lenze ou pas la catégorie Variateurs et servovariateurs, on n'affiche pas les sous-filtres
-  if (brand !== 'lenze' || mainCategory !== 'Variateurs et servovariateurs') {
-    console.log("Conditions non respectées, sous-filtres non affichés");
+  // Si ce n'est pas la page Lenze, on n'affiche pas les sous-filtres
+  if (brand !== 'lenze') {
+    console.log("Pas la marque Lenze, sous-filtres non affichés");
     return null;
   }
   
-  // Sous-catégories pour Variateurs et servovariateurs
-  const subCategories = Object.keys(LENZE_VARIATEUR_SUBCATEGORIES) as LenzeVariateurSubCategory[];
-  console.log("SubCategories disponibles:", subCategories);
+  // Déterminer quelles sous-catégories afficher
+  let allSubCategories: string[] = [];
+  
+  if (mainCategory === 'Variateurs et servovariateurs') {
+    // Pour les variateurs, utiliser les sous-catégories définies dans les types
+    allSubCategories = [
+      'Variateurs de vitesse',
+      'Servovariateurs', 
+      'Produits antérieurs - Variateurs de vitesse'
+    ];
+  } 
+  else if (mainCategory === 'Motoréducteurs') {
+    // Pour les motoréducteurs, utiliser exactement les mêmes valeurs que dans le JSON
+    allSubCategories = [
+      "Motoréducteurs triphasés",
+      "Motoréducteurs triphasés avec variateurs de vitesse",
+      "Servo-motoréducteurs"
+    ];
+    console.log("Utilisation des sous-catégories exactes depuis le JSON");
+  }
+  else {
+    console.log("Catégorie sans sous-filtres définis:", mainCategory);
+    return null;
+  }
+  
+  console.log("Sous-catégories disponibles:", allSubCategories);
   console.log("==== FIN DIAGNOSTIC SubCategoryFilter ====");
+
+  // Si aucune sous-catégorie n'est définie, ne pas afficher le filtre
+  if (allSubCategories.length === 0) {
+    return null;
+  }
 
   // Ajouter un bouton "Tous" pour afficher tous les produits
   return (
@@ -53,7 +86,7 @@ export default function SubCategoryFilter({
           Tous
         </button>
         
-        {subCategories.map((subCategory) => {
+        {allSubCategories.map((subCategory) => {
           const isSelected = subCategory === selectedSubCategory;
           
           return (

@@ -177,6 +177,11 @@ export const products: Product[] = [
   },
 ];
 
+// Fonction pour obtenir les produits statiques (qui ne sont pas chargés dynamiquement depuis des fichiers JSON)
+export async function getStaticProducts(): Promise<Product[]> {
+  return products;
+}
+
 // Fonction pour charger les produits Lenze depuis le fichier JSON
 export async function getLenzeVariateurs(): Promise<Product[]> {
   try {
@@ -288,33 +293,148 @@ export async function getLenzeVariateurs(): Promise<Product[]> {
   }
 }
 
+// Fonction pour charger les motoréducteurs Lenze depuis le fichier JSON
+export async function getLenzeMotoreducteurs(): Promise<Product[]> {
+  try {
+    const filePath = path.join(process.cwd(), 'app', '(site)', 'products', 'json lenze', 'lenze_motoreducteurs.json');
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const jsonData = JSON.parse(fileContents);
+    
+    console.log("==== DÉBOGAGE getLenzeMotoreducteurs ====");
+    console.log("Chargement des motoréducteurs Lenze, données JSON:", jsonData.length);
+    
+    // Vérifier les catégories dans le JSON
+    const categoriesInJson = [...new Set(jsonData.map((item: any) => item.category))];
+    console.log("Catégories exactes présentes dans le JSON motoréducteurs:", JSON.stringify(categoriesInJson));
+    
+    // ⚠️ DÉBOGAGE: Comptage par catégorie dans le JSON brut
+    const categoryCounts: Record<string, number> = {};
+    for (const item of jsonData) {
+      const category = item.category;
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    }
+    console.log("Distribution des catégories dans le JSON brut:", categoryCounts);
+    
+    // Produits chargés depuis le JSON
+    const products = jsonData.map((item: any, index: number) => {
+      // Générer un ID unique basé sur le nom du produit
+      const id = `lenze-motoreducteur-${index + 1}`;
+      
+      // Map direct de la catégorie du JSON vers notre sous-catégorie
+      const subcategory = item.category;
+      
+      console.log(`Traitement du produit ${item.name}, catégorie JSON exacte: "${item.category}"`);
+      
+      // Tableau pour stocker toutes les images
+      let productImages: string[] = [];
+      
+      // Récupérer toutes les images du JSON
+      if (item.images && item.images.length > 0) {
+        // Filtrer les images pour exclure les SVG et les icônes non compatibles
+        productImages = item.images
+          .filter((img: any) => {
+            // Exclure les icônes et les SVG
+            return !img.url.includes('external-link.svg') && 
+                   !img.url.includes('/Icons/') &&
+                   img.url.includes('webp'); // Privilégier les images webp
+          })
+          .map((img: any) => img.url);
+      }
+      
+      // Si aucune image valide n'a été trouvée, chercher d'autres formats
+      if (productImages.length === 0 && item.images && item.images.length > 0) {
+        // Utiliser d'autres images disponibles
+        productImages = item.images
+          .filter((img: any) => {
+            return !img.url.includes('external-link.svg') && 
+                   !img.url.includes('/Icons/');
+          })
+          .map((img: any) => img.url);
+      }
+      
+      // Utiliser l'image principale
+      const image = productImages.length > 0 ? productImages[0] : "";
+      
+      // Préparer les spécifications en format plat
+      const specifications: Record<string, any> = {};
+      
+      // Ajouter les points forts
+      if (item.specs?.["Points forts"]) {
+        specifications["Points forts"] = Array.isArray(item.specs["Points forts"]) 
+          ? item.specs["Points forts"].join("\n") 
+          : item.specs["Points forts"];
+      }
+      
+      // Ajouter les caractéristiques techniques
+      if (item.specs?.["Caractéristiques techniques"]?.["Caractéristiques et données techniques"]) {
+        const techSpecs = item.specs["Caractéristiques techniques"]["Caractéristiques et données techniques"];
+        for (const [key, value] of Object.entries(techSpecs)) {
+          specifications[key] = value;
+        }
+      }
+      
+      // Ajouter la description
+      if (item.specs?.Description) {
+        specifications["Description"] = item.specs.Description;
+      }
+      
+      // ⚠️ DÉBOGAGE: Vérification de sous-catégorie exacte
+      console.log(`Création produit ${id} - catégorie: 'Motoréducteurs', sous-catégorie: '${subcategory}'`);
+      
+      // Construire l'objet Product
+      return {
+        id,
+        name: item.name,
+        category: "Motoréducteurs", // Catégorie principale
+        subcategory, // Sous-catégorie spécifique depuis le JSON
+        description: item.main_content || item.specs?.Description || "",
+        specifications,
+        image,
+        featured: index < 3, // Les 3 premiers produits sont mis en avant
+        // Utiliser toutes les images additionnelles filtrées
+        additionalImages: productImages.slice(1)
+      };
+    });
+    
+    // DÉBOGAGE: Compter les produits par sous-catégorie après transformation
+    const subcategoryCounts: Record<string, number> = {};
+    for (const product of products) {
+      subcategoryCounts[product.subcategory] = (subcategoryCounts[product.subcategory] || 0) + 1;
+    }
+    console.log("Distribution des produits après transformation:", subcategoryCounts);
+    
+    // Vérifier les valeurs exactes des sous-catégories créées
+    const createdSubcategories = [...new Set(products.map((p: Product) => p.subcategory))];
+    console.log("Sous-catégories exactes créées:", JSON.stringify(createdSubcategories));
+    
+    console.log("==== FIN DÉBOGAGE getLenzeMotoreducteurs ====");
+    
+    return products;
+  } catch (error) {
+    console.error("Erreur lors du chargement des motoréducteurs Lenze:", error);
+    return [];
+  }
+}
+
 // Fonction pour fusionner les produits Lenze avec les autres produits
 export async function getAllProducts(): Promise<Product[]> {
-  const lenzeVariateurs = await getLenzeVariateurs();
-  console.log("Nombre de produits Lenze chargés:", lenzeVariateurs.length);
-
-  // Si aucun produit Lenze n'a été chargé, on tente de créer des produits par défaut
-  if (lenzeVariateurs.length === 0) {
-    // Créer au moins un produit Lenze par défaut si le chargement a échoué
-    const defaultLenzeProduct: Product = {
-      id: "lenze-default-1",
-      name: "Variateur de vitesse Lenze i650",
-      category: "Variateurs et servovariateurs",
-      subcategory: "Variateurs de vitesse",
-      description: "Variateur de vitesse pour applications industrielles avancées.",
-      specifications: {
-        "Puissance": "0.37 à 45 kW",
-        "Communication": "EtherCAT, EtherNet/IP, IO-Link, Modbus TCP, PROFINET"
-      },
-      image: "https://www.lenze.com/fileadmin/_processed_/6/7/csm_C16_LAN_i650_motec_7cbab8e151.webp",
-      featured: true,
-      additionalImages: []
-    };
-    console.log("Création d'un produit Lenze par défaut");
-    return [...products, defaultLenzeProduct];
+  try {
+    const [staticProducts, lenzeVariateurs, lenzeMotoreducteurs] = await Promise.all([
+      getStaticProducts(),
+      getLenzeVariateurs(),
+      getLenzeMotoreducteurs()
+    ]);
+    
+    console.log("Nombre de produits statiques:", staticProducts.length);
+    console.log("Nombre de variateurs Lenze:", lenzeVariateurs.length);
+    console.log("Nombre de motoréducteurs Lenze:", lenzeMotoreducteurs.length);
+    console.log("Nombre total de produits:", staticProducts.length + lenzeVariateurs.length + lenzeMotoreducteurs.length);
+    
+    return [...staticProducts, ...lenzeVariateurs, ...lenzeMotoreducteurs];
+  } catch (error) {
+    console.error("Erreur lors du chargement des produits:", error);
+    return getStaticProducts();
   }
-  
-  return [...products, ...lenzeVariateurs];
 }
 
 export async function getProducts(options?: {
@@ -331,177 +451,273 @@ export async function getProducts(options?: {
   console.log(`Nombre total de produits: ${allProducts.length}`);
   console.log(`Options de recherche:`, options);
   
-  // Vérifiez si nous sommes sur la page Lenze Variateurs
+  // Vérifiez si nous sommes sur des pages spéciales Lenze
   const isLenzeVariateursPage = options?.brand === 'lenze' && 
                              options?.category === 'Variateurs et servovariateurs';
+  const isLenzeMotoreducteursPage = options?.brand === 'lenze' && 
+                             options?.category === 'Motoréducteurs';
+                             
+  // Est-ce qu'on est sur une page avec des sous-catégories Lenze
+  const isLenzeSpecialPage = isLenzeVariateursPage || isLenzeMotoreducteursPage;
   
-  if (isLenzeVariateursPage) {
-    console.log(`=== DIAGNOSTIC LENZE VARIATEURS ===`);
+  if (isLenzeSpecialPage) {
+    console.log(`=== DIAGNOSTIC LENZE PAGE SPÉCIALE ===`);
+    console.log(`Page: ${options?.category}`);
     
-    // Trouver tous les produits Lenze Variateurs
-    const lenzeProducts = allProducts.filter(p => 
-      p.category === 'Variateurs et servovariateurs'
+    // Étape 1: D'abord appliquer le filtre de marque (lenze)
+    let filteredProducts = allProducts.filter(product => 
+      ['Variateurs et servovariateurs', 'Motoréducteurs'].includes(product.category) || 
+      product.name.toLowerCase().includes('lenze')
     );
+    console.log(`Après filtre par marque (${options?.brand}): ${filteredProducts.length} produits`);
     
-    console.log(`Nombre total de produits Lenze Variateurs: ${lenzeProducts.length}`);
+    // Étape 2: Ensuite, filtrer par catégorie principale
+    if (options?.category) {
+      filteredProducts = filteredProducts.filter(product => product.category === options.category);
+      console.log(`Après filtre par catégorie (${options.category}): ${filteredProducts.length} produits`);
+    }
     
-    // Analyser les sous-catégories disponibles
-    const subcategories = [...new Set(lenzeProducts.map(p => p.subcategory))];
+    // Trouver toutes les sous-catégories disponibles à ce stade
+    const subcategories = [...new Set(filteredProducts.map(p => p.subcategory))];
     console.log(`Sous-catégories disponibles: ${subcategories.join(', ')}`);
     
     // Comptage des produits par sous-catégorie
     const subcategoryCounts = subcategories.reduce((acc, subcat) => {
-      acc[subcat] = lenzeProducts.filter(p => p.subcategory === subcat).length;
+      acc[subcat] = filteredProducts.filter(p => p.subcategory === subcat).length;
       return acc;
     }, {} as Record<string, number>);
     console.log(`Comptage par sous-catégorie:`, subcategoryCounts);
     
-    // Analyser si le filtre de sous-catégorie est appliqué
-    if (options?.subcategory) {
+    // Étape 3: Appliquer le filtre de sous-catégorie si fourni
+    if (options?.subcategory && options?.category === 'Motoréducteurs') {
+      console.log(`Filtre sous-catégorie demandé: ${options.subcategory}`);
+      
+      // Pour les motoréducteurs, on continue à renvoyer TOUS les produits de la catégorie
+      // mais on note la sous-catégorie demandée pour que l'interface puisse la mettre en surbrillance
+      console.log("Pour les motoréducteurs, on renvoie tous les produits de la catégorie principale");
+      
+      // Vérifier combien de produits correspondent à chaque sous-catégorie
+      const subCategoryCounts = {
+        'Motoréducteurs triphasés': filteredProducts.filter(p => p.subcategory === 'Motoréducteurs triphasés').length,
+        'Motoréducteurs triphasés avec variateurs de vitesse': filteredProducts.filter(p => p.subcategory === 'Motoréducteurs triphasés avec variateurs de vitesse').length,
+        'Servo-motoréducteurs': filteredProducts.filter(p => p.subcategory === 'Servo-motoréducteurs').length
+      };
+      
+      console.log("Répartition des produits par sous-catégorie:", subCategoryCounts);
+      
+      // Pour les motoréducteurs, ne pas filtrer par sous-catégorie
+      // filteredProducts reste inchangé
+    }
+    else if (options?.subcategory) {
       console.log(`Filtre sous-catégorie demandé: ${options.subcategory}`);
       
       // Vérifier combien de produits correspondent à cette sous-catégorie
-      const matchingProducts = lenzeProducts.filter(p => p.subcategory === options.subcategory);
+      const matchingProducts = filteredProducts.filter(p => p.subcategory === options.subcategory);
       console.log(`Nombre de produits correspondant à la sous-catégorie ${options.subcategory}: ${matchingProducts.length}`);
       
       // Afficher les noms de ces produits
       console.log(`Produits correspondants:`, matchingProducts.map(p => p.name));
+      
+      // Appliquer le filtre de sous-catégorie pour les autres catégories
+      filteredProducts = matchingProducts;
     }
-  }
-  
-  let filteredProducts = allProducts;
-
-  if (options?.category) {
-    filteredProducts = filteredProducts.filter(
-      (product) => product.category === options.category
-    );
-    console.log(`Après filtre par catégorie (${options.category}): ${filteredProducts.length} produits`);
-  }
-
-  // IMPORTANT: Sur la page Lenze Variateurs, ne pas appliquer le filtre de sous-catégorie
-  // pour que tous les produits soient disponibles au composant client
-  if (options?.subcategory && !isLenzeVariateursPage) {
-    filteredProducts = filteredProducts.filter(
-      (product) => product.subcategory === options.subcategory
-    );
-    console.log(`Après filtre par sous-catégorie (${options.subcategory}): ${filteredProducts.length} produits`);
-  }
-
-  if (options?.search) {
-    const searchLower = options.search.toLowerCase();
-    filteredProducts = filteredProducts.filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchLower) ||
-        product.description.toLowerCase().includes(searchLower)
-    );
-  }
-
-  if (options?.featured !== undefined) {
-    filteredProducts = filteredProducts.filter(
-      (product) => product.featured === options.featured
-    );
-  }
-
-  // Gérer spécifiquement le filtre de marque pour Lenze
-  if (options?.brand) {
-    if (options.brand.toLowerCase() === 'lenze') {
-      // Pour Lenze, on filtre les produits qui sont dans la catégorie Variateurs et servovariateurs
-      // ou dont le nom contient "Lenze"
+    
+    // Étape 4: Appliquer les autres filtres (recherche, featured)
+    if (options?.search) {
+      const searchLower = options.search.toLowerCase();
       filteredProducts = filteredProducts.filter(
-        (product) => 
-          product.category === "Variateurs et servovariateurs" || 
-          product.name.toLowerCase().includes('lenze')
+        (product) =>
+          product.name.toLowerCase().includes(searchLower) ||
+          product.description.toLowerCase().includes(searchLower)
       );
-      console.log(`Après filtre par marque (${options.brand}): ${filteredProducts.length} produits`);
-    } else {
-      // Pour les autres marques, comportement habituel
+    }
+
+    if (options?.featured !== undefined) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.featured === options.featured
+      );
+    }
+    
+    // Vérification finale du nombre de produits par sous-catégorie
+    if (isLenzeVariateursPage) {
+      const finalSubcategoryCounts = {
+        'Variateurs de vitesse': filteredProducts.filter(p => p.subcategory === 'Variateurs de vitesse').length,
+        'Servovariateurs': filteredProducts.filter(p => p.subcategory === 'Servovariateurs').length,
+        'Produits antérieurs - Variateurs de vitesse': filteredProducts.filter(p => p.subcategory === 'Produits antérieurs - Variateurs de vitesse').length
+      };
+      console.log(`FINAL - Nombre de variateurs par sous-catégorie:`, finalSubcategoryCounts);
+    } else if (isLenzeMotoreducteursPage) {
+      const finalSubcategoryCounts = {
+        'Motoréducteurs triphasés': filteredProducts.filter(p => p.subcategory === 'Motoréducteurs triphasés').length,
+        'Motoréducteurs triphasés avec variateurs de vitesse': filteredProducts.filter(p => p.subcategory === 'Motoréducteurs triphasés avec variateurs de vitesse').length,
+        'Servo-motoréducteurs': filteredProducts.filter(p => p.subcategory === 'Servo-motoréducteurs').length
+      };
+      console.log(`FINAL - Nombre de motoréducteurs par sous-catégorie:`, finalSubcategoryCounts);
+      
+      // Vérification supplémentaire pour les motoréducteurs
+      console.log(`Vérification finale - Nombre total de motoréducteurs: ${filteredProducts.length}`);
+      console.log(`Dont : ${finalSubcategoryCounts['Motoréducteurs triphasés']} triphasés, ${finalSubcategoryCounts['Motoréducteurs triphasés avec variateurs de vitesse']} avec variateurs, ${finalSubcategoryCounts['Servo-motoréducteurs']} servo`);
+      
+      if (options?.subcategory) {
+        console.log(`Pour info: sous-catégorie sélectionnée "${options.subcategory}", mais tous les produits sont renvoyés`);
+      }
+    }
+    
+    // Débogage supplémentaire
+    const allSubcategories = [...new Set(filteredProducts.map(p => p.subcategory))];
+    console.log("Valeurs exactes des sous-catégories trouvées:", allSubcategories);
+    
+    // Exemple de produits par sous-catégorie
+    for (const subcategory of allSubcategories) {
+      const examples = filteredProducts.filter(p => p.subcategory === subcategory).slice(0, 2);
+      console.log(`Exemples de produits dans "${subcategory}":`, examples.map(p => p.name));
+    }
+    
+    // Vérifier la correspondance avec nos valeurs attendues
+    for (const expectedSubcategory of ['Motoréducteurs triphasés', 'Motoréducteurs triphasés avec variateurs de vitesse', 'Servo-motoréducteurs']) {
+      const count = filteredProducts.filter(p => p.subcategory === expectedSubcategory).length;
+      console.log(`Sous-catégorie "${expectedSubcategory}" - nombre de produits: ${count}`);
+    }
+    
+    console.log(`Nombre de produits filtrés: ${filteredProducts.length}`);
+    console.log(`===== FIN DIAGNOSTIC getProducts =====`);
+    
+    // Ordre personnalisé pour les variateurs Lenze
+    if (isLenzeVariateursPage && options?.subcategory === 'Variateurs de vitesse') {
+      console.log("Application de l'ordre personnalisé pour les variateurs de vitesse Lenze");
+      
+      // Tableau d'ordre pour les variateurs (du plus prioritaire au moins prioritaire)
+      const variateurOrder = [
+        "i650 motec",
+        "i550 motec",
+        "i510 cabinet",
+        "i550 protec",
+        "8400 stateline",
+        "8400 highline",
+        "8400 protec",
+        "8400 motec",
+        "smvector ip65"
+      ];
+      
+      // Trier les produits selon l'ordre personnalisé
+      filteredProducts.sort((a, b) => {
+        const aNameLower = a.name.toLowerCase();
+        const bNameLower = b.name.toLowerCase();
+        
+        // Trouver l'index du premier variateur qui correspond au nom du produit a
+        const aIndex = variateurOrder.findIndex(variateur => 
+          aNameLower.includes(variateur.toLowerCase())
+        );
+        
+        // Trouver l'index du premier variateur qui correspond au nom du produit b
+        const bIndex = variateurOrder.findIndex(variateur => 
+          bNameLower.includes(variateur.toLowerCase())
+        );
+        
+        // Si les deux produits sont dans la liste d'ordre, on les trie selon cet ordre
+        if (aIndex !== -1 && bIndex !== -1) {
+          return aIndex - bIndex;
+        }
+        
+        // Si a est dans la liste mais pas b, a est prioritaire
+        if (aIndex !== -1) return -1;
+        
+        // Si b est dans la liste mais pas a, b est prioritaire
+        if (bIndex !== -1) return 1;
+        
+        // Si aucun n'est dans la liste, on garde le tri alphabétique
+        return aNameLower.localeCompare(bNameLower);
+      });
+      
+      console.log("Ordre des produits après tri personnalisé:", filteredProducts.map(p => p.name));
+    } 
+    // Tri par défaut pour les autres cas
+    else {
+      // Default sorting - by name
+      filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    
+    // Pagination
+    if (options?.page !== undefined) {
+      // Pour les pages spéciales Lenze, on montre tous les produits sur une seule page
+      const ITEMS_PER_PAGE = isLenzeSpecialPage ? 50 : 8;
+      
+      // ⚠️ DÉBOGAGE: Vérifier si on est sur la page des motoréducteurs
+      if (isLenzeMotoreducteursPage) {
+        console.log("Page motoréducteurs - Produits disponibles avant pagination:", filteredProducts.length);
+        console.log("Produits par sous-catégorie avant pagination:");
+        console.log("- Motoréducteurs triphasés:", filteredProducts.filter(p => p.subcategory === 'Motoréducteurs triphasés').length);
+        console.log("- Motoréducteurs triphasés avec variateurs de vitesse:", filteredProducts.filter(p => p.subcategory === 'Motoréducteurs triphasés avec variateurs de vitesse').length);
+        console.log("- Servo-motoréducteurs:", filteredProducts.filter(p => p.subcategory === 'Servo-motoréducteurs').length);
+      }
+      
+      const start = (options.page - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      const paginatedProducts = filteredProducts.slice(start, end);
+      console.log(`Après pagination (page ${options.page}, ${ITEMS_PER_PAGE} produits par page): ${paginatedProducts.length} produits renvoyés`);
+      return paginatedProducts;
+    }
+    
+    return filteredProducts;
+  }
+  else {
+    // Pour toutes les autres pages, appliquer le processus standard de filtrage
+    let filteredProducts = allProducts;
+
+    if (options?.category) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.category === options.category
+      );
+      console.log(`Après filtre par catégorie (${options.category}): ${filteredProducts.length} produits`);
+    }
+
+    // Appliquer le filtre de sous-catégorie si fourni
+    if (options?.subcategory) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.subcategory === options.subcategory
+      );
+      console.log(`Après filtre par sous-catégorie (${options.subcategory}): ${filteredProducts.length} produits`);
+    }
+
+    if (options?.search) {
+      const searchLower = options.search.toLowerCase();
+      filteredProducts = filteredProducts.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchLower) ||
+          product.description.toLowerCase().includes(searchLower)
+      );
+    }
+
+    if (options?.featured !== undefined) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.featured === options.featured
+      );
+    }
+
+    // Gérer spécifiquement le filtre de marque pour les autres marques
+    if (options?.brand) {
       filteredProducts = filteredProducts.filter((product) => {
         const productNameLower = product.name.toLowerCase();
         return productNameLower.includes(options.brand!.toLowerCase());
       });
+      console.log(`Après filtre par marque (${options.brand}): ${filteredProducts.length} produits`);
     }
-  }
 
-  // Vérification finale du nombre de produits par sous-catégorie
-  if (isLenzeVariateursPage) {
-    const finalSubcategoryCounts = {
-      'Variateurs de vitesse': filteredProducts.filter(p => p.subcategory === 'Variateurs de vitesse').length,
-      'Servovariateurs': filteredProducts.filter(p => p.subcategory === 'Servovariateurs').length,
-      'Produits antérieurs - Variateurs de vitesse': filteredProducts.filter(p => p.subcategory === 'Produits antérieurs - Variateurs de vitesse').length
-    };
-    console.log(`FINAL - Nombre par sous-catégorie:`, finalSubcategoryCounts);
-  }
-  
-  console.log(`Nombre de produits filtrés: ${filteredProducts.length}`);
-  console.log(`===== FIN DIAGNOSTIC getProducts =====`);
-
-  // Ordre personnalisé pour les variateurs Lenze
-  if (isLenzeVariateursPage && options?.subcategory === 'Variateurs de vitesse') {
-    console.log("Application de l'ordre personnalisé pour les variateurs de vitesse Lenze");
-    
-    // Tableau d'ordre pour les variateurs (du plus prioritaire au moins prioritaire)
-    const variateurOrder = [
-      "i650 motec",
-      "i550 motec",
-      "i510 cabinet",
-      "i550 protec",
-      "8400 stateline",
-      "8400 highline",
-      "8400 protec",
-      "8400 motec",
-      "smvector ip65"
-    ];
-    
-    // Trier les produits selon l'ordre personnalisé
-    filteredProducts.sort((a, b) => {
-      const aNameLower = a.name.toLowerCase();
-      const bNameLower = b.name.toLowerCase();
-      
-      // Trouver l'index du premier variateur qui correspond au nom du produit a
-      const aIndex = variateurOrder.findIndex(variateur => 
-        aNameLower.includes(variateur.toLowerCase())
-      );
-      
-      // Trouver l'index du premier variateur qui correspond au nom du produit b
-      const bIndex = variateurOrder.findIndex(variateur => 
-        bNameLower.includes(variateur.toLowerCase())
-      );
-      
-      // Si les deux produits sont dans la liste d'ordre, on les trie selon cet ordre
-      if (aIndex !== -1 && bIndex !== -1) {
-        return aIndex - bIndex;
-      }
-      
-      // Si a est dans la liste mais pas b, a est prioritaire
-      if (aIndex !== -1) return -1;
-      
-      // Si b est dans la liste mais pas a, b est prioritaire
-      if (bIndex !== -1) return 1;
-      
-      // Si aucun n'est dans la liste, on garde le tri alphabétique
-      return aNameLower.localeCompare(bNameLower);
-    });
-    
-    console.log("Ordre des produits après tri personnalisé:", filteredProducts.map(p => p.name));
-  } 
-  // Tri par défaut pour les autres cas
-  else {
     // Default sorting - by name
     filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
-  }
 
-  // Pagination
-  if (options?.page !== undefined) {
-    // Pour les produits Lenze, on montre tous les produits sur une seule page
-    const ITEMS_PER_PAGE = isLenzeVariateursPage ? 50 : 8;
-    const start = (options.page - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    const paginatedProducts = filteredProducts.slice(start, end);
-    console.log(`Après pagination (page ${options.page}, ${ITEMS_PER_PAGE} produits par page): ${paginatedProducts.length} produits renvoyés`);
-    return paginatedProducts;
-  }
+    // Pagination
+    if (options?.page !== undefined) {
+      const ITEMS_PER_PAGE = 8;
+      const start = (options.page - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      const paginatedProducts = filteredProducts.slice(start, end);
+      console.log(`Après pagination (page ${options.page}, ${ITEMS_PER_PAGE} produits par page): ${paginatedProducts.length} produits renvoyés`);
+      return paginatedProducts;
+    }
 
-  return filteredProducts;
+    return filteredProducts;
+  }
 }
 
 export async function getProductById(id: string): Promise<Product | undefined> {

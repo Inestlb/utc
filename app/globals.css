@@ -204,7 +204,8 @@
 
 /* Amélioration du contraste pour les produits blancs */
 .white-product-image {
-  /* Garder seulement le padding sans fond gris */
+  /* Ajouter un fond blanc explicite */
+  background-color: white;
   padding: 0.5rem;
 }
 

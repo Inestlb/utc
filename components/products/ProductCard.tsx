@@ -35,16 +35,16 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Card className="overflow-hidden h-full group transition-all duration-300">
-      <div className="relative h-52 w-full overflow-hidden flex items-center justify-center cursor-pointer" onClick={handleViewDetails}>
+      <div className="relative h-52 w-full overflow-hidden flex items-center justify-center cursor-pointer bg-white" onClick={handleViewDetails}>
         {(!product.image || imageError) ? (
-          <div className="flex items-center justify-center w-full h-full">
-          <span className="text-gray-500 text-3xl font-bold">{product.name.charAt(0)}</span>
-        </div>
+          <div className="flex items-center justify-center w-full h-full bg-white">
+            <span className="text-gray-500 text-3xl font-bold">{product.name.charAt(0)}</span>
+          </div>
         ) : (
-          <div className={`w-full h-full flex items-center justify-center overflow-hidden ${isWhiteProduct ? 'white-product-image' : ''}`}>
+          <div className={`w-full h-full flex items-center justify-center overflow-hidden bg-white ${isWhiteProduct ? 'white-product-image' : ''}`}>
             <img 
-          src={product.image}
-          alt={product.name}
+              src={product.image}
+              alt={product.name}
               className="object-contain w-auto h-full max-w-full transition-transform duration-500 group-hover:scale-105"
               onError={handleImageError}
             />
@@ -64,10 +64,10 @@ export default function ProductCard({ product }: ProductCardProps) {
       <CardFooter className="p-5 pt-2 flex justify-between items-center">
           <Button 
             variant="outline" 
-          className="w-full py-5 transition-all duration-300 group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500"
-          onClick={handleViewDetails}
-          disabled={isLoading}
-        >
+            className="w-full py-5 transition-all duration-300 group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500"
+            onClick={handleViewDetails}
+            disabled={isLoading}
+          >
           {isLoading ? (
             <>
               <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
