@@ -3,10 +3,12 @@ export interface Product {
   name: string;
   category: string;
   subcategory: string;
+  jsonCategory?: string; // Catégorie d'origine du JSON
   description: string;
-  specifications: Record<string, string>;
+  specifications: Record<string, any>;
   image: string;
-  featured?: boolean;
+  featured: boolean;
+  additionalImages?: string[];
 }
 
 export interface Partner {
@@ -90,10 +92,10 @@ export const WAGO_CATEGORIES: Record<WAGOCategory, string> = {
 export type LenzeVariateurSubCategory = 
   | 'Variateurs de vitesse'
   | 'Servovariateurs'
-  | 'Produits antèrieurs - Variateurs de vitesse';
+  | 'Produits antérieurs - Variateurs de vitesse';
 
 export const LENZE_VARIATEUR_SUBCATEGORIES: Record<LenzeVariateurSubCategory, string> = {
   'Variateurs de vitesse': 'Variateurs de vitesse',
   'Servovariateurs': 'Servovariateurs',
-  'Produits antèrieurs - Variateurs de vitesse': 'Produits antèrieurs - Variateurs de vitesse'
+  'Produits antérieurs - Variateurs de vitesse': 'Produits antérieurs - Variateurs de vitesse'
 };

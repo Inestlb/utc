@@ -27,14 +27,31 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   const search = searchParams.q;
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  // Fetch products and categories
-  const productsPromise = getProducts({
+  console.log("Page produits - Paramètres de recherche:", { category, subcategory, brand, search, page });
+
+  // Récupérer TOUS les produits sans filtre de sous-catégorie si nous sommes sur la page des variateurs Lenze
+  let productsOptions: {
+    category?: string;
+    subcategory?: string;
+    brand?: string;
+    search?: string;
+    page: number;
+  } = {
     category,
-    subcategory,
     brand,
     search,
     page,
-  });
+  };
+  
+  // Ne pas filtrer par sous-catégorie sur le serveur, nous le ferons côté client
+  if (!(brand === 'lenze' && category === 'Variateurs et servovariateurs')) {
+    productsOptions.subcategory = subcategory;
+  }
+
+  console.log("Options de requête produits:", productsOptions);
+
+  // Fetch products and categories
+  const productsPromise = getProducts(productsOptions);
 
   const categoriesPromise = getProductCategories();
 
@@ -43,6 +60,18 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     productsPromise,
     categoriesPromise,
   ]);
+
+  console.log(`Produits récupérés: ${products.length}`);
+  
+  // Si nous sommes sur la page des variateurs Lenze, affichons la répartition des sous-catégories
+  if (brand === 'lenze' && category === 'Variateurs et servovariateurs') {
+    const subcatCounts = {
+      'Variateurs de vitesse': products.filter(p => p.subcategory === 'Variateurs de vitesse').length,
+      'Servovariateurs': products.filter(p => p.subcategory === 'Servovariateurs').length,
+      'Produits antérieurs - Variateurs de vitesse': products.filter(p => p.subcategory === 'Produits antérieurs - Variateurs de vitesse').length
+    };
+    console.log("Nombre de produits par sous-catégorie (page.tsx):", subcatCounts);
+  }
 
   // Calculate total pages (in a real app, this would come from the API)
   const totalPages = Math.ceil(products.length / 4);

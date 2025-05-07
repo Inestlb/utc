@@ -92,18 +92,81 @@ export default function ProductGrid({
   const handleSubCategoryChange = (subCategory?: string) => {
     setSelectedSubCategory(subCategory);
     if (onFilterChange) {
+      console.log("handleSubCategoryChange - Changement de sous-catégorie vers:", subCategory);
       onFilterChange({ subcategory: subCategory, page: 1 });
+      
+      // Mettre à jour l'URL directement en plus de l'appel à onFilterChange
+      const newParams = new URLSearchParams(searchParams.toString());
+      if (subCategory) {
+        newParams.set('subcategory', subCategory);
+      } else {
+        newParams.delete('subcategory');
+      }
+      console.log("URL mise à jour:", `/products?${newParams.toString()}`);
+      router.push(`/products?${newParams.toString()}`);
     }
   };
 
   // Déterminer si nous sommes sur la page variateurs et servovariateurs
   const isVariateurPage = brand === 'lenze' && filterOptions.category === 'Variateurs et servovariateurs';
 
-  // Filtrer les produits par sous-catégorie seulement si ce n'est pas la page variateurs
+  // Filtrer les produits par sous-catégorie sélectionnée
   useEffect(() => {
-    // Important: Afficher tous les produits sans filtre pour la page des variateurs
-    setFilteredProducts(products);
-  }, [products]);
+    console.log("====== DIAGNOSTIC ProductGrid ======");
+    console.log("ProductGrid reçoit", products.length, "produits");
+    
+    // Afficher les produits reçus par sous-catégorie
+    const subcategoryDistribution: Record<string, string[]> = {};
+    for (const product of products) {
+      if (!subcategoryDistribution[product.subcategory]) {
+        subcategoryDistribution[product.subcategory] = [];
+      }
+      subcategoryDistribution[product.subcategory].push(product.name);
+    }
+    
+    console.log("Répartition des produits par sous-catégorie:");
+    for (const [subcat, prods] of Object.entries(subcategoryDistribution)) {
+      console.log(`- ${subcat}: ${prods.length} produits`);
+      console.log(prods);
+    }
+    
+    // Si nous sommes sur la page des variateurs Lenze
+    if (isVariateurPage) {
+      // 1. Vérifier qu'il y a bien des produits pour chaque sous-catégorie
+      const subcategoryCounts = {
+        'Variateurs de vitesse': products.filter(p => p.subcategory === 'Variateurs de vitesse').length,
+        'Servovariateurs': products.filter(p => p.subcategory === 'Servovariateurs').length,
+        'Produits antérieurs - Variateurs de vitesse': products.filter(p => p.subcategory === 'Produits antérieurs - Variateurs de vitesse').length
+      };
+      console.log("Distribution des sous-catégories:", subcategoryCounts);
+      
+      // 2. Si une sous-catégorie est sélectionnée, et qu'elle existe, filtrer
+      if (selectedSubCategory) {
+        console.log("Filtrage demandé par sous-catégorie:", selectedSubCategory);
+        
+        // Vérifier si la sous-catégorie existe et a des produits
+        const productsInSelectedSubcategory = products.filter(p => p.subcategory === selectedSubCategory);
+        console.log(`Produits dans la sous-catégorie ${selectedSubCategory}:`, productsInSelectedSubcategory.length);
+        
+        if (productsInSelectedSubcategory.length > 0) {
+          console.log("Produits filtrés par sous-catégorie:", productsInSelectedSubcategory.map(p => p.name));
+          setFilteredProducts(productsInSelectedSubcategory);
+        } else {
+          console.warn(`Aucun produit trouvé pour la sous-catégorie ${selectedSubCategory}! Affichage de tous les produits.`);
+          setFilteredProducts(products);
+        }
+      } else {
+        // 3. Sinon, afficher tous les produits
+        console.log("Aucune sous-catégorie sélectionnée, affichage de tous les produits:", products.length);
+        setFilteredProducts(products);
+      }
+    } else {
+      // Pour les autres pages, afficher tous les produits
+      setFilteredProducts(products);
+    }
+    
+    console.log("====== FIN DIAGNOSTIC ProductGrid ======");
+  }, [products, selectedSubCategory, isVariateurPage]);
 
   return (
     <div className="w-full">
@@ -238,7 +301,7 @@ export default function ProductGrid({
       )}
 
       {/* Pagination - Only show when showing product results */}
-      {showFilters && totalPages > 1 && (
+      {showFilters && totalPages > 1 && !isVariateurPage && (
         <div className="flex justify-center mt-12 px-6 md:px-12">
           <div className="flex space-x-3">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
