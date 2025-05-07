@@ -69,8 +69,8 @@ export default function LenzeCategoryCards({
             className="block hover:no-underline"
           >
             <Card className="overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] group cursor-pointer h-full">
-              <div className="relative h-48 w-full bg-gray-100 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-200 transition-transform duration-500 ease-in-out group-hover:scale-[1.05]">
+              <div className="relative h-48 w-full overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out group-hover:scale-[1.05]">
                   <span className="text-gray-500 text-3xl font-bold">{category.charAt(0)}</span>
                 </div>
                 {/* Image de catégorie - à décommenter quand les images réelles seront disponibles */}

@@ -14,10 +14,16 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [imageError, setImageError] = useState(false);
   
   const handleViewDetails = () => {
     setIsLoading(true);
     router.push(`/products/${product.id}`);
+  };
+
+  // Gérer les erreurs de chargement d'image
+  const handleImageError = () => {
+    setImageError(true);
   };
 
   // Vérifier si c'est un produit blanc qui nécessite un contraste amélioré
@@ -28,18 +34,19 @@ export default function ProductCard({ product }: ProductCardProps) {
   );
 
   return (
-    <Card className="overflow-hidden h-full group transition-all duration-300 hover:shadow-md">
-      <div className="relative h-52 w-full overflow-hidden flex items-center justify-center cursor-pointer product-image-container" onClick={handleViewDetails}>
-        {!product.image || product.image.includes('undefined') ? (
-          <div className="flex items-center justify-center bg-gray-100 w-full h-full">
-            <span className="text-gray-500 text-3xl font-bold">{product.name.charAt(0)}</span>
-          </div>
+    <Card className="overflow-hidden h-full group transition-all duration-300">
+      <div className="relative h-52 w-full overflow-hidden flex items-center justify-center cursor-pointer" onClick={handleViewDetails}>
+        {(!product.image || imageError) ? (
+          <div className="flex items-center justify-center w-full h-full">
+          <span className="text-gray-500 text-3xl font-bold">{product.name.charAt(0)}</span>
+        </div>
         ) : (
           <div className={`w-full h-full flex items-center justify-center overflow-hidden ${isWhiteProduct ? 'white-product-image' : ''}`}>
             <img 
-              src={product.image} 
-              alt={product.name} 
+          src={product.image}
+          alt={product.name}
               className="object-contain w-auto h-full max-w-full transition-transform duration-500 group-hover:scale-105"
+              onError={handleImageError}
             />
           </div>
         )}
@@ -55,8 +62,8 @@ export default function ProductCard({ product }: ProductCardProps) {
       </CardContent>
 
       <CardFooter className="p-5 pt-2 flex justify-between items-center">
-        <Button 
-          variant="outline" 
+          <Button 
+            variant="outline" 
           className="w-full py-5 transition-all duration-300 group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500"
           onClick={handleViewDetails}
           disabled={isLoading}
@@ -71,11 +78,11 @@ export default function ProductCard({ product }: ProductCardProps) {
             </>
           ) : (
             <>
-              Voir les détails
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            Voir les détails
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </>
           )}
-        </Button>
+          </Button>
       </CardFooter>
     </Card>
   );

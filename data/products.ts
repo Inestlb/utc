@@ -1,4 +1,6 @@
 import { Product, LenzeVariateurSubCategory } from "@/lib/types";
+import fs from 'fs';
+import path from 'path';
 
 // Ajout d'un tableau pour les images additionnelles des produits
 export const extraImages: Record<string, string[]> = {
@@ -9,6 +11,32 @@ export const extraImages: Record<string, string[]> = {
   "lenze-016": ["/images/products/8400mb.webp", "/images/products/8400mc.webp"],
   "lenze-017": [],
 };
+
+// Ajout d'un mapping pour les images locales à utiliser comme fallback pour les produits antérieurs
+export const productImageMapping: Record<string, string> = {
+  // Variateurs de vitesse
+  "8400 BaseLine": "/images/products/8400.webp",
+  "8400 StateLine": "/images/products/8400.webp",
+  "8400 HighLine": "/images/products/8400h.webp",
+  "8400 TopLine": "/images/products/8400.webp",
+  "8400 motec": "/images/products/8400ma.webp",
+  "8400 protec": "/images/products/8400pa.webp",
+  "SMVector": "/images/products/SMVector.webp",
+  "i550": "/images/products/i550.webp",
+  "i650": "/images/products/i650.webp",
+  "i510": "/images/products/i510a.webp",
+  
+  // Servovariateurs
+  "i750 cabinet": "/images/products/i550.webp", // Image par défaut pour servovariateurs
+  "i700 cabinet": "/images/products/i550.webp", // Image par défaut pour servovariateurs
+  "i950 cabinet": "/images/products/i550.webp", // Image par défaut pour servovariateurs
+  "9400 HighLine": "/images/products/8400h.webp", // Utilise l'image highline
+  "Variateur De Vitesse 8400 TopLine": "/images/products/8400.webp",
+  
+  // Produits antérieurs
+  "ECS": "/images/products/lenze-default.jpg",
+  "9300": "/images/products/lenze-default.jpg",
+}
 
 export const products: Product[] = [
   {
@@ -147,297 +175,147 @@ export const products: Product[] = [
     image: "/images/filter-if2500.jpg",
     featured: false,
   },
-  // Produits Lenze - Variateurs de vitesse
-  {
-    id: "lenze-001",
-    name: "Variateur i550 protec",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Variateurs de vitesse",
-    description: "Variateur de fréquence compact pour les applications industrielles, avec un design robuste et une installation flexible.",
-    specifications: {
-      "Puissance": "0.25 à 132 kW",
-      "Tension d'alimentation": "1/3 x 230V | 3 x 400/480V",
-      "Fréquence": "50/60 Hz ±10%",
-      "Interface": "RS485, CANopen, PROFIBUS",
-      "Indice de protection": "IP66/NEMA 4X",
-      "Certification": "CE, UL, cUL, EAC"
-    },
-    image: "/images/products/lenze-i550.jpg",
-    featured: true,
-  },
-  {
-    id: "lenze-009",
-    name: "Variateur de vitesse i550 motec",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Variateurs de vitesse",
-    description: "Le variateur de vitesse i550 motec pour montage mural et sur le moteur, indice de protection IP66 (UL Type 4X Intérieur), est la solution d'entraînement décentralisée optimale. Pour une utilisation universelle, le variateur peut être complété par une boîte d'extension avec interrupteur de maintenance, avec ou sans protection contre les surcharges ou courts-circuits et éléments de commande.\n\nCe variateur se distingue par un montage rapide, une mise en service facile grâce à des outils conviviaux et des connecteurs enfichables classiques du marché. Les paramètres, le comportement de l'entraînement et la convivialité d'utilisation sont conformes à nos variateurs de vitesse reconnus. Complétée par une efficacité énergétique élevée, nous proposons ainsi une solution d'entraînement moderne et durable.\n\nLes exigences de la directive Écoconception, norme EN IEC 61800-9-2, sont respectées.",
-    specifications: {
-      "Puissance": "0.37 à 45 kW",
-      "Tension d'alimentation": "3 AC 230V | 3 AC 400V | 3 AC 480V",
-      "E/S Standard": "4 x entrée numérique ou 3 x entrée numérique/1 x sortie numérique",
-      "E/S Application": "4 x port IO-Link ou 8 x entrée numérique ou 4 x entrée numérique/4 x sortie numérique",
-      "Communication": "EtherCAT, EtherNet/IP, IO-Link, Modbus TCP, PROFINET",
-      "Indice de protection": "IP66 (UL Type 4X Intérieur)",
-      "Champs d'application": "Entraînements de convoyeur, mouvements de translation, systèmes d'enroulement ou de déroulement, systèmes de levage, extrudeuses, machines d'emballage, pompes, ventilateurs",
-      "Points forts": "Solution compacte décentralisée, boîte d'extension possible, montage rapide (Plug & Play), 4 ports IO-Link, module de renvoi intégré pour efficacité énergétique"
-    },
-    image: "/images/products/i550.webp",
-    featured: true,
-  },
-  {
-    id: "lenze-002",
-    name: "Variateur i550 cabinet",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Variateurs de vitesse",
-    description: "Variateur de fréquence pour montage en armoire, offrant une haute performance dans un design compact.",
-    specifications: {
-      "Puissance": "0.37 à 45 kW",
-      "Tension d'alimentation": "1/3 x 230V | 3 x 400/480V",
-      "Fréquence": "50/60 Hz ±10%",
-      "Interface": "RS485, CANopen, PROFIBUS, EtherCAT",
-      "Indice de protection": "IP20",
-      "Certification": "CE, UL, cUL, EAC"
-    },
-    image: "/images/products/lenze-i550-cabinet.jpg",
-    featured: false,
-  },
-  {
-    id: "lenze-003",
-    name: "Variateur i950",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Variateurs de vitesse",
-    description: "Variateur puissant pour les applications complexes, offrant des fonctionnalités avancées d'automatisation et une haute performance.",
-    specifications: {
-      "Puissance": "0.55 à 110 kW",
-      "Tension d'alimentation": "3 x 400/480V",
-      "Fréquence": "50/60 Hz ±10%",
-      "Interface": "EtherCAT, PROFINET, EtherNet/IP",
-      "Indice de protection": "IP20",
-      "Certification": "CE, UL, cUL, EAC"
-    },
-    image: "/images/products/lenze-i950.jpg",
-    featured: true,
-  },
-  
-  // Produits Lenze - Servovariateurs
-  {
-    id: "lenze-004",
-    name: "Servovariateur i700",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Servovariateurs",
-    description: "Servovariateur hautes performances pour des applications de contrôle de mouvement précises et dynamiques.",
-    specifications: {
-      "Puissance": "0.75 à 15 kW",
-      "Tension d'alimentation": "3 x 400/480V",
-      "Fréquence": "50/60 Hz ±10%",
-      "Interface": "EtherCAT",
-      "Indice de protection": "IP20",
-      "Certification": "CE, UL, cUL, EAC"
-    },
-    image: "/images/products/lenze-i700.jpg",
-    featured: true,
-  },
-  {
-    id: "lenze-005",
-    name: "Servovariateur i950",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Servovariateurs",
-    description: "Servovariateur multiaxes pour des applications exigeantes, offrant une haute précision et une excellente dynamique.",
-    specifications: {
-      "Puissance": "0.55 à 110 kW",
-      "Tension d'alimentation": "3 x 400/480V",
-      "Fréquence": "50/60 Hz ±10%",
-      "Interface": "EtherCAT, PROFINET, EtherNet/IP",
-      "Indice de protection": "IP20",
-      "Certification": "CE, UL, cUL, EAC"
-    },
-    image: "/images/products/lenze-i950-servo.jpg",
-    featured: false,
-  },
-  
-  // Produits Lenze - Produits antèrieurs - Variateurs de vitesse
-  {
-    id: "lenze-006",
-    name: "Variateur 8200 vector",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Produits antèrieurs - Variateurs de vitesse",
-    description: "Variateur de fréquence classique pour applications industrielles, avec une large gamme de puissances et d'options.",
-    specifications: {
-      "Puissance": "0.25 à 90 kW",
-      "Tension d'alimentation": "1/3 x 230V | 3 x 400/480V",
-      "Fréquence": "50/60 Hz ±10%",
-      "Interface": "RS485, CANopen, PROFIBUS",
-      "Indice de protection": "IP20",
-      "Certification": "CE, UL, cUL"
-    },
-    image: "/images/products/lenze-8200.jpg",
-    featured: false,
-  },
-  {
-    id: "lenze-007",
-    name: "Variateur 9300",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Produits antèrieurs - Variateurs de vitesse",
-    description: "Variateur modulaire de haute performance pour applications complexes, avec des fonctionnalités avancées de contrôle.",
-    specifications: {
-      "Puissance": "0.37 à 315 kW",
-      "Tension d'alimentation": "3 x 400/480V",
-      "Fréquence": "50/60 Hz ±10%",
-      "Interface": "RS485, CANopen, PROFIBUS, DeviceNet",
-      "Indice de protection": "IP20",
-      "Certification": "CE, UL, cUL"
-    },
-    image: "/images/products/lenze-9300.jpg",
-    featured: false,
-  },
-  {
-    id: "lenze-008",
-    name: "Variateur de vitesse i650 motec",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Variateurs de vitesse",
-    description: "Le variateur de vitesse i650 motec pour montage mural et sur le moteur, indice de protection IP66 (UL Type 4X Intérieur), est la solution d'entraînement décentralisée optimale. Pour une utilisation universelle, le variateur peut être complété par une boîte d'extension avec interrupteur de maintenance, avec ou sans protection contre les surcharges ou courts-circuits et éléments de commande.\n\nLe variateur de vitesse i650 motec se distingue du i550 motec par une gamme de fonctions étendue : Pour les tâches d'automatisation simples, un Logic PLC basé sur CODESYS et conforme à la norme CEI 61131-3 est intégré dans l'i650 motec. Un positionnement par tableau est disponible pour la réalisation d'axes et de modules de machines autonomes. L'option « Extended Safety / sécurité étendue » (système de sécurité aux fonctions diverses) complète l'ensemble.\n\nLes exigences de la directive Écoconception, norme EN IEC 61800-9-2, sont respectées.",
-    specifications: {
-      "Puissance": "0.37 à 45 kW",
-      "Tension d'alimentation": "3 AC 230V | 3 AC 400V | 3 AC 480V",
-      "E/S Application": "4 x port IO-Link ou 8 x entrée numérique ou 4 x entrée numérique/4 x sortie numérique",
-      "Communication": "EtherCAT, EtherNet/IP, IO-Link, Modbus TCP, PROFINET",
-      "Indice de protection": "IP66 (UL Type 4X Intérieur)",
-      "Fonctionnalités": "Logic PLC (CODESYS), positionnement par tableau, Extended Safety",
-      "Champs d'application": "Entraînements de convoyeur, mouvements de translation, systèmes d'enroulement ou de déroulement, systèmes de levage, extrudeuses, machines d'emballage, pompes, ventilateurs",
-      "Points forts": "Solution compacte décentralisée, boîte d'extension possible, montage rapide (Plug & Play), 4 ports IO-Link, module de renvoi intégré pour efficacité énergétique"
-    },
-    image: "/images/products/i650.webp",
-    featured: true,
-  },
-  {
-    id: "lenze-010",
-    name: "Variateur de vitesse i510 cabinet",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Variateurs de vitesse",
-    description: "Le variateur de vitesse i510 cabinet est un appareil compact d'armoire électrique avec des fonctionnalités évolutives. Il est polyvalent, fiable et facile à commander.\n\nLes exigences de la directive Écoconception, norme EN IEC 61800-9-2, sont respectées.\n\nChamps d'application : entraînements de convoyeur, mouvements de translation, pompes, ventilateurs, mélangeurs, ...",
-    specifications: {
-      "Puissance": "0.25 à 15 kW",
-      "Raccordements": "1 AC 230V | 3 AC 230V | 3 AC 400V | 3 AC 480V",
-      "E/S": "5x entrée numérique, 1x sortie numérique, 2x entrée analogique, 1x sortie analogique, 1x relais NO/NC",
-      "Communication": "CANopen, Modbus RTU",
-      "Points forts": "Design compact de 60 mm de largeur (jusqu'à 4 kW) et de 130 mm de profondeur (jusqu'à 11 kW) permet de gagner de la place dans l'armoire électrique, possibilités d'interaction innovantes (par exemple via WiFi) pour une mise en service rapide et un diagnostic convivial, particulièrement facile à utiliser"
-    },
-    image: "/images/products/i510a.webp",
-    featured: true,
-  },
-  {
-    id: "lenze-011",
-    name: "Variateur de vitesse i550 cabinet",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Variateurs de vitesse",
-    description: "Le variateur de vitesse i550 cabinet est un appareil d'armoire électrique compact avec des fonctionnalités évolutives. Il est polyvalent, fiable et facile à commander.\n\nLes exigences de la directive Écoconception, norme EN IEC 61800-9-2, sont respectées.\n\nChamps d'application : entraînements de convoyeur, mouvements de translation, systèmes d'enroulement ou de déroulement, systèmes de levage, extrudeuses, machines d'emballage, pompes, ventilateurs, ...",
-    specifications: {
-      "Puissance": "0.25 à 132 kW",
-      "Raccordements": "1 AC 120V | 1 AC 230V | 3 AC 230V | 3 AC 400V | 3 AC 480V",
-      "E/S": "5x entrée numérique, 1x sortie numérique, 2x entrée analogique, 1x sortie analogique, 1x relais NO/NC, Bus courant continu, Surveillance de la température moteur",
-      "Communication": "CANopen, EtherCAT, EtherNet/IP, IO-Link, Modbus RTU, Modbus TCP, POWERLINK, PROFIBUS, PROFINET",
-      "Points forts": "Design compact de 60 mm de largeur (jusqu'à 4 kW) et de 130 mm de profondeur (jusqu'à 11 kW) permet de gagner de la place dans l'armoire électrique, possibilités d'interaction innovantes (via WiFi) pour une mise en service rapide et un diagnostic convivial, fonction de sécurité « Absence sûre de couple (STO) » disponible en option avec le niveau SIL 3 et le Niveau de Performance e, disponible en tant qu'appareil complet ou en composants individuels"
-    },
-    image: "/images/products/i550cabineta.webp",
-    featured: true,
-  },
-  {
-    id: "lenze-012",
-    name: "Variateur de vitesse i550 protec",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Variateurs de vitesse",
-    description: "Le variateur de vitesse i550 protec primé est conçu sur la technologie reconnue de la version en armoire électrique, et il diffère uniquement par un indice de protection plus élevé et une conception adaptée. S'il n'y a pas assez de place dans l'armoire électrique ou si le variateur doit être monté à proximité du moteur dans différents modules machine, cet appareil polyvalent et fiable est alors la bonne solution. Grâce à la boîte d'extension , il est possible d'utiliser un interrupteur de maintenance et des éléments de commande.\n\nLes exigences de la directive Écoconception, norme EN IEC 61800-9-2, sont respectées.\n\nChamps d'application : entraînements de convoyeur, mouvements de translation, systèmes d'enroulement ou de déroulement, systèmes de levage, extrudeuses, machines d'emballage, pompes, ventilateurs, ...",
-    specifications: {
-      "Puissance": "0.37 à 75 kW",
-      "Raccordements": "1 AC 120V | 1 AC 230V | 3 AC 230V | 3 AC 400V | 3 AC 480V | 3 AC 600V",
-      "E/S": "5x entrée numérique, 1x sortie numérique, 2x entrée analogique, 1x sortie analogique, 1x relais NO/NC, Bus courant continu, Surveillance de la température moteur, Micro USB",
-      "Communication": "CANopen, EtherCAT, EtherNet/IP, IO-Link, Modbus RTU, Modbus TCP, PROFINET",
-      "Points forts": "Entraînement décentralisé avec interface IO-Link V1.1, interface de diagnostic intégrée (micro USB) pour des interventions de maintenance, versions avec ou sans interrupteur de réparation, avec clavier ou module WLAN pour une mise en service facile, fonction de sécurité « Absence sûre de couple (STO) » disponible en option avec le niveau SIL 3 et le Niveau de Performance e"
-    },
-    image: "/images/products/i550proteca.webp",
-    featured: true,
-  },
-  {
-    id: "lenze-013",
-    name: "Variateur de vitesse 8400 StateLine",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Produits antèrieurs - Variateurs de vitesse",
-    description: "Le variateur de vitesse 8400 StateLine convient pour la commande en vitesse dans le cas de mouvements simples.\n\nLes exigences de la directive Écoconception, norme EN IEC 61800-9-2, sont respectées.\n\nChamps d'application : convoyeurs à renvoi d'angle, palettiseurs (intralogistique), extrudeuses (industrie des plastiques), systèmes de remplissage (industrie de l'emballage), ...",
-    specifications: {
-      "Puissance": "0.25 à 45 kW",
-      "Raccordements": "1 AC 230V | 3 AC 400V | 3 AC 480V",
-      "E/S": "5x entrée numérique, 1x sortie numérique, 1x entrée analogique, 1x sortie analogique, 1x relais NO/NC, Bus courant continu (types 400 V), Surveillance de la température moteur",
-      "Communication": "CANopen, EtherCAT, EtherNet/IP, POWERLINK, PROFIBUS, PROFINET",
-      "Points forts": "Pour les systèmes d'entraînement avec ou sans bouclage vitesse, gestion intégrée de la commande de frein, fonction d'économie d'énergie avec le mode « VFC eco »"
-    },
-    image: "/images/products/8400.webp",
-    featured: false,
-  },
-  {
-    id: "lenze-014",
-    name: "Variateur de vitesse 8400 HighLine",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Produits antèrieurs - Variateurs de vitesse",
-    description: "Le variateur de vitesse 8400 HighLine convient pour la commande en vitesse dans le cas de mouvements simples et de tâches de positionnement.\n\nLes exigences de la directive Écoconception, norme EN IEC 61800-9-2, sont respectées.\n\nChamps d'application : tables tournantes, systèmes de stockage (intralogistique), ensacheuses (industrie de l'emballage), ...",
-    specifications: {
-      "Puissance": "0.25 à 45 kW",
-      "Raccordements": "1 AC 230V | 3 AC 400V | 3 AC 480V",
-      "E/S": "8x entrée numérique, 4x sortie numérique, 2x entrée analogique, 2x sortie analogique, 1x relais NO/NC, Bus courant continu (types 400 V), Surveillance de la température moteur",
-      "Communication": "CANopen, EtherCAT, EtherNet/IP, POWERLINK, PROFIBUS, PROFINET",
-      "Points forts": "Commande de positionnement intégrée, jusqu'à 15 positionnements cible sélectionnables avec le profil de mouvement correspondant, fonction de sécurité « Absence sûre de couple (STO) » disponible en option avec le niveau SIL 3 (EN CEI 62061/EN CEI 61508) et le Niveau de Performance e (EN ISO 13849-1)"
-    },
-    image: "/images/products/8400h.webp",
-    featured: false,
-  },
-  {
-    id: "lenze-015",
-    name: "Variateur de vitesse 8400 protec",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Produits antèrieurs - Variateurs de vitesse",
-    description: "Le variateur de vitesse 8400 protec est adapté à un montage mural décentralisé et il dispose d'une connectique enfichable simple. La disposition décentralisée permet de réduire considérablement la longueur des câbles moteur. Vous pouvez ainsi, par exemple, concevoir de manière claire même des architectures de machines complexes.\n\nLes exigences de la directive Écoconception, norme EN IEC 61800-9-2, sont respectées.\n\nChamps d'application : tables tournantes et tables élévatrices à ciseaux (intralogistique), convoyeurs aériens (industrie automobile), ...",
-    specifications: {
-      "Puissance": "0.75 à 7.5 kW",
-      "Raccordements": "3 AC 400V | 3 AC 480V",
-      "E/S": "6x ou 4x entrée numérique, 0x ou 2x sortie numérique, 1x entrée analogique, Surveillance de la température moteur",
-      "Communication": "CANopen, EtherNet/IP, PROFIBUS, PROFINET",
-      "Points forts": "Mise en service facile avec une connectique enfichable (Plug and Drive), affichage par voyant LED et LED d'état, indice de protection élevé IP65"
-    },
-    image: "/images/products/8400pa.webp",
-    featured: false,
-  },
-  {
-    id: "lenze-016",
-    name: "Variateur de vitesse 8400 motec",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Produits antèrieurs - Variateurs de vitesse",
-    description: "Le variateur de vitesse 8400 motec peut être monté de manière décentralisée sur le moteur ou sur le mur. Il est possible d'utiliser en plus un interrupteur de réparation sur le mur. La disposition décentralisée permet de réduire considérablement la longueur des câbles moteur. Vous pouvez ainsi, par exemple, concevoir de manière claire même des architectures de machines complexes.\n\nLes exigences de la directive Écoconception, norme EN IEC 61800-9-2, sont respectées.\n\nChamps d'application : entraînements de convoyeur et mouvements de translation (intralogistique), pompes, ventilateurs, ...",
-    specifications: {
-      "Puissance": "0.37 à 7.5 kW",
-      "Raccordements": "3 AC 400V | 3 AC 480V",
-      "E/S": "1x entrée numérique, 2x/5x/8x sortie numérique, 1x entrée analogique, 0x/1x/2x sortie analogique, 1x relais NO/NC, Surveillance de la température moteur",
-      "Communication": "AS-Interface, CANopen, EtherCAT, EtherNet/IP, PROFIBUS, PROFINET",
-      "Points forts": "Mise en service facile avec une connectique enfichable (Plug and Drive), construction compacte, indice de protection IP65 élevé avec unité interrupteur IP54, interrupteur et potentiomètre intégrés pour une adaptation rapide de la configuration et de la vitesse et de la rampe, versions avec ou sans interrupteur de réparation pour montage mural"
-    },
-    image: "/images/products/8400ma.webp",
-    featured: false,
-  },
-  {
-    id: "lenze-017",
-    name: "Variateur de vitesse SMVector IP65",
-    category: "Variateurs et servovariateurs",
-    subcategory: "Produits antèrieurs - Variateurs de vitesse",
-    description: "Avec son indice de protection élevé, le variateur de vitesse SMVector IP65 est idéalement adapté à un montage mural décentralisé.\n\nLes exigences de la directive Écoconception, norme EN IEC 61800-9-2, sont respectées.\n\nChamps d'application : sites de production dans l'industrie alimentaire, entraînements dans les zones extérieures, ...",
-    specifications: {
-      "Puissance": "0.37 à 22 kW",
-      "Raccordements": "1 AC 120V | 1 AC 230V | 3 AC 230V | 3 AC 400V | 3 AC 480V | 3 AC 600V",
-      "E/S": "5x entrée numérique, 1x sortie numérique, 1x entrée analogique, 1x sortie analogique, 1x relais NO/NC",
-      "Communication": "CANopen, DeviceNet, EtherNet/IP, LECOM, Modbus RTU, PROFIBUS",
-      "Points forts": "Différentes versions de boîtier, affichage par voyant, indice de protection élevé IP65"
-    },
-    image: "/images/products/smvector.webp",
-    featured: false,
-  },
 ];
+
+// Fonction pour charger les produits Lenze depuis le fichier JSON
+export async function getLenzeVariateurs(): Promise<Product[]> {
+  try {
+    const filePath = path.join(process.cwd(), 'app', '(site)', 'products', 'json lenze', 'lenze_variateurs.json');
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const jsonData = JSON.parse(fileContents);
+    
+    console.log("Chargement des produits Lenze, données JSON:", jsonData.length);
+    
+    // Vérifier les catégories dans le JSON
+    const categoriesInJson = [...new Set(jsonData.map((item: any) => item.category))];
+    console.log("Catégories présentes dans le JSON:", categoriesInJson);
+    
+    // Produits chargés depuis le JSON
+    const products = jsonData.map((item: any, index: number) => {
+      // Générer un ID unique basé sur le nom du produit
+      const id = `lenze-variateur-${index + 1}`;
+      
+      // Utiliser directement la catégorie du JSON comme identifiant de sous-catégorie
+      // IMPORTANT: Ce champ sera utilisé pour le filtrage
+      const subcategory = item.category;
+      
+      // Vérifier que la sous-catégorie est valide
+      if (!['Variateurs de vitesse', 'Servovariateurs', 'Produits antérieurs - Variateurs de vitesse'].includes(subcategory)) {
+        console.warn(`Attention: Catégorie JSON inconnue: ${subcategory} pour le produit: ${item.name}`);
+      }
+      
+      // Tableau pour stocker toutes les images
+      let productImages: string[] = [];
+      
+      // Récupérer toutes les images du JSON
+      if (item.images && item.images.length > 0) {
+        // Filtrer les images pour exclure les SVG et les icônes non compatibles
+        productImages = item.images
+          .filter((img: any) => {
+            // Exclure les icônes et les SVG
+            return !img.url.includes('external-link.svg') && 
+                   !img.url.includes('/Icons/') &&
+                   img.url.includes('webp'); // Privilégier les images webp
+          })
+          .map((img: any) => img.url);
+      }
+      
+      // Si aucune image valide n'a été trouvée pour certains produits, chercher spécifiquement dans les autres indices
+      if (productImages.length === 0 && item.images && item.images.length > 0) {
+        // Utiliser d'autres images disponibles, même si elles ne sont pas des webp
+        productImages = item.images
+          .filter((img: any) => {
+            // Exclure uniquement les icônes et les SVG
+            return !img.url.includes('external-link.svg') && 
+                   !img.url.includes('/Icons/');
+          })
+          .map((img: any) => img.url);
+      }
+      
+      // Utiliser l'image principale
+      const image = productImages.length > 0 ? productImages[0] : "";
+      
+      // Préparer les spécifications en format plat
+      const specifications: Record<string, any> = {};
+      
+      // Ajouter les points forts
+      if (item.specs?.["Points forts"]) {
+        specifications["Points forts"] = Array.isArray(item.specs["Points forts"]) 
+          ? item.specs["Points forts"].join("\n") 
+          : item.specs["Points forts"];
+      }
+      
+      // Ajouter les caractéristiques techniques
+      if (item.specs?.["Caractéristiques techniques"]?.["Caractéristiques et données techniques"]) {
+        const techSpecs = item.specs["Caractéristiques techniques"]["Caractéristiques et données techniques"];
+        for (const [key, value] of Object.entries(techSpecs)) {
+          specifications[key] = value;
+        }
+      }
+      
+      // Ajouter la description
+      if (item.specs?.Description) {
+        specifications["Description"] = item.specs.Description;
+      }
+      
+      // Construire l'objet Product
+      return {
+        id,
+        name: item.name,
+        category: "Variateurs et servovariateurs",
+        subcategory, // Utiliser directement category du JSON comme subcategory
+        description: item.main_content || item.specs?.Description || "",
+        specifications,
+        image,
+        featured: index < 3, // Les 3 premiers produits sont mis en avant
+        // Utiliser toutes les images additionnelles filtrées
+        additionalImages: productImages.slice(1)
+      };
+    });
+    
+    // DÉBOGAGE: Compter les produits par catégorie
+    const categoryCounts = {
+      'Variateurs de vitesse': products.filter((p: Product) => p.subcategory === 'Variateurs de vitesse').length,
+      'Servovariateurs': products.filter((p: Product) => p.subcategory === 'Servovariateurs').length,
+      'Produits antérieurs - Variateurs de vitesse': products.filter((p: Product) => p.subcategory === 'Produits antérieurs - Variateurs de vitesse').length
+    };
+    console.log("Nombre de produits par sous-catégorie:", categoryCounts);
+    
+    return products;
+  } catch (error) {
+    console.error("Erreur lors du chargement des produits Lenze:", error);
+    return [];
+  }
+}
+
+// Fonction pour fusionner les produits Lenze avec les autres produits
+export async function getAllProducts(): Promise<Product[]> {
+  const lenzeVariateurs = await getLenzeVariateurs();
+  console.log("Nombre de produits Lenze chargés:", lenzeVariateurs.length);
+
+  // Si aucun produit Lenze n'a été chargé, on tente de créer des produits par défaut
+  if (lenzeVariateurs.length === 0) {
+    // Créer au moins un produit Lenze par défaut si le chargement a échoué
+    const defaultLenzeProduct: Product = {
+      id: "lenze-default-1",
+      name: "Variateur de vitesse Lenze i650",
+      category: "Variateurs et servovariateurs",
+      subcategory: "Variateurs de vitesse",
+      description: "Variateur de vitesse pour applications industrielles avancées.",
+      specifications: {
+        "Puissance": "0.37 à 45 kW",
+        "Communication": "EtherCAT, EtherNet/IP, IO-Link, Modbus TCP, PROFINET"
+      },
+      image: "https://www.lenze.com/fileadmin/_processed_/6/7/csm_C16_LAN_i650_motec_7cbab8e151.webp",
+      featured: true,
+      additionalImages: []
+    };
+    console.log("Création d'un produit Lenze par défaut");
+    return [...products, defaultLenzeProduct];
+  }
+  
+  return [...products, ...lenzeVariateurs];
+}
 
 export async function getProducts(options?: {
   category?: string;
@@ -447,113 +325,204 @@ export async function getProducts(options?: {
   page?: number;
   brand?: string;
 }): Promise<Product[]> {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 500));
-
-  // Pour Lenze, on affiche uniquement les variateurs spécifiés
-  if (options?.brand === 'lenze' && options?.category === 'Variateurs et servovariateurs') {
-    const lenzeVariateursSpecifiques = products.filter(
-      product => product.id === 'lenze-009' || product.id === 'lenze-008' || product.id === 'lenze-010' || product.id === 'lenze-011' || product.id === 'lenze-012' || product.id === 'lenze-013' || product.id === 'lenze-014' || product.id === 'lenze-015' || product.id === 'lenze-016' || product.id === 'lenze-017'
+  const allProducts = await getAllProducts();
+  
+  console.log(`===== DÉBUT DIAGNOSTIC getProducts =====`);
+  console.log(`Nombre total de produits: ${allProducts.length}`);
+  console.log(`Options de recherche:`, options);
+  
+  // Vérifiez si nous sommes sur la page Lenze Variateurs
+  const isLenzeVariateursPage = options?.brand === 'lenze' && 
+                             options?.category === 'Variateurs et servovariateurs';
+  
+  if (isLenzeVariateursPage) {
+    console.log(`=== DIAGNOSTIC LENZE VARIATEURS ===`);
+    
+    // Trouver tous les produits Lenze Variateurs
+    const lenzeProducts = allProducts.filter(p => 
+      p.category === 'Variateurs et servovariateurs'
     );
-    return lenzeVariateursSpecifiques;
+    
+    console.log(`Nombre total de produits Lenze Variateurs: ${lenzeProducts.length}`);
+    
+    // Analyser les sous-catégories disponibles
+    const subcategories = [...new Set(lenzeProducts.map(p => p.subcategory))];
+    console.log(`Sous-catégories disponibles: ${subcategories.join(', ')}`);
+    
+    // Comptage des produits par sous-catégorie
+    const subcategoryCounts = subcategories.reduce((acc, subcat) => {
+      acc[subcat] = lenzeProducts.filter(p => p.subcategory === subcat).length;
+      return acc;
+    }, {} as Record<string, number>);
+    console.log(`Comptage par sous-catégorie:`, subcategoryCounts);
+    
+    // Analyser si le filtre de sous-catégorie est appliqué
+    if (options?.subcategory) {
+      console.log(`Filtre sous-catégorie demandé: ${options.subcategory}`);
+      
+      // Vérifier combien de produits correspondent à cette sous-catégorie
+      const matchingProducts = lenzeProducts.filter(p => p.subcategory === options.subcategory);
+      console.log(`Nombre de produits correspondant à la sous-catégorie ${options.subcategory}: ${matchingProducts.length}`);
+      
+      // Afficher les noms de ces produits
+      console.log(`Produits correspondants:`, matchingProducts.map(p => p.name));
+    }
   }
   
-  let filteredProducts = [...products];
+  let filteredProducts = allProducts;
 
-  // Apply brand filter
-  if (options?.brand === 'lenze') {
-    // Pour Lenze, filtre basé sur les catégories spécifiques à Lenze
-    const lenzeCategories = [
-      'Variateurs et servovariateurs',
-      'Moteurs',
-      'Motoréducteurs',
-      'Réducteurs',
-      'Solutions et passerelles llot',
-      'Accessoires',
-      'Software'
-    ];
-    filteredProducts = filteredProducts.filter(
-      product => lenzeCategories.includes(product.category)
-    );
-  } else if (options?.brand === 'ifm') {
-    // Implémentation similaire pour ifm
-    const ifmCategories = [
-      'Capteurs',
-      'Traitement d\'images',
-      'Technologies de sécurité',
-      'IO-Link',
-      'Interface de câblage capteurs/actionneurs',
-      'Technologies de connexion',
-      'Alimentation en tension',
-      'Accessoires'
-    ];
-    filteredProducts = filteredProducts.filter(
-      product => ifmCategories.includes(product.category)
-    );
-  } else if (options?.brand === 'wago') {
-    // Implémentation similaire pour wago
-    const wagoCategories = [
-      'Technologies de raccordement électriques',
-      'Interfaces électroniques',
-      'Techniques d\'automatisation'
-    ];
-    filteredProducts = filteredProducts.filter(
-      product => wagoCategories.includes(product.category)
-    );
-  }
-
-  // Apply category filter
   if (options?.category) {
     filteredProducts = filteredProducts.filter(
-      product => product.category.toLowerCase() === options.category?.toLowerCase()
+      (product) => product.category === options.category
     );
+    console.log(`Après filtre par catégorie (${options.category}): ${filteredProducts.length} produits`);
   }
-  
-  // Apply subcategory filter
-  if (options?.subcategory) {
+
+  // IMPORTANT: Sur la page Lenze Variateurs, ne pas appliquer le filtre de sous-catégorie
+  // pour que tous les produits soient disponibles au composant client
+  if (options?.subcategory && !isLenzeVariateursPage) {
     filteredProducts = filteredProducts.filter(
-      product => product.subcategory.toLowerCase() === options.subcategory?.toLowerCase()
+      (product) => product.subcategory === options.subcategory
+    );
+    console.log(`Après filtre par sous-catégorie (${options.subcategory}): ${filteredProducts.length} produits`);
+  }
+
+  if (options?.search) {
+    const searchLower = options.search.toLowerCase();
+    filteredProducts = filteredProducts.filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchLower) ||
+        product.description.toLowerCase().includes(searchLower)
     );
   }
 
   if (options?.featured !== undefined) {
     filteredProducts = filteredProducts.filter(
-      product => product.featured === options.featured
+      (product) => product.featured === options.featured
     );
   }
 
-  if (options?.search) {
-    const searchTerm = options.search.toLowerCase();
-    filteredProducts = filteredProducts.filter(
-      product =>
-        product.name.toLowerCase().includes(searchTerm) ||
-        product.description.toLowerCase().includes(searchTerm) ||
-        product.category.toLowerCase().includes(searchTerm) ||
-        product.subcategory.toLowerCase().includes(searchTerm)
-    );
+  // Gérer spécifiquement le filtre de marque pour Lenze
+  if (options?.brand) {
+    if (options.brand.toLowerCase() === 'lenze') {
+      // Pour Lenze, on filtre les produits qui sont dans la catégorie Variateurs et servovariateurs
+      // ou dont le nom contient "Lenze"
+      filteredProducts = filteredProducts.filter(
+        (product) => 
+          product.category === "Variateurs et servovariateurs" || 
+          product.name.toLowerCase().includes('lenze')
+      );
+      console.log(`Après filtre par marque (${options.brand}): ${filteredProducts.length} produits`);
+    } else {
+      // Pour les autres marques, comportement habituel
+      filteredProducts = filteredProducts.filter((product) => {
+        const productNameLower = product.name.toLowerCase();
+        return productNameLower.includes(options.brand!.toLowerCase());
+      });
+    }
+  }
+
+  // Vérification finale du nombre de produits par sous-catégorie
+  if (isLenzeVariateursPage) {
+    const finalSubcategoryCounts = {
+      'Variateurs de vitesse': filteredProducts.filter(p => p.subcategory === 'Variateurs de vitesse').length,
+      'Servovariateurs': filteredProducts.filter(p => p.subcategory === 'Servovariateurs').length,
+      'Produits antérieurs - Variateurs de vitesse': filteredProducts.filter(p => p.subcategory === 'Produits antérieurs - Variateurs de vitesse').length
+    };
+    console.log(`FINAL - Nombre par sous-catégorie:`, finalSubcategoryCounts);
+  }
+  
+  console.log(`Nombre de produits filtrés: ${filteredProducts.length}`);
+  console.log(`===== FIN DIAGNOSTIC getProducts =====`);
+
+  // Ordre personnalisé pour les variateurs Lenze
+  if (isLenzeVariateursPage && options?.subcategory === 'Variateurs de vitesse') {
+    console.log("Application de l'ordre personnalisé pour les variateurs de vitesse Lenze");
+    
+    // Tableau d'ordre pour les variateurs (du plus prioritaire au moins prioritaire)
+    const variateurOrder = [
+      "i650 motec",
+      "i550 motec",
+      "i510 cabinet",
+      "i550 protec",
+      "8400 stateline",
+      "8400 highline",
+      "8400 protec",
+      "8400 motec",
+      "smvector ip65"
+    ];
+    
+    // Trier les produits selon l'ordre personnalisé
+    filteredProducts.sort((a, b) => {
+      const aNameLower = a.name.toLowerCase();
+      const bNameLower = b.name.toLowerCase();
+      
+      // Trouver l'index du premier variateur qui correspond au nom du produit a
+      const aIndex = variateurOrder.findIndex(variateur => 
+        aNameLower.includes(variateur.toLowerCase())
+      );
+      
+      // Trouver l'index du premier variateur qui correspond au nom du produit b
+      const bIndex = variateurOrder.findIndex(variateur => 
+        bNameLower.includes(variateur.toLowerCase())
+      );
+      
+      // Si les deux produits sont dans la liste d'ordre, on les trie selon cet ordre
+      if (aIndex !== -1 && bIndex !== -1) {
+        return aIndex - bIndex;
+      }
+      
+      // Si a est dans la liste mais pas b, a est prioritaire
+      if (aIndex !== -1) return -1;
+      
+      // Si b est dans la liste mais pas a, b est prioritaire
+      if (bIndex !== -1) return 1;
+      
+      // Si aucun n'est dans la liste, on garde le tri alphabétique
+      return aNameLower.localeCompare(bNameLower);
+    });
+    
+    console.log("Ordre des produits après tri personnalisé:", filteredProducts.map(p => p.name));
+  } 
+  // Tri par défaut pour les autres cas
+  else {
+    // Default sorting - by name
+    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   // Pagination
-  if (options?.page) {
-    const pageSize = 4;
-    const startIndex = (options.page - 1) * pageSize;
-    filteredProducts = filteredProducts.slice(startIndex, startIndex + pageSize);
+  if (options?.page !== undefined) {
+    // Pour les produits Lenze, on montre tous les produits sur une seule page
+    const ITEMS_PER_PAGE = isLenzeVariateursPage ? 50 : 8;
+    const start = (options.page - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    const paginatedProducts = filteredProducts.slice(start, end);
+    console.log(`Après pagination (page ${options.page}, ${ITEMS_PER_PAGE} produits par page): ${paginatedProducts.length} produits renvoyés`);
+    return paginatedProducts;
   }
 
   return filteredProducts;
 }
 
 export async function getProductById(id: string): Promise<Product | undefined> {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 300));
-
-  return products.find(product => product.id === id);
+  const allProducts = await getAllProducts();
+  return allProducts.find((product) => product.id === id);
 }
 
 export async function getProductCategories(): Promise<string[]> {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 200));
-
-  const categories = new Set(products.map(product => product.category));
+  const allProducts = await getAllProducts();
+  const categories = new Set(allProducts.map((product) => product.category));
   return Array.from(categories);
+}
+
+export async function getProductSubcategories(
+  category: string
+): Promise<string[]> {
+  const allProducts = await getAllProducts();
+  const subcategories = new Set(
+    allProducts
+      .filter((product) => product.category === category)
+      .map((product) => product.subcategory)
+  );
+  return Array.from(subcategories);
 }
