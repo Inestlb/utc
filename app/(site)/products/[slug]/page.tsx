@@ -3,8 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Mail } from 'lucide-react';
-import { getProductById, getProducts } from '@/data/products';
+import { getProductById, getProducts, extraImages } from '@/data/products';
 import { Metadata } from 'next';
+import ProductGallery from '@/components/products/ProductGallery';
 
 interface ProductDetailPageProps {
   params: {
@@ -46,12 +47,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     .filter(p => p.id !== product.id)
     .slice(0, 3);
 
+  // Vérifier si nous avons des images supplémentaires pour ce produit
+  const hasExtraImages = extraImages[product.id] && extraImages[product.id].length > 0;
+
   return (
-    <div className="py-12">
+    <div className="py-12 animate-in fade-in-50 duration-700">
       <div className="flex justify-center w-full">
         <div className="w-full max-w-[1600px] px-12">
           {/* Breadcrumb */}
-          <div className="mb-6">
+          <div className="mb-6 animate-in slide-in-from-left-5 duration-700 delay-150">
             <nav className="flex text-sm">
               <Link href="/" className="text-gray-500 hover:text-gray-700">
                 Accueil
@@ -73,56 +77,50 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           </div>
 
           {/* Back Button */}
-          <div className="mb-8">
+          <div className="mb-8 animate-in slide-in-from-left-5 duration-700 delay-300">
             <Button variant="outline" size="sm" asChild>
-              <Link href="/products">
+              <Link href="/products?category=Variateurs%20et%20servovariateurs&brand=lenze">
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Retour aux Produits
+                Retour
               </Link>
             </Button>
           </div>
 
           {/* Product Details */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Product Image */}
-            <div className="bg-gray-100 rounded-lg overflow-hidden">
-              <div className="aspect-square relative">
-                {/* Placeholder for product image */}
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+            {/* Product Images */}
+            <div className="animate-in slide-in-from-bottom-5 duration-700 delay-500">
+              {!product.image ? (
+                <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center max-w-[400px] mx-auto">
                   <span className="text-gray-500 text-4xl">{product.name.charAt(0)}</span>
                 </div>
-                {/* Uncomment when you have actual images */}
-                {/* <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                /> */}
-              </div>
+              ) : (
+                <ProductGallery 
+                  mainImage={product.image}
+                  additionalImages={hasExtraImages ? extraImages[product.id] : []}
+                  productName={product.name}
+                />
+              )}
             </div>
 
             {/* Product Info */}
-            <div>
+            <div className="animate-in slide-in-from-bottom-5 duration-700 delay-700">
               <div className="mb-6">
-                <div className="flex items-center mb-2">
-                  <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 rounded-full mr-2">
-                    {product.category}
-                  </span>
-                  <span className="inline-block px-2 py-1 text-xs font-medium bg-gray-100 rounded-full">
-                    {product.subcategory}
-                  </span>
-                </div>
                 <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-                <p className="text-gray-600 mb-6">{product.description}</p>
+                <div className="text-gray-600 mb-6 leading-relaxed">
+                  {product.description.split('\n\n').map((paragraph, idx) => (
+                    <p key={idx} className="mb-4">{paragraph}</p>
+                  ))}
+                </div>
               </div>
 
               {/* Specifications */}
-              <div className="mb-8">
+              <div className="mb-8 animate-in slide-in-from-right-5 duration-700 delay-900">
                 <h2 className="text-xl font-semibold mb-4">Spécifications</h2>
                 <div className="bg-gray-50 rounded-lg p-4">
                   <dl className="divide-y divide-gray-200">
-                    {Object.entries(product.specifications).map(([key, value]) => (
-                      <div key={key} className="py-3 grid grid-cols-3 gap-4">
+                    {Object.entries(product.specifications).map(([key, value], index) => (
+                      <div key={key} className="py-3 grid grid-cols-3 gap-4 animate-in fade-in-50 duration-700" style={{ animationDelay: `${900 + index * 100}ms` }}>
                         <dt className="text-sm font-medium text-gray-500">{key}</dt>
                         <dd className="text-sm text-gray-900 col-span-2">{value}</dd>
                       </div>
@@ -132,8 +130,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               </div>
 
               {/* Contact Button */}
-              <div>
-                <Button asChild className="w-full sm:w-auto">
+              <div className="animate-in slide-in-from-bottom-5 duration-700 delay-1000">
+                <Button asChild className="w-full sm:w-auto transition-all duration-300 hover:bg-orange-600 hover:scale-105">
                   <Link href="/contact">
                     <Mail className="mr-2 h-4 w-4" />
                     Demander des Informations
@@ -145,14 +143,14 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
           {/* Related Products */}
           {filteredRelatedProducts.length > 0 && (
-            <div className="mt-16">
+            <div className="mt-16 animate-in fade-in-50 duration-700 delay-1000">
               <h2 className="text-2xl font-bold mb-6">Produits Associés</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredRelatedProducts.map(relatedProduct => (
-                  <div key={relatedProduct.id} className="bg-white rounded-lg shadow-sm border p-4">
+                {filteredRelatedProducts.map((relatedProduct, index) => (
+                  <div key={relatedProduct.id} className="bg-white rounded-lg shadow-sm border p-4 animate-in slide-in-from-bottom-5 duration-500" style={{ animationDelay: `${1000 + index * 200}ms` }}>
                     <h3 className="font-semibold mb-2">{relatedProduct.name}</h3>
                     <p className="text-sm text-gray-600 mb-4 line-clamp-2">{relatedProduct.description}</p>
-                    <Button asChild variant="outline" size="sm">
+                    <Button asChild variant="outline" size="sm" className="transition-all duration-300 hover:bg-orange-500 hover:text-white hover:border-orange-500">
                       <Link href={`/products/${relatedProduct.id}`}>
                         Voir les Détails
                       </Link>

@@ -172,6 +172,45 @@
 /* Custom Orange Color Override */
 /* Suppression des surcharges pour revenir à la couleur orange d'origine de Tailwind */
 
+/* Ajout de couleurs personnalisées pour Lenze */
+.text-custom-orange {
+  color: #e47925 !important;
+}
+
+.bg-custom-orange {
+  background-color: #e47925 !important;
+}
+
+.border-custom-orange {
+  border-color: #e47925 !important;
+}
+
+.hover\:bg-custom-orange:hover {
+  background-color: #e47925 !important;
+}
+
+.hover\:text-custom-orange:hover {
+  color: #e47925 !important;
+}
+
+.hover\:border-custom-orange:hover {
+  border-color: #e47925 !important;
+}
+
+/* Amélioration de la visibilité des produits de couleur claire */
+.product-image-container {
+  background-color: #f5f5f5;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Amélioration du contraste pour les produits blancs */
+.white-product-image {
+  background-color: #f0f0f0;
+  padding: 0.5rem;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
 /* Animations globales */
 @keyframes fadeIn {
   from { opacity: 0; }

@@ -85,3 +85,15 @@ export const WAGO_CATEGORIES: Record<WAGOCategory, string> = {
   'Interfaces électroniques': 'Interfaces électroniques',
   'Techniques d\'automatisation': 'Techniques d\'automatisation'
 };
+
+// Types pour les sous-catégories de Variateurs et servovariateurs Lenze
+export type LenzeVariateurSubCategory = 
+  | 'Variateurs de vitesse'
+  | 'Servovariateurs'
+  | 'Produits antèrieurs - Variateurs de vitesse';
+
+export const LENZE_VARIATEUR_SUBCATEGORIES: Record<LenzeVariateurSubCategory, string> = {
+  'Variateurs de vitesse': 'Variateurs de vitesse',
+  'Servovariateurs': 'Servovariateurs',
+  'Produits antèrieurs - Variateurs de vitesse': 'Produits antèrieurs - Variateurs de vitesse'
+};

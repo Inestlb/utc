@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Noto_Sans_Arabic, Cairo } from "next/font/google";
+import { Inter, Poppins, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "@/components/ClientLayout";
+import NavigationProgressBar from '@/components/NavigationProgressBar';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,17 +17,10 @@ const poppins = Poppins({
   display: 'swap',
 });
 
-const notoSansArabic = Noto_Sans_Arabic({
-  subsets: ["arabic"],
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-noto-arabic",
-  display: 'swap',
-});
-
-const cairo = Cairo({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-cairo",
+  variable: "--font-playfair-display",
   display: 'swap',
 });
 
@@ -58,9 +52,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
@@ -70,10 +64,10 @@ export default function RootLayout({
         <meta name="theme-color" content="#F97316" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </head>
-      <body 
-        className={`${inter.variable} ${poppins.variable} ${notoSansArabic.variable} ${cairo.variable} 
+      <body className={`${inter.variable} ${poppins.variable} ${playfairDisplay.variable} 
           font-sans min-h-screen flex flex-col`}
       >
+        <NavigationProgressBar />
         <ClientLayout>
           {children}
         </ClientLayout>
