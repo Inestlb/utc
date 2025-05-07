@@ -99,3 +99,15 @@ export const LENZE_VARIATEUR_SUBCATEGORIES: Record<LenzeVariateurSubCategory, st
   'Servovariateurs': 'Servovariateurs',
   'Produits antérieurs - Variateurs de vitesse': 'Produits antérieurs - Variateurs de vitesse'
 };
+
+// Types pour les sous-catégories de Motoréducteurs Lenze
+export type LenzeMotoreducteurSubCategory = 
+  | 'Motoréducteurs triphasés'
+  | 'Motoréducteurs triphasés avec variateurs de vitesse'
+  | 'Servo-motoréducteurs';
+
+export const LENZE_MOTOREDUCTEUR_SUBCATEGORIES: Record<LenzeMotoreducteurSubCategory, string> = {
+  'Motoréducteurs triphasés': 'Motoréducteurs triphasés',
+  'Motoréducteurs triphasés avec variateurs de vitesse': 'Motoréducteurs triphasés avec variateurs de vitesse',
+  'Servo-motoréducteurs': 'Servo-motoréducteurs'
+};
