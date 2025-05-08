@@ -269,12 +269,15 @@ export async function getLenzeVariateurs(): Promise<Product[]> {
         name: item.name,
         category: "Variateurs et servovariateurs",
         subcategory, // Utiliser directement category du JSON comme subcategory
+        jsonCategory: item.category, // Conserver la catégorie d'origine pour référence
         description: item.main_content || item.specs?.Description || "",
         specifications,
         image,
         featured: index < 3, // Les 3 premiers produits sont mis en avant
         // Utiliser toutes les images additionnelles filtrées
-        additionalImages: productImages.slice(1)
+        additionalImages: productImages.slice(1),
+        header_title: item.header_title, // Ajouter header_title depuis le JSON
+        header_content: item.header_content // Ajouter header_content depuis le JSON
       };
     });
     
@@ -387,12 +390,15 @@ export async function getLenzeMotoreducteurs(): Promise<Product[]> {
         name: item.name,
         category: "Motoréducteurs", // Catégorie principale
         subcategory, // Sous-catégorie spécifique depuis le JSON
+        jsonCategory: item.category, // Conserver la catégorie d'origine pour référence
         description: item.main_content || item.specs?.Description || "",
         specifications,
         image,
         featured: index < 3, // Les 3 premiers produits sont mis en avant
         // Utiliser toutes les images additionnelles filtrées
-        additionalImages: productImages.slice(1)
+        additionalImages: productImages.slice(1),
+        header_title: item.header_title, // Ajouter header_title depuis le JSON
+        header_content: item.header_content // Ajouter header_content depuis le JSON
       };
     });
     
@@ -407,6 +413,13 @@ export async function getLenzeMotoreducteurs(): Promise<Product[]> {
     const createdSubcategories = [...new Set(products.map((p: Product) => p.subcategory))];
     console.log("Sous-catégories exactes créées:", JSON.stringify(createdSubcategories));
     
+    // Vérification spécifique avec les types définis
+    console.log("Sous-catégories attendues:", JSON.stringify([
+      'Motoréducteurs triphasés',
+      'Motoréducteurs triphasés avec variateurs de vitesse',
+      'Servo-motoréducteurs'
+    ]));
+    
     console.log("==== FIN DÉBOGAGE getLenzeMotoreducteurs ====");
     
     return products;
@@ -416,21 +429,346 @@ export async function getLenzeMotoreducteurs(): Promise<Product[]> {
   }
 }
 
+// Fonction pour charger les moteurs Lenze depuis le fichier JSON
+export async function getLenzeMoteurs(): Promise<Product[]> {
+  try {
+    const filePath = path.join(process.cwd(), 'app', '(site)', 'products', 'json lenze', 'lenze_moteurs.json');
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const jsonData = JSON.parse(fileContents);
+    
+    console.log("==== DÉBOGAGE getLenzeMoteurs ====");
+    console.log("Chargement des moteurs Lenze, données JSON:", jsonData.length);
+    
+    // Vérifier les catégories dans le JSON
+    const categoriesInJson = [...new Set(jsonData.map((item: any) => item.category))];
+    console.log("Catégories exactes présentes dans le JSON moteurs:", JSON.stringify(categoriesInJson));
+    
+    // ⚠️ DÉBOGAGE: Comptage par catégorie dans le JSON brut
+    const categoryCounts: Record<string, number> = {};
+    for (const item of jsonData) {
+      const category = item.category;
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    }
+    console.log("Distribution des catégories dans le JSON brut:", categoryCounts);
+    
+    // Produits chargés depuis le JSON
+    const products = jsonData.map((item: any, index: number) => {
+      // Générer un ID unique basé sur le nom du produit
+      const id = `lenze-moteur-${index + 1}`;
+      
+      // Normaliser les sous-catégories pour s'assurer qu'elles correspondent aux trois sous-catégories demandées
+      // Utiliser exactement les mêmes sous-catégories que dans types.ts
+      let subcategory: string;
+      
+      // Faire une correspondance précise avec les valeurs du type LenzeMoteurSubCategory
+      if (item.category === 'Moteurs triphasés') {
+        subcategory = 'Moteurs triphasés';
+      } else if (item.category === 'Servomoteurs') {
+        subcategory = 'Servomoteurs';
+      } else if (item.category === 'Produits antérieurs – Moteurs') {
+        subcategory = 'Produits antérieurs – Moteurs'; // Utiliser exactement le même tiret (demi-cadratin)
+      } else {
+        // Si la catégorie ne correspond pas exactement, faire une correspondance moins stricte
+        console.log(`Catégorie non reconnue précisément: "${item.category}" pour le produit ${item.name}`);
+        
+        if (item.category.includes('triphasé') || item.category.toLowerCase().includes('triphase')) {
+          subcategory = 'Moteurs triphasés';
+        } else if (item.category.includes('servo') || item.category.toLowerCase().includes('servo')) {
+          subcategory = 'Servomoteurs';
+        } else if (item.category.includes('antérieur') || item.category.includes('ancien')) {
+          subcategory = 'Produits antérieurs – Moteurs';
+        } else {
+          console.log(`Classification par défaut: "${item.category}" classé comme "Moteurs triphasés"`);
+          subcategory = 'Moteurs triphasés';
+        }
+      }
+      
+      console.log(`Traitement du produit ${item.name}, catégorie JSON: "${item.category}" -> sous-catégorie: "${subcategory}"`);
+      
+      // Tableau pour stocker toutes les images
+      let productImages: string[] = [];
+      
+      // Récupérer toutes les images du JSON
+      if (item.images && item.images.length > 0) {
+        // Filtrer les images pour exclure les SVG et les icônes non compatibles
+        productImages = item.images
+          .filter((img: any) => {
+            // Exclure les icônes et les SVG
+            return !img.url.includes('external-link.svg') && 
+                   !img.url.includes('/Icons/') &&
+                   img.url.includes('webp'); // Privilégier les images webp
+          })
+          .map((img: any) => img.url);
+      }
+      
+      // Si aucune image valide n'a été trouvée, chercher d'autres formats
+      if (productImages.length === 0 && item.images && item.images.length > 0) {
+        // Utiliser d'autres images disponibles
+        productImages = item.images
+          .filter((img: any) => {
+            return !img.url.includes('external-link.svg') && 
+                  !img.url.includes('/Icons/');
+          })
+          .map((img: any) => img.url);
+      }
+      
+      // Utiliser l'image principale
+      const image = productImages.length > 0 ? productImages[0] : "";
+      
+      // Préparer les spécifications en format plat
+      const specifications: Record<string, any> = {};
+      
+      // Ajouter les points forts
+      if (item.specs?.["Points forts"]) {
+        specifications["Points forts"] = Array.isArray(item.specs["Points forts"]) 
+          ? item.specs["Points forts"].join("\n") 
+          : item.specs["Points forts"];
+      }
+      
+      // Ajouter les caractéristiques techniques
+      if (item.specs?.["Caractéristiques techniques"]?.["Caractéristiques et données techniques"]) {
+        const techSpecs = item.specs["Caractéristiques techniques"]["Caractéristiques et données techniques"];
+        for (const [key, value] of Object.entries(techSpecs)) {
+          specifications[key] = value;
+        }
+      }
+      
+      // Ajouter la description
+      if (item.specs?.Description) {
+        specifications["Description"] = item.specs.Description;
+      }
+      
+      // ⚠️ DÉBOGAGE: Vérification de sous-catégorie exacte
+      console.log(`Création produit ${id} - catégorie: 'Moteurs', sous-catégorie: '${subcategory}'`);
+      
+      // Construire l'objet Product
+      return {
+        id,
+        name: item.name,
+        category: "Moteurs", // Catégorie principale
+        subcategory, // Sous-catégorie normalisée
+        jsonCategory: item.category, // Conserver la catégorie d'origine pour référence
+        description: item.main_content || item.specs?.Description || "",
+        specifications,
+        image,
+        featured: index < 3, // Les 3 premiers produits sont mis en avant
+        additionalImages: productImages.slice(1),
+        header_title: item.header_title, // Ajouter header_title depuis le JSON
+        header_content: item.header_content // Ajouter header_content depuis le JSON
+      };
+    });
+    
+    // DÉBOGAGE: Compter les produits par sous-catégorie après transformation
+    const subcategoryCounts: Record<string, number> = {};
+    for (const product of products) {
+      subcategoryCounts[product.subcategory] = (subcategoryCounts[product.subcategory] || 0) + 1;
+    }
+    console.log("Distribution des produits après transformation:", subcategoryCounts);
+    
+    // Vérifier les valeurs exactes des sous-catégories créées
+    const createdSubcategories = [...new Set(products.map((p: Product) => p.subcategory))];
+    console.log("Sous-catégories exactes créées:", JSON.stringify(createdSubcategories));
+    
+    // Vérification spécifique avec les types définis
+    console.log("Sous-catégories attendues:", JSON.stringify([
+      'Moteurs triphasés',
+      'Servomoteurs',
+      'Produits antérieurs – Moteurs'
+    ]));
+    
+    console.log("==== FIN DÉBOGAGE getLenzeMoteurs ====");
+    
+    return products;
+  } catch (error) {
+    console.error("Erreur lors du chargement des moteurs Lenze:", error);
+    return [];
+  }
+}
+
+// Fonction pour charger les réducteurs Lenze depuis le fichier JSON
+export async function getLenzeReducteurs(): Promise<Product[]> {
+  try {
+    const filePath = path.join(process.cwd(), 'app', '(site)', 'products', 'json lenze', 'lenze_reducteurs.json');
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const jsonData = JSON.parse(fileContents);
+    
+    console.log("==== DÉBOGAGE getLenzeReducteurs ====");
+    console.log("Chargement des réducteurs Lenze, données JSON:", jsonData.length);
+    
+    // Vérifier les catégories dans le JSON
+    const categoriesInJson = [...new Set(jsonData.map((item: any) => item.category))];
+    console.log("Catégories exactes présentes dans le JSON réducteurs:", JSON.stringify(categoriesInJson));
+    
+    // ⚠️ DÉBOGAGE: Comptage par catégorie dans le JSON brut
+    const categoryCounts: Record<string, number> = {};
+    for (const item of jsonData) {
+      const category = item.category;
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    }
+    console.log("Distribution des catégories dans le JSON brut:", categoryCounts);
+    
+    // Produits chargés depuis le JSON
+    const products = jsonData.map((item: any, index: number) => {
+      // Générer un ID unique basé sur le nom du produit
+      const id = `lenze-reducteur-${index + 1}`;
+      
+      // Normaliser les sous-catégories pour s'assurer qu'elles correspondent aux deux sous-catégories demandées
+      // Utiliser exactement les mêmes sous-catégories que dans types.ts
+      let subcategory: string;
+      
+      // Faire une correspondance précise avec les valeurs du type LenzeReducteurSubCategory
+      if (item.category === 'Réducteurs') {
+        subcategory = 'Réducteurs';
+      } else if (item.category === 'Produits antérieurs – Réducteurs') {
+        subcategory = 'Produits antérieurs – Réducteurs'; // Utiliser exactement le même tiret (demi-cadratin)
+      } else {
+        // Si la catégorie ne correspond pas exactement, faire une correspondance moins stricte
+        console.log(`Catégorie non reconnue précisément: "${item.category}" pour le produit ${item.name}`);
+        
+        if (item.category.includes('antérieur') || item.category.includes('ancien')) {
+          subcategory = 'Produits antérieurs – Réducteurs';
+        } else {
+          subcategory = 'Réducteurs';
+        }
+      }
+      
+      console.log(`Traitement du produit ${item.name}, catégorie JSON: "${item.category}" -> sous-catégorie: "${subcategory}"`);
+      
+      // Tableau pour stocker toutes les images
+      let productImages: string[] = [];
+      
+      // Récupérer toutes les images du JSON
+      if (item.images && item.images.length > 0) {
+        // Filtrer les images pour exclure les SVG et les icônes non compatibles
+        productImages = item.images
+          .filter((img: any) => {
+            // Exclure les icônes et les SVG
+            return !img.url.includes('external-link.svg') && 
+                   !img.url.includes('/Icons/') &&
+                   img.url.includes('webp'); // Privilégier les images webp
+          })
+          .map((img: any) => img.url);
+      }
+      
+      // Si aucune image valide n'a été trouvée, chercher d'autres formats
+      if (productImages.length === 0 && item.images && item.images.length > 0) {
+        // Utiliser d'autres images disponibles
+        productImages = item.images
+          .filter((img: any) => {
+            return !img.url.includes('external-link.svg') && 
+                  !img.url.includes('/Icons/');
+          })
+          .map((img: any) => img.url);
+      }
+      
+      // Utiliser l'image principale
+      const image = productImages.length > 0 ? productImages[0] : "";
+      
+      // Préparer les spécifications en format plat
+      const specifications: Record<string, any> = {};
+      
+      // Ajouter les points forts
+      if (item.specs?.["Points forts"]) {
+        specifications["Points forts"] = Array.isArray(item.specs["Points forts"]) 
+          ? item.specs["Points forts"].join("\n") 
+          : item.specs["Points forts"];
+      }
+      
+      // Ajouter les caractéristiques techniques
+      if (item.specs?.["Caractéristiques techniques"]?.["Caractéristiques et données techniques"]) {
+        const techSpecs = item.specs["Caractéristiques techniques"]["Caractéristiques et données techniques"];
+        for (const [key, value] of Object.entries(techSpecs)) {
+          specifications[key] = value;
+        }
+      }
+      
+      // Ajouter la description
+      if (item.specs?.Description) {
+        specifications["Description"] = item.specs.Description;
+      }
+      
+      // ⚠️ DÉBOGAGE: Vérification de sous-catégorie exacte
+      console.log(`Création produit ${id} - catégorie: 'Réducteurs', sous-catégorie: '${subcategory}'`);
+      
+      // Traduire le titre et le contenu d'en-tête si c'est un produit antérieur (en anglais)
+      const headerTitle = subcategory === 'Produits antérieurs – Réducteurs' && item.header_title && !item.header_title.includes('é') 
+        ? `Réducteurs ${item.header_title.split(' ')[0]}` 
+        : item.header_title;
+      
+      // Construire l'objet Product
+      return {
+        id,
+        name: item.name,
+        category: "Réducteurs", // Catégorie principale
+        subcategory, // Sous-catégorie normalisée
+        jsonCategory: item.category, // Conserver la catégorie d'origine pour référence
+        description: item.main_content || item.specs?.Description || "",
+        specifications,
+        image,
+        featured: index < 3, // Les 3 premiers produits sont mis en avant
+        additionalImages: productImages.slice(1),
+        header_title: headerTitle, // Ajouter header_title depuis le JSON, traduit si nécessaire
+        header_content: item.header_content // Ajouter header_content depuis le JSON
+      };
+    });
+    
+    // DÉBOGAGE: Compter les produits par sous-catégorie après transformation
+    const subcategoryCounts: Record<string, number> = {};
+    for (const product of products) {
+      subcategoryCounts[product.subcategory] = (subcategoryCounts[product.subcategory] || 0) + 1;
+    }
+    console.log("Distribution des produits après transformation:", subcategoryCounts);
+    
+    // Vérifier les valeurs exactes des sous-catégories créées
+    const createdSubcategories = [...new Set(products.map((p: Product) => p.subcategory))];
+    console.log("Sous-catégories exactes créées:", JSON.stringify(createdSubcategories));
+    
+    // Vérification spécifique avec les types définis
+    console.log("Sous-catégories attendues:", JSON.stringify([
+      'Réducteurs',
+      'Produits antérieurs – Réducteurs'
+    ]));
+    
+    console.log("==== FIN DÉBOGAGE getLenzeReducteurs ====");
+    
+    return products;
+  } catch (error) {
+    console.error("Erreur lors du chargement des réducteurs Lenze:", error);
+    return [];
+  }
+}
+
 // Fonction pour fusionner les produits Lenze avec les autres produits
 export async function getAllProducts(): Promise<Product[]> {
   try {
-    const [staticProducts, lenzeVariateurs, lenzeMotoreducteurs] = await Promise.all([
+    const [staticProducts, lenzeVariateurs, lenzeMotoreducteurs, lenzeMoteurs, lenzeReducteurs] = await Promise.all([
       getStaticProducts(),
       getLenzeVariateurs(),
-      getLenzeMotoreducteurs()
+      getLenzeMotoreducteurs(),
+      getLenzeMoteurs(),
+      getLenzeReducteurs()
     ]);
     
     console.log("Nombre de produits statiques:", staticProducts.length);
     console.log("Nombre de variateurs Lenze:", lenzeVariateurs.length);
     console.log("Nombre de motoréducteurs Lenze:", lenzeMotoreducteurs.length);
-    console.log("Nombre total de produits:", staticProducts.length + lenzeVariateurs.length + lenzeMotoreducteurs.length);
+    console.log("Nombre de moteurs Lenze:", lenzeMoteurs.length);
+    console.log("Nombre de réducteurs Lenze:", lenzeReducteurs.length);
+    console.log("Nombre total de produits:", 
+      staticProducts.length + 
+      lenzeVariateurs.length + 
+      lenzeMotoreducteurs.length + 
+      lenzeMoteurs.length + 
+      lenzeReducteurs.length
+    );
     
-    return [...staticProducts, ...lenzeVariateurs, ...lenzeMotoreducteurs];
+    return [
+      ...staticProducts, 
+      ...lenzeVariateurs, 
+      ...lenzeMotoreducteurs, 
+      ...lenzeMoteurs,
+      ...lenzeReducteurs
+    ];
   } catch (error) {
     console.error("Erreur lors du chargement des produits:", error);
     return getStaticProducts();
@@ -456,9 +794,13 @@ export async function getProducts(options?: {
                              options?.category === 'Variateurs et servovariateurs';
   const isLenzeMotoreducteursPage = options?.brand === 'lenze' && 
                              options?.category === 'Motoréducteurs';
+  const isLenzeMoteursPage = options?.brand === 'lenze' && 
+                             options?.category === 'Moteurs';
+  const isLenzeReducteursPage = options?.brand === 'lenze' && 
+                             options?.category === 'Réducteurs';
                              
   // Est-ce qu'on est sur une page avec des sous-catégories Lenze
-  const isLenzeSpecialPage = isLenzeVariateursPage || isLenzeMotoreducteursPage;
+  const isLenzeSpecialPage = isLenzeVariateursPage || isLenzeMotoreducteursPage || isLenzeMoteursPage || isLenzeReducteursPage;
   
   if (isLenzeSpecialPage) {
     console.log(`=== DIAGNOSTIC LENZE PAGE SPÉCIALE ===`);
@@ -466,13 +808,13 @@ export async function getProducts(options?: {
     
     // Étape 1: D'abord appliquer le filtre de marque (lenze)
     let filteredProducts = allProducts.filter(product => 
-      ['Variateurs et servovariateurs', 'Motoréducteurs'].includes(product.category) || 
+      ['Variateurs et servovariateurs', 'Motoréducteurs', 'Moteurs', 'Réducteurs'].includes(product.category) || 
       product.name.toLowerCase().includes('lenze')
     );
     console.log(`Après filtre par marque (${options?.brand}): ${filteredProducts.length} produits`);
     
     // Étape 2: Ensuite, filtrer par catégorie principale
-    if (options?.category) {
+  if (options?.category) {
       filteredProducts = filteredProducts.filter(product => product.category === options.category);
       console.log(`Après filtre par catégorie (${options.category}): ${filteredProducts.length} produits`);
     }
@@ -489,25 +831,48 @@ export async function getProducts(options?: {
     console.log(`Comptage par sous-catégorie:`, subcategoryCounts);
     
     // Étape 3: Appliquer le filtre de sous-catégorie si fourni
-    if (options?.subcategory && options?.category === 'Motoréducteurs') {
+    if (options?.subcategory && (options?.category === 'Motoréducteurs' || options?.category === 'Moteurs' || options?.category === 'Réducteurs')) {
       console.log(`Filtre sous-catégorie demandé: ${options.subcategory}`);
       
-      // Pour les motoréducteurs, on continue à renvoyer TOUS les produits de la catégorie
+      // Pour les motoréducteurs, moteurs et réducteurs, on continue à renvoyer TOUS les produits de la catégorie
       // mais on note la sous-catégorie demandée pour que l'interface puisse la mettre en surbrillance
-      console.log("Pour les motoréducteurs, on renvoie tous les produits de la catégorie principale");
+      console.log(`Pour les ${options.category}, on renvoie tous les produits de la catégorie principale`);
       
-      // Vérifier combien de produits correspondent à chaque sous-catégorie
-      const subCategoryCounts = {
-        'Motoréducteurs triphasés': filteredProducts.filter(p => p.subcategory === 'Motoréducteurs triphasés').length,
-        'Motoréducteurs triphasés avec variateurs de vitesse': filteredProducts.filter(p => p.subcategory === 'Motoréducteurs triphasés avec variateurs de vitesse').length,
-        'Servo-motoréducteurs': filteredProducts.filter(p => p.subcategory === 'Servo-motoréducteurs').length
-      };
+      // Vérifier combien de produits correspondent à chaque sous-catégorie pour les motoréducteurs
+      if (options?.category === 'Motoréducteurs') {
+        const subCategoryCounts = {
+          'Motoréducteurs triphasés': filteredProducts.filter(p => p.subcategory === 'Motoréducteurs triphasés').length,
+          'Motoréducteurs triphasés avec variateurs de vitesse': filteredProducts.filter(p => p.subcategory === 'Motoréducteurs triphasés avec variateurs de vitesse').length,
+          'Servo-motoréducteurs': filteredProducts.filter(p => p.subcategory === 'Servo-motoréducteurs').length
+        };
+        
+        console.log("Répartition des produits par sous-catégorie:", subCategoryCounts);
+      }
       
-      console.log("Répartition des produits par sous-catégorie:", subCategoryCounts);
+      // Vérifier combien de produits correspondent à chaque sous-catégorie pour les moteurs
+      if (options?.category === 'Moteurs') {
+        const subCategoryCounts = {
+          'Moteurs triphasés': filteredProducts.filter(p => p.subcategory === 'Moteurs triphasés').length,
+          'Servomoteurs': filteredProducts.filter(p => p.subcategory === 'Servomoteurs').length,
+          'Produits antérieurs – Moteurs': filteredProducts.filter(p => p.subcategory === 'Produits antérieurs – Moteurs').length
+        };
+        
+        console.log("Répartition des produits par sous-catégorie:", subCategoryCounts);
+      }
       
-      // Pour les motoréducteurs, ne pas filtrer par sous-catégorie
+      // Vérifier combien de produits correspondent à chaque sous-catégorie pour les réducteurs
+      if (options?.category === 'Réducteurs') {
+        const subCategoryCounts = {
+          'Réducteurs': filteredProducts.filter(p => p.subcategory === 'Réducteurs').length,
+          'Produits antérieurs – Réducteurs': filteredProducts.filter(p => p.subcategory === 'Produits antérieurs – Réducteurs').length
+        };
+        
+        console.log("Répartition des produits par sous-catégorie des réducteurs:", subCategoryCounts);
+      }
+      
+      // Pour les motoréducteurs et les moteurs, ne pas filtrer par sous-catégorie
       // filteredProducts reste inchangé
-    }
+    } 
     else if (options?.subcategory) {
       console.log(`Filtre sous-catégorie demandé: ${options.subcategory}`);
       
@@ -525,19 +890,19 @@ export async function getProducts(options?: {
     // Étape 4: Appliquer les autres filtres (recherche, featured)
     if (options?.search) {
       const searchLower = options.search.toLowerCase();
-      filteredProducts = filteredProducts.filter(
+    filteredProducts = filteredProducts.filter(
         (product) =>
           product.name.toLowerCase().includes(searchLower) ||
           product.description.toLowerCase().includes(searchLower)
-      );
-    }
+    );
+  }
 
-    if (options?.featured !== undefined) {
-      filteredProducts = filteredProducts.filter(
-        (product) => product.featured === options.featured
-      );
-    }
-    
+  if (options?.featured !== undefined) {
+    filteredProducts = filteredProducts.filter(
+          (product) => product.featured === options.featured
+        );
+      }
+      
     // Vérification finale du nombre de produits par sous-catégorie
     if (isLenzeVariateursPage) {
       const finalSubcategoryCounts = {
@@ -561,6 +926,35 @@ export async function getProducts(options?: {
       if (options?.subcategory) {
         console.log(`Pour info: sous-catégorie sélectionnée "${options.subcategory}", mais tous les produits sont renvoyés`);
       }
+    } else if (isLenzeMoteursPage) {
+      const finalSubcategoryCounts = {
+        'Moteurs triphasés': filteredProducts.filter(p => p.subcategory === 'Moteurs triphasés').length,
+        'Servomoteurs': filteredProducts.filter(p => p.subcategory === 'Servomoteurs').length,
+        'Produits antérieurs – Moteurs': filteredProducts.filter(p => p.subcategory === 'Produits antérieurs – Moteurs').length
+      };
+      console.log(`FINAL - Nombre de moteurs par sous-catégorie:`, finalSubcategoryCounts);
+      
+      // Vérification supplémentaire pour les moteurs
+      console.log(`Vérification finale - Nombre total de moteurs: ${filteredProducts.length}`);
+      console.log(`Dont : ${finalSubcategoryCounts['Moteurs triphasés']} triphasés, ${finalSubcategoryCounts['Servomoteurs']} servomoteurs, ${finalSubcategoryCounts['Produits antérieurs – Moteurs']} produits antérieurs`);
+      
+      if (options?.subcategory) {
+        console.log(`Pour info: sous-catégorie sélectionnée "${options.subcategory}", mais tous les produits sont renvoyés`);
+      }
+    } else if (isLenzeReducteursPage) {
+      const finalSubcategoryCounts = {
+        'Réducteurs': filteredProducts.filter(p => p.subcategory === 'Réducteurs').length,
+        'Produits antérieurs – Réducteurs': filteredProducts.filter(p => p.subcategory === 'Produits antérieurs – Réducteurs').length
+      };
+      console.log(`FINAL - Nombre de réducteurs par sous-catégorie:`, finalSubcategoryCounts);
+      
+      // Vérification supplémentaire pour les réducteurs
+      console.log(`Vérification finale - Nombre total de réducteurs: ${filteredProducts.length}`);
+      console.log(`Dont : ${finalSubcategoryCounts['Réducteurs']} réducteurs, ${finalSubcategoryCounts['Produits antérieurs – Réducteurs']} produits antérieurs`);
+      
+      if (options?.subcategory) {
+        console.log(`Pour info: sous-catégorie sélectionnée "${options.subcategory}", mais tous les produits sont renvoyés`);
+      }
     }
     
     // Débogage supplémentaire
@@ -574,7 +968,7 @@ export async function getProducts(options?: {
     }
     
     // Vérifier la correspondance avec nos valeurs attendues
-    for (const expectedSubcategory of ['Motoréducteurs triphasés', 'Motoréducteurs triphasés avec variateurs de vitesse', 'Servo-motoréducteurs']) {
+    for (const expectedSubcategory of ['Motoréducteurs triphasés', 'Motoréducteurs triphasés avec variateurs de vitesse', 'Servo-motoréducteurs', 'Moteurs triphasés', 'Servomoteurs', 'Produits antérieurs – Moteurs']) {
       const count = filteredProducts.filter(p => p.subcategory === expectedSubcategory).length;
       console.log(`Sous-catégorie "${expectedSubcategory}" - nombre de produits: ${count}`);
     }
@@ -582,61 +976,103 @@ export async function getProducts(options?: {
     console.log(`Nombre de produits filtrés: ${filteredProducts.length}`);
     console.log(`===== FIN DIAGNOSTIC getProducts =====`);
     
-    // Ordre personnalisé pour les variateurs Lenze
-    if (isLenzeVariateursPage && options?.subcategory === 'Variateurs de vitesse') {
-      console.log("Application de l'ordre personnalisé pour les variateurs de vitesse Lenze");
-      
-      // Tableau d'ordre pour les variateurs (du plus prioritaire au moins prioritaire)
-      const variateurOrder = [
-        "i650 motec",
-        "i550 motec",
-        "i510 cabinet",
-        "i550 protec",
-        "8400 stateline",
-        "8400 highline",
-        "8400 protec",
-        "8400 motec",
-        "smvector ip65"
+    // Trier les produits par sous-catégorie d'abord pour les variateurs et servovariateurs
+    if (isLenzeVariateursPage) {
+      // Définir l'ordre des sous-catégories (l'ordre dans lequel elles devraient apparaître)
+      const subcategoryOrder = [
+        'Variateurs de vitesse',
+        'Servovariateurs',
+        'Produits antérieurs - Variateurs de vitesse'
       ];
       
-      // Trier les produits selon l'ordre personnalisé
+      // Trier les produits d'abord par sous-catégorie
       filteredProducts.sort((a, b) => {
-        const aNameLower = a.name.toLowerCase();
-        const bNameLower = b.name.toLowerCase();
+        // D'abord, trier par sous-catégorie
+        const aSubcategoryIndex = subcategoryOrder.indexOf(a.subcategory);
+        const bSubcategoryIndex = subcategoryOrder.indexOf(b.subcategory);
         
-        // Trouver l'index du premier variateur qui correspond au nom du produit a
-        const aIndex = variateurOrder.findIndex(variateur => 
-          aNameLower.includes(variateur.toLowerCase())
-        );
-        
-        // Trouver l'index du premier variateur qui correspond au nom du produit b
-        const bIndex = variateurOrder.findIndex(variateur => 
-          bNameLower.includes(variateur.toLowerCase())
-        );
-        
-        // Si les deux produits sont dans la liste d'ordre, on les trie selon cet ordre
-        if (aIndex !== -1 && bIndex !== -1) {
-          return aIndex - bIndex;
+        if (aSubcategoryIndex !== bSubcategoryIndex) {
+          return aSubcategoryIndex - bSubcategoryIndex;
         }
         
-        // Si a est dans la liste mais pas b, a est prioritaire
-        if (aIndex !== -1) return -1;
-        
-        // Si b est dans la liste mais pas a, b est prioritaire
-        if (bIndex !== -1) return 1;
-        
-        // Si aucun n'est dans la liste, on garde le tri alphabétique
-        return aNameLower.localeCompare(bNameLower);
+        // Si même sous-catégorie, trier par nom
+        return a.name.localeCompare(b.name);
       });
+    }
+    // Trier les produits par sous-catégorie pour les motoréducteurs
+    else if (isLenzeMotoreducteursPage) {
+      // Définir l'ordre des sous-catégories (l'ordre dans lequel elles devraient apparaître)
+      const subcategoryOrder = [
+        'Motoréducteurs triphasés',
+        'Motoréducteurs triphasés avec variateurs de vitesse',
+        'Servo-motoréducteurs'
+      ];
       
-      console.log("Ordre des produits après tri personnalisé:", filteredProducts.map(p => p.name));
-    } 
+      // Trier les produits d'abord par sous-catégorie
+      filteredProducts.sort((a, b) => {
+        // D'abord, trier par sous-catégorie
+        const aSubcategoryIndex = subcategoryOrder.indexOf(a.subcategory);
+        const bSubcategoryIndex = subcategoryOrder.indexOf(b.subcategory);
+        
+        if (aSubcategoryIndex !== bSubcategoryIndex) {
+          return aSubcategoryIndex - bSubcategoryIndex;
+        }
+        
+        // Si même sous-catégorie, trier par nom
+        return a.name.localeCompare(b.name);
+      });
+    }
+    // Trier les produits par sous-catégorie pour les moteurs
+    else if (isLenzeMoteursPage) {
+      // Définir l'ordre des sous-catégories (l'ordre dans lequel elles devraient apparaître)
+      const subcategoryOrder = [
+        'Moteurs triphasés',
+        'Servomoteurs',
+        'Produits antérieurs – Moteurs'
+      ];
+      
+      // Trier les produits d'abord par sous-catégorie
+      filteredProducts.sort((a, b) => {
+        // D'abord, trier par sous-catégorie
+        const aSubcategoryIndex = subcategoryOrder.indexOf(a.subcategory);
+        const bSubcategoryIndex = subcategoryOrder.indexOf(b.subcategory);
+        
+        if (aSubcategoryIndex !== bSubcategoryIndex) {
+          return aSubcategoryIndex - bSubcategoryIndex;
+        }
+        
+        // Si même sous-catégorie, trier par nom
+        return a.name.localeCompare(b.name);
+      });
+    }
+    // Trier les produits par sous-catégorie pour les réducteurs
+    else if (isLenzeReducteursPage) {
+      // Définir l'ordre des sous-catégories (l'ordre dans lequel elles devraient apparaître)
+      const subcategoryOrder = [
+        'Réducteurs',
+        'Produits antérieurs – Réducteurs'
+      ];
+      
+      // Trier les produits d'abord par sous-catégorie
+      filteredProducts.sort((a, b) => {
+        // D'abord, trier par sous-catégorie
+        const aSubcategoryIndex = subcategoryOrder.indexOf(a.subcategory);
+        const bSubcategoryIndex = subcategoryOrder.indexOf(b.subcategory);
+        
+        if (aSubcategoryIndex !== bSubcategoryIndex) {
+          return aSubcategoryIndex - bSubcategoryIndex;
+        }
+        
+        // Si même sous-catégorie, trier par nom
+        return a.name.localeCompare(b.name);
+      });
+    }
     // Tri par défaut pour les autres cas
     else {
-      // Default sorting - by name
+      // Tri par défaut - par nom
       filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
     }
-    
+
     // Pagination
     if (options?.page !== undefined) {
       // Pour les pages spéciales Lenze, on montre tous les produits sur une seule page
@@ -657,7 +1093,7 @@ export async function getProducts(options?: {
       console.log(`Après pagination (page ${options.page}, ${ITEMS_PER_PAGE} produits par page): ${paginatedProducts.length} produits renvoyés`);
       return paginatedProducts;
     }
-    
+
     return filteredProducts;
   }
   else {
@@ -677,9 +1113,9 @@ export async function getProducts(options?: {
         (product) => product.subcategory === options.subcategory
       );
       console.log(`Après filtre par sous-catégorie (${options.subcategory}): ${filteredProducts.length} produits`);
-    }
+  }
 
-    if (options?.search) {
+  if (options?.search) {
       const searchLower = options.search.toLowerCase();
       filteredProducts = filteredProducts.filter(
         (product) =>
@@ -689,7 +1125,7 @@ export async function getProducts(options?: {
     }
 
     if (options?.featured !== undefined) {
-      filteredProducts = filteredProducts.filter(
+    filteredProducts = filteredProducts.filter(
         (product) => product.featured === options.featured
       );
     }
@@ -706,7 +1142,7 @@ export async function getProducts(options?: {
     // Default sorting - by name
     filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
 
-    // Pagination
+  // Pagination
     if (options?.page !== undefined) {
       const ITEMS_PER_PAGE = 8;
       const start = (options.page - 1) * ITEMS_PER_PAGE;
@@ -714,9 +1150,9 @@ export async function getProducts(options?: {
       const paginatedProducts = filteredProducts.slice(start, end);
       console.log(`Après pagination (page ${options.page}, ${ITEMS_PER_PAGE} produits par page): ${paginatedProducts.length} produits renvoyés`);
       return paginatedProducts;
-    }
+  }
 
-    return filteredProducts;
+  return filteredProducts;
   }
 }
 

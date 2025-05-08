@@ -23,8 +23,11 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
     };
   }
 
+  // Utiliser header_title s'il est disponible, sinon utiliser name
+  const displayTitle = (product as any).header_title || product.name;
+
   return {
-    title: `${product.name} | Entreprise d'Exportation Industrielle`,
+    title: `${displayTitle} | Entreprise d'Exportation Industrielle`,
     description: product.description,
   };
 }
@@ -36,6 +39,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   if (!product) {
     notFound();
   }
+
+  // Utiliser header_title s'il est disponible, sinon utiliser name
+  const displayTitle = (product as any).header_title || product.name;
 
   // Fetch related products from the same category
   const relatedProducts = await getProducts({
@@ -72,7 +78,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 {product.category}
               </Link>
               <span className="mx-2 text-gray-500">/</span>
-              <span className="text-gray-900 font-medium">{product.name}</span>
+              <span className="text-gray-900 font-medium">{displayTitle}</span>
             </nav>
           </div>
 
@@ -92,13 +98,13 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <div className="animate-in slide-in-from-bottom-5 duration-700 delay-500">
               {!product.image ? (
                 <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center max-w-[400px] mx-auto">
-                  <span className="text-gray-500 text-4xl">{product.name.charAt(0)}</span>
+                  <span className="text-gray-500 text-4xl">{displayTitle.charAt(0)}</span>
                 </div>
               ) : (
                 <ProductGallery 
                   mainImage={product.image}
                   additionalImages={hasExtraImages ? extraImages[product.id] : []}
-                  productName={product.name}
+                  productName={displayTitle}
                 />
               )}
             </div>
@@ -106,7 +112,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {/* Product Info */}
             <div className="animate-in slide-in-from-bottom-5 duration-700 delay-700">
               <div className="mb-6">
-                <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
+                <h1 className="text-3xl font-bold mb-4">{displayTitle}</h1>
                 <div className="text-gray-600 mb-6 leading-relaxed">
                   {product.description.split('\n\n').map((paragraph, idx) => (
                     <p key={idx} className="mb-4">{paragraph}</p>
@@ -146,17 +152,22 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <div className="mt-16 animate-in fade-in-50 duration-700 delay-1000">
               <h2 className="text-2xl font-bold mb-6">Produits Associés</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredRelatedProducts.map((relatedProduct, index) => (
-                  <div key={relatedProduct.id} className="bg-white rounded-lg shadow-sm border p-4 animate-in slide-in-from-bottom-5 duration-500" style={{ animationDelay: `${1000 + index * 200}ms` }}>
-                    <h3 className="font-semibold mb-2">{relatedProduct.name}</h3>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-2">{relatedProduct.description}</p>
-                    <Button asChild variant="outline" size="sm" className="transition-all duration-300 hover:bg-orange-500 hover:text-white hover:border-orange-500">
-                      <Link href={`/products/${relatedProduct.id}`}>
-                        Voir les Détails
-                      </Link>
-                    </Button>
-                  </div>
-                ))}
+                {filteredRelatedProducts.map((relatedProduct, index) => {
+                  // Utiliser header_title pour les produits associés également
+                  const relatedDisplayTitle = (relatedProduct as any).header_title || relatedProduct.name;
+                  
+                  return (
+                    <div key={relatedProduct.id} className="bg-white rounded-lg shadow-sm border p-4 animate-in slide-in-from-bottom-5 duration-500" style={{ animationDelay: `${1000 + index * 200}ms` }}>
+                      <h3 className="font-semibold mb-2">{relatedDisplayTitle}</h3>
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-2">{relatedProduct.description}</p>
+                      <Button asChild variant="outline" size="sm" className="transition-all duration-300 hover:bg-orange-500 hover:text-white hover:border-orange-500">
+                        <Link href={`/products/${relatedProduct.id}`}>
+                          Voir les Détails
+                        </Link>
+                      </Button>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}

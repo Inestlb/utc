@@ -43,8 +43,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
     page,
   };
   
-  // Ne pas filtrer par sous-catégorie sur le serveur, nous le ferons côté client
-  if (!(brand === 'lenze' && category === 'Variateurs et servovariateurs')) {
+  // Ne pas filtrer par sous-catégorie sur le serveur pour les catégories spéciales, nous le ferons côté client
+  if (!(brand === 'lenze' && (category === 'Variateurs et servovariateurs' || 
+                             category === 'Motoréducteurs' || 
+                             category === 'Moteurs'))) {
     productsOptions.subcategory = subcategory;
   }
 
@@ -71,6 +73,35 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
       'Produits antérieurs - Variateurs de vitesse': products.filter(p => p.subcategory === 'Produits antérieurs - Variateurs de vitesse').length
     };
     console.log("Nombre de produits par sous-catégorie (page.tsx):", subcatCounts);
+  }
+  
+  // Si nous sommes sur la page des motoréducteurs Lenze, affichons la répartition des sous-catégories
+  if (brand === 'lenze' && category === 'Motoréducteurs') {
+    const subcatCounts = {
+      'Motoréducteurs triphasés': products.filter(p => p.subcategory === 'Motoréducteurs triphasés').length,
+      'Motoréducteurs triphasés avec variateurs de vitesse': products.filter(p => p.subcategory === 'Motoréducteurs triphasés avec variateurs de vitesse').length,
+      'Servo-motoréducteurs': products.filter(p => p.subcategory === 'Servo-motoréducteurs').length
+    };
+    console.log("Nombre de produits par sous-catégorie des motoréducteurs (page.tsx):", subcatCounts);
+  }
+  
+  // Si nous sommes sur la page des moteurs Lenze, affichons la répartition des sous-catégories
+  if (brand === 'lenze' && category === 'Moteurs') {
+    const subcatCounts = {
+      'Moteurs triphasés': products.filter(p => p.subcategory === 'Moteurs triphasés').length,
+      'Servomoteurs': products.filter(p => p.subcategory === 'Servomoteurs').length,
+      'Produits antérieurs – Moteurs': products.filter(p => p.subcategory === 'Produits antérieurs – Moteurs').length
+    };
+    console.log("Nombre de produits par sous-catégorie des moteurs (page.tsx):", subcatCounts);
+  }
+  
+  // Si nous sommes sur la page des réducteurs Lenze, affichons la répartition des sous-catégories
+  if (brand === 'lenze' && category === 'Réducteurs') {
+    const subcatCounts = {
+      'Réducteurs': products.filter(p => p.subcategory === 'Réducteurs').length,
+      'Produits antérieurs – Réducteurs': products.filter(p => p.subcategory === 'Produits antérieurs – Réducteurs').length
+    };
+    console.log("Nombre de produits par sous-catégorie des réducteurs (page.tsx):", subcatCounts);
   }
 
   // Calculate total pages (in a real app, this would come from the API)

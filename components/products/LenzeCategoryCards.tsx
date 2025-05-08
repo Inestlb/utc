@@ -68,9 +68,9 @@ export default function LenzeCategoryCards({
             href={`/products?brand=lenze&category=${encodeURIComponent(category)}`}
             className="block hover:no-underline"
           >
-            <Card className="overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-[1.02] group cursor-pointer h-full">
+            <Card className="overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg group cursor-pointer h-full">
               <div className="relative h-48 w-full overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out group-hover:scale-[1.05]">
+                <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out">
                   <span className="text-gray-500 text-3xl font-bold">{category.charAt(0)}</span>
                 </div>
                 {/* Image de catégorie - à décommenter quand les images réelles seront disponibles */}
@@ -79,7 +79,7 @@ export default function LenzeCategoryCards({
                     src={categoryImages[category]}
                     alt={category}
                     fill
-                    className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-[1.05]"
+                    className="object-cover transition-transform duration-500 ease-in-out"
                   />
                 )} */}
               </div>
@@ -91,7 +91,7 @@ export default function LenzeCategoryCards({
                 <div className="mt-4">
                   <Button 
                     variant="outline" 
-                    className="w-full transition-all duration-300 ease-in-out group-hover:bg-custom-orange group-hover:text-white group-hover:border-custom-orange py-5"
+                    className="w-full transition-all duration-300 ease-in-out group-hover:bg-custom-orange group-hover:text-gray-900 group-hover:border-custom-orange py-5"
                   >
                     Voir les produits
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

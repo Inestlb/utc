@@ -1,12 +1,16 @@
 "use client";
 
-import { useSearchParams } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
 import { 
   LENZE_VARIATEUR_SUBCATEGORIES, 
   LenzeVariateurSubCategory,
   LENZE_MOTOREDUCTEUR_SUBCATEGORIES,
-  LenzeMotoreducteurSubCategory
+  LenzeMotoreducteurSubCategory,
+  LENZE_MOTEUR_SUBCATEGORIES,
+  LenzeMoteurSubCategory,
+  LENZE_REDUCTEUR_SUBCATEGORIES,
+  LenzeReducteurSubCategory
 } from '@/lib/types';
 
 interface SubCategoryFilterProps {
@@ -18,96 +22,201 @@ interface SubCategoryFilterProps {
 export default function SubCategoryFilter({
   mainCategory,
   selectedSubCategory,
-  onSubCategoryChange,
+  onSubCategoryChange
 }: SubCategoryFilterProps) {
-  const searchParams = useSearchParams();
-  const brand = searchParams.get('brand');
+  const [subCategories, setSubCategories] = useState<string[]>([]);
+  const [showAll, setShowAll] = useState<boolean>(false);
   
-  console.log("==== DIAGNOSTIC SubCategoryFilter ====");
-  console.log("SubCategoryFilter - selectedSubCategory:", selectedSubCategory);
-  console.log("mainCategory:", mainCategory);
-  console.log("brand:", brand);
+  useEffect(() => {
+    // Déterminer les sous-catégories en fonction de la catégorie principale
+    if (mainCategory === 'Variateurs et servovariateurs') {
+      setSubCategories(Object.keys(LENZE_VARIATEUR_SUBCATEGORIES));
+    } else if (mainCategory === 'Motoréducteurs') {
+      setSubCategories(Object.keys(LENZE_MOTOREDUCTEUR_SUBCATEGORIES));
+    } else if (mainCategory === 'Moteurs') {
+      setSubCategories(Object.keys(LENZE_MOTEUR_SUBCATEGORIES));
+    } else if (mainCategory === 'Réducteurs') {
+      setSubCategories(Object.keys(LENZE_REDUCTEUR_SUBCATEGORIES));
+    } else {
+      setSubCategories([]);
+    }
+  }, [mainCategory]);
+
+  // Réinitialiser showAll quand on change de catégorie ou de sous-catégorie
+  useEffect(() => {
+    setShowAll(false);
+  }, [mainCategory, selectedSubCategory]);
+
+  // Gérer le clic sur "Tout afficher"
+  const handleShowAll = () => {
+    setShowAll(true);
+    onSubCategoryChange(undefined);
+  };
   
-  // Si ce n'est pas la page Lenze, on n'affiche pas les sous-filtres
-  if (brand !== 'lenze') {
-    console.log("Pas la marque Lenze, sous-filtres non affichés");
+  // S'il n'y a pas de sous-catégories, ne rien afficher
+  if (subCategories.length === 0) {
     return null;
   }
-  
-  // Déterminer quelles sous-catégories afficher
-  let allSubCategories: string[] = [];
+
+  // Personnalisation de l'apparence en fonction du type de sous-catégorie
+  let title = '';
+  let buttons = null;
   
   if (mainCategory === 'Variateurs et servovariateurs') {
-    // Pour les variateurs, utiliser les sous-catégories définies dans les types
-    allSubCategories = [
-      'Variateurs de vitesse',
-      'Servovariateurs', 
-      'Produits antérieurs - Variateurs de vitesse'
-    ];
-  } 
-  else if (mainCategory === 'Motoréducteurs') {
-    // Pour les motoréducteurs, utiliser exactement les mêmes valeurs que dans le JSON
-    allSubCategories = [
-      "Motoréducteurs triphasés",
-      "Motoréducteurs triphasés avec variateurs de vitesse",
-      "Servo-motoréducteurs"
-    ];
-    console.log("Utilisation des sous-catégories exactes depuis le JSON");
-  }
-  else {
-    console.log("Catégorie sans sous-filtres définis:", mainCategory);
-    return null;
+    title = 'Types de variateurs';
+    buttons = (
+      <div className="flex flex-wrap gap-3 mt-4">
+        {/* Bouton "Tout afficher" */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleShowAll}
+          className={showAll || !selectedSubCategory 
+            ? "bg-orange-500 text-white hover:bg-orange-600"
+            : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
+          }
+        >
+          Tous les produits
+        </Button>
+        
+        {/* Boutons pour chaque sous-catégorie */}
+        {subCategories.map((subCategory) => (
+          <Button
+            key={subCategory}
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setShowAll(false);
+              onSubCategoryChange(subCategory);
+            }}
+            className={selectedSubCategory === subCategory 
+              ? "bg-orange-500 text-white hover:bg-orange-600"
+              : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
+            }
+          >
+            {(LENZE_VARIATEUR_SUBCATEGORIES as Record<string, string>)[subCategory]}
+          </Button>
+        ))}
+      </div>
+    );
+  } else if (mainCategory === 'Motoréducteurs') {
+    title = 'Types de motoréducteurs';
+    buttons = (
+      <div className="flex flex-wrap gap-3 mt-4">
+        {/* Bouton "Tout afficher" */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleShowAll}
+          className={showAll || !selectedSubCategory 
+            ? "bg-orange-500 text-white hover:bg-orange-600"
+            : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
+          }
+        >
+          Tous les produits
+        </Button>
+        
+        {/* Boutons pour chaque sous-catégorie */}
+        {subCategories.map((subCategory) => (
+          <Button
+            key={subCategory}
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setShowAll(false);
+              onSubCategoryChange(subCategory);
+            }}
+            className={selectedSubCategory === subCategory 
+              ? "bg-orange-500 text-white hover:bg-orange-600"
+              : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
+            }
+          >
+            {(LENZE_MOTOREDUCTEUR_SUBCATEGORIES as Record<string, string>)[subCategory]}
+          </Button>
+        ))}
+      </div>
+    );
+  } else if (mainCategory === 'Moteurs') {
+    title = 'Types de moteurs';
+    buttons = (
+      <div className="flex flex-wrap gap-3 mt-4">
+        {/* Bouton "Tout afficher" */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleShowAll}
+          className={showAll || !selectedSubCategory 
+            ? "bg-orange-500 text-white hover:bg-orange-600"
+            : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
+          }
+        >
+          Tous les produits
+        </Button>
+        
+        {/* Boutons pour chaque sous-catégorie */}
+        {subCategories.map((subCategory) => (
+          <Button
+            key={subCategory}
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setShowAll(false);
+              onSubCategoryChange(subCategory);
+            }}
+            className={selectedSubCategory === subCategory 
+              ? "bg-orange-500 text-white hover:bg-orange-600"
+              : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
+            }
+          >
+            {(LENZE_MOTEUR_SUBCATEGORIES as Record<string, string>)[subCategory]}
+          </Button>
+        ))}
+      </div>
+    );
+  } else if (mainCategory === 'Réducteurs') {
+    title = 'Types de réducteurs';
+    buttons = (
+      <div className="flex flex-wrap gap-3 mt-4">
+        {/* Bouton "Tout afficher" */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleShowAll}
+          className={showAll || !selectedSubCategory 
+            ? "bg-orange-500 text-white hover:bg-orange-600"
+            : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
+          }
+        >
+          Tous les produits
+        </Button>
+        
+        {/* Boutons pour chaque sous-catégorie */}
+        {subCategories.map((subCategory) => (
+          <Button
+            key={subCategory}
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setShowAll(false);
+              onSubCategoryChange(subCategory);
+            }}
+            className={selectedSubCategory === subCategory 
+              ? "bg-orange-500 text-white hover:bg-orange-600"
+              : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
+            }
+          >
+            {(LENZE_REDUCTEUR_SUBCATEGORIES as Record<string, string>)[subCategory]}
+          </Button>
+        ))}
+      </div>
+    );
   }
   
-  console.log("Sous-catégories disponibles:", allSubCategories);
-  console.log("==== FIN DIAGNOSTIC SubCategoryFilter ====");
-
-  // Si aucune sous-catégorie n'est définie, ne pas afficher le filtre
-  if (allSubCategories.length === 0) {
-    return null;
-  }
-
-  // Ajouter un bouton "Tous" pour afficher tous les produits
   return (
-    <div className="w-full mb-8">
-      <div className="flex flex-wrap gap-3">
-        <button
-          onClick={() => {
-            console.log("Sélection de tous les produits");
-            onSubCategoryChange(undefined);
-          }}
-          className={cn(
-            "px-5 py-3 text-center rounded-md text-sm font-medium transition-all duration-300 ease-in-out",
-            !selectedSubCategory 
-              ? "bg-orange-500 text-white shadow-md" 
-              : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
-          )}
-        >
-          Tous
-        </button>
-        
-        {allSubCategories.map((subCategory) => {
-          const isSelected = subCategory === selectedSubCategory;
-          
-          return (
-            <button
-              key={subCategory}
-              onClick={() => {
-                console.log("SubCategoryFilter - Sous-catégorie sélectionnée:", subCategory);
-                onSubCategoryChange(subCategory);
-              }}
-              className={cn(
-                "px-5 py-3 text-center rounded-md text-sm font-medium transition-all duration-300 ease-in-out",
-                isSelected 
-                  ? "bg-orange-500 text-white shadow-md" 
-                  : "bg-gray-100 hover:bg-gray-200 hover:shadow-sm hover:text-orange-500 text-gray-700"
-              )}
-            >
-              {subCategory}
-            </button>
-          );
-        })}
-      </div>
+    <div className="w-full">
+      <h2 className="text-xl font-semibold text-gray-800">{title}</h2>
+      <p className="text-sm text-gray-600 mt-1">Sélectionnez une catégorie pour filtrer les produits</p>
+      {buttons}
     </div>
   );
 } 
