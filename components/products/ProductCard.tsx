@@ -33,18 +33,21 @@ export default function ProductCard({ product }: ProductCardProps) {
     product.id === 'lenze-017'
   );
 
+  // Utiliser header_title s'il est disponible, sinon utiliser name
+  const displayTitle = (product as any).header_title || product.name;
+
   return (
     <Card className="overflow-hidden h-full group transition-all duration-300">
       <div className="relative h-52 w-full overflow-hidden flex items-center justify-center cursor-pointer bg-white" onClick={handleViewDetails}>
         {(!product.image || imageError) ? (
           <div className="flex items-center justify-center w-full h-full bg-white">
-            <span className="text-gray-500 text-3xl font-bold">{product.name.charAt(0)}</span>
+            <span className="text-gray-500 text-3xl font-bold">{displayTitle.charAt(0)}</span>
           </div>
         ) : (
           <div className={`w-full h-full flex items-center justify-center overflow-hidden bg-white ${isWhiteProduct ? 'white-product-image' : ''}`}>
             <img 
               src={product.image}
-              alt={product.name}
+              alt={displayTitle}
               className="object-contain w-auto h-full max-w-full transition-transform duration-500 group-hover:scale-105"
               onError={handleImageError}
             />
@@ -54,7 +57,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       <CardContent className="p-5 cursor-pointer" onClick={handleViewDetails}>
         <h3 className="text-lg font-semibold line-clamp-1 mb-2 group-hover:text-orange-500 transition-colors duration-300">
-          {product.name}
+          {displayTitle}
         </h3>
         <p className="text-gray-600 mt-3 text-sm line-clamp-2">
           {product.description}
